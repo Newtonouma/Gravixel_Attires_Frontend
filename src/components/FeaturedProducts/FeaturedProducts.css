@@ -1,0 +1,205 @@
+.featured-section {
+    width: 100%;
+    padding: 4rem 1rem;
+    background: #fff;
+    font-family: 'Playfair Display', serif;
+  }
+  
+  .featured-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.5rem;
+    max-width: 1800px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 1rem;
+  }
+  
+  .featured-title {
+    color: #b59b88;
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin: 0;
+  }
+  
+  .featured-cta {
+    display: inline-block;
+    background: linear-gradient(135deg, #b59b88 0%, #161b29 100%);
+    color: #fff;
+    padding: 0.75rem 2rem;
+    font-size: clamp(0.875rem, 2vw, 1rem);
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 50px;
+    border: 2px solid #b59b88;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    font-family: Arial, sans-serif;
+    white-space: nowrap;
+  }
+  
+  .featured-cta:hover {
+    background: #fff;
+    color: #161b29;
+    border-color: #161b29;
+  }
+  
+  .featured-slider {
+    max-width: 1800px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 1rem;
+    box-sizing: border-box;
+  }
+  
+  .product-card {
+    background: transparent;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 0 0.5rem;
+  }
+
+  .product-link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.3s ease;
+  }
+
+  .product-link:hover {
+    transform: translateY(-5px);
+  }
+  
+  .product-image {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+  .product-info {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+  
+  .product-name {
+    font-size: clamp(1rem, 1.5vw, 1.15rem);
+    font-weight: 700;
+    color: #161b29;
+    margin-bottom: 0.5rem;
+    font-family: 'Playfair Display', serif;
+  }
+  
+  .product-price {
+    font-size: clamp(0.875rem, 1.25vw, 1rem);
+    color: #b59b88;
+    font-weight: 600;
+    font-family: Arial, sans-serif;
+    margin-top: auto;
+  }
+  
+  /* Slick Carousel Custom Styles */
+  .featured-slider .slick-list {
+    margin: 0 -0.5rem;
+    padding: 0.5rem 0;
+  }
+  
+  .featured-slider .slick-slide {
+    padding: 0 0.5rem;
+    height: auto;
+  }
+  
+  .featured-slider .slick-dots {
+    bottom: -40px;
+  }
+  
+  .featured-slider .slick-dots li button:before {
+    color: #b59b88;
+    font-size: 10px;
+    opacity: 0.7;
+  }
+  
+  .featured-slider .slick-dots li.slick-active button:before {
+    opacity: 1;
+    color: #b59b88;
+  }
+  
+  .featured-slider .slick-arrow {
+    z-index: 1;
+    width: 40px;
+    height: 40px;
+    background: rgba(181, 155, 136, 0.15);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+  }
+  
+  .featured-slider .slick-arrow:hover {
+    background: rgba(181, 155, 136, 0.3);
+  }
+  
+  .featured-slider .slick-arrow:before {
+    font-size: 20px;
+    color: #b59b88;
+    opacity: 1;
+  }
+  
+  .featured-slider .slick-prev {
+    left: 10px;
+  }
+  
+  .featured-slider .slick-next {
+    right: 10px;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .featured-section {
+      padding: 3rem 1rem;
+    }
+    
+    .featured-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .featured-cta {
+      width: 100%;
+      text-align: center;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .featured-section {
+      padding: 2rem 0.5rem;
+    }
+    
+    .featured-header {
+      padding: 0 0.5rem;
+    }
+    
+    .product-info {
+      padding: 1rem;
+    }
+    
+    .featured-slider .slick-arrow {
+      width: 30px;
+      height: 30px;
+    }
+    
+    .featured-slider .slick-arrow:before {
+      font-size: 16px;
+    }
+  }

@@ -1,0 +1,124 @@
+.smart-tailoring-section {
+  width: 100%;
+  background: #e5d7cb;
+  color: #161b29;
+  font-family: 'Playfair Display', 'Arial Unicode MS', Arial, sans-serif;
+  padding: 4rem 0;
+}
+
+.smart-tailoring-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 3rem;
+  padding: 0 2rem;
+}
+
+.smart-tailoring-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.smart-tailoring-title {
+  color: #161b29;
+  font-size: 2.5rem;
+  font-family: 'Playfair Display', 'Arial Unicode MS', Arial, sans-serif;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.smart-tailoring-desc {
+  font-size: 1.15rem;
+  color: #2d2d2d;
+  font-family: 'Arial Unicode MS', Arial, sans-serif;
+  margin-bottom: 1.5rem;
+  line-height: 1.7;
+}
+
+.smart-tailoring-cta {
+  display: inline-block;
+  background: linear-gradient(135deg, #b59b88 0%, #e5d7cb 100%);
+  color: #161b29;
+  padding: 0.85rem 2.2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 50px;
+  border: 2px solid #b59b88;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  font-family: 'Arial Unicode MS', Arial, sans-serif;
+}
+
+.smart-tailoring-cta:hover {
+  background: #161b29;
+  color: #fff;
+  border-color: #161b29;
+}
+
+.smart-tailoring-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.smart-tailoring-video-container {
+  width: 100%;
+  max-width: 500px;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(22, 27, 41, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.smart-tailoring-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0;
+  background: #000;
+}
+
+@media (max-width: 900px) {
+  .smart-tailoring-container {
+    flex-direction: column;
+    gap: 2.5rem;
+    padding: 0 1rem;
+  }
+  .smart-tailoring-title {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  .smart-tailoring-video-container {
+    max-width: 100%;
+    min-height: 180px;
+  }
+}
+
+@media (max-width: 600px) {
+  .smart-tailoring-section {
+    padding: 2rem 0;
+  }
+  .smart-tailoring-title {
+    font-size: 1.3rem;
+  }
+  .smart-tailoring-desc {
+    font-size: 1rem;
+  }
+  .smart-tailoring-cta {
+    padding: 0.7rem 1.5rem;
+    font-size: 0.95rem;
+  }
+} 
