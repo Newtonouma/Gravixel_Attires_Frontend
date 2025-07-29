@@ -33,6 +33,7 @@ const ProductsPage: React.FC = () => {
 
   const [sortBy, setSortBy] = useState<'name' | 'price-low' | 'price-high' | 'rating' | 'newest'>('name');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
 
   const filteredProducts = useMemo(() => {
     const filtered = products.filter(product => {
@@ -103,9 +104,31 @@ const ProductsPage: React.FC = () => {
       </div>
 
       <div className="products-container">
+        {/* Mobile Filter Toggle */}
+        <div className="mobile-filter-toggle">
+          <button 
+            className="filter-toggle-btn"
+            onClick={() => setIsMobileFiltersOpen(true)}
+          >
+            <span className="filter-icon">☰</span>
+            Filters
+          </button>
+        </div>
+
         {/* Filters Sidebar */}
-        <div className="filters-sidebar">
-          <div className="filters-header">
+        <div className={`filters-sidebar ${isMobileFiltersOpen ? 'mobile-open' : ''}`}>
+          {/* Mobile Filter Header */}
+          <div className="mobile-filter-header">
+            <h3>Filters</h3>
+            <button 
+              className="close-filters-btn"
+              onClick={() => setIsMobileFiltersOpen(false)}
+            >
+              ✕
+            </button>
+          </div>
+
+          <div className="filters-header desktop-only">
             <h3>Filters</h3>
             <button onClick={clearFilters} className="clear-filters">Clear All</button>
           </div>
@@ -234,7 +257,26 @@ const ProductsPage: React.FC = () => {
               In Stock Only
             </label>
           </div>
+
+          {/* Mobile Clear Filters */}
+          <div className="mobile-filter-actions">
+            <button onClick={clearFilters} className="clear-filters mobile-clear">Clear All</button>
+            <button 
+              className="apply-filters-btn"
+              onClick={() => setIsMobileFiltersOpen(false)}
+            >
+              Apply Filters
+            </button>
+          </div>
         </div>
+
+        {/* Mobile Overlay */}
+        {isMobileFiltersOpen && (
+          <div 
+            className="mobile-overlay"
+            onClick={() => setIsMobileFiltersOpen(false)}
+          />
+        )}
 
         {/* Products Section */}
         <div className="products-section">
