@@ -1,29 +1,33 @@
 .products-page {
   min-height: 100vh;
-  background: #f8f5f2;
-  font-family: 'Playfair Display', 'Arial Unicode MS', Arial, sans-serif;
+  background: #fff;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
 }
 
 .products-header {
-  background: linear-gradient(135deg, #161b29 0%, #b59b88 100%);
-  color: #fff;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  color: #312f2f;
   text-align: center;
   padding: 4rem 2rem 3rem;
+  border-bottom: 1px solid #eee;
 }
 
 .products-title {
   font-size: 3rem;
-  font-weight: 700;
+  font-weight: 100;
   margin-bottom: 1rem;
-  font-family: 'Playfair Display', 'Arial Unicode MS', Arial, sans-serif;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+  letter-spacing: -0.5px;
 }
 
 .products-subtitle {
   font-size: 1.2rem;
-  opacity: 0.9;
+  color: #666;
   max-width: 600px;
   margin: 0 auto;
-  font-family: 'Arial Unicode MS', Arial, sans-serif;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+  font-weight: 300;
+  line-height: 1.6;
 }
 
 .products-container {
@@ -38,11 +42,10 @@
 .filters-sidebar {
   width: 280px;
   background: #fff;
-  border-radius: 12px;
+  border-radius: 5px;
   padding: 1.5rem;
   height: fit-content;
-  box-shadow: 0 4px 20px rgba(22, 27, 41, 0.08);
-  border: 1px solid rgba(181, 155, 136, 0.1);
+  border: 1px solid #eee;
   position: sticky;
   top: 2rem;
 }
@@ -53,30 +56,31 @@
   align-items: center;
   margin-bottom: 1.5rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid rgba(181, 155, 136, 0.2);
+  border-bottom: 1px solid #eee;
 }
 
 .filters-header h3 {
   font-size: 1.3rem;
-  color: #161b29;
+  color: #312f2f;
   margin: 0;
-  font-family: 'Playfair Display', 'Arial Unicode MS', Arial, sans-serif;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+  font-weight: 200;
 }
 
 .clear-filters {
   background: none;
-  border: 1px solid #b59b88;
-  color: #b59b88;
+  border: 1px solid #312f2f;
+  color: #312f2f;
   padding: 0.5rem 1rem;
-  border-radius: 6px;
+  border-radius: 5px;
   cursor: pointer;
   font-size: 0.9rem;
   transition: all 0.3s ease;
-  font-family: 'Arial Unicode MS', Arial, sans-serif;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
 }
 
 .clear-filters:hover {
-  background: #b59b88;
+  background: #312f2f;
   color: #fff;
 }
 
@@ -86,29 +90,28 @@
 
 .filter-group label {
   display: block;
-  font-weight: 600;
-  color: #161b29;
+  font-weight: 400;
+  color: #312f2f;
   margin-bottom: 0.5rem;
   font-size: 0.95rem;
-  font-family: 'Arial Unicode MS', Arial, sans-serif;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
 }
 
 .filter-select, .search-input {
   width: 100%;
   padding: 0.75rem;
-  border: 1px solid rgba(181, 155, 136, 0.3);
-  border-radius: 6px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
   background: #fff;
-  color: #161b29;
+  color: #312f2f;
   font-size: 0.9rem;
   transition: border-color 0.3s ease;
-  font-family: 'Arial Unicode MS', Arial, sans-serif;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
 }
 
 .filter-select:focus, .search-input:focus {
   outline: none;
-  border-color: #b59b88;
-  box-shadow: 0 0 0 3px rgba(181, 155, 136, 0.1);
+  border-color: #312f2f;
 }
 
 .checkbox-label {
@@ -120,7 +123,7 @@
 }
 
 .filter-checkbox {
-  accent-color: #b59b88;
+  accent-color: #312f2f;
 }
 
 /* Products Section */
@@ -134,14 +137,14 @@
   align-items: center;
   margin-bottom: 2rem;
   padding: 1rem 0;
-  border-bottom: 1px solid rgba(181, 155, 136, 0.2);
+  border-bottom: 1px solid #eee;
 }
 
 .results-info {
   font-size: 1rem;
-  color: #161b29;
-  font-weight: 500;
-  font-family: 'Arial Unicode MS', Arial, sans-serif;
+  color: #312f2f;
+  font-weight: 400;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
 }
 
 .controls-right {
@@ -152,30 +155,38 @@
 
 .sort-select {
   padding: 0.75rem 1rem;
-  border: 1px solid rgba(181, 155, 136, 0.3);
-  border-radius: 6px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
   background: #fff;
-  color: #161b29;
+  color: #312f2f;
   font-size: 0.9rem;
   cursor: pointer;
-  font-family: 'Arial Unicode MS', Arial, sans-serif;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
 }
 
 .view-toggle {
   display: flex;
-  border: 1px solid rgba(181, 155, 136, 0.3);
-  border-radius: 6px;
+  border: 1px solid #eee;
+  border-radius: 0;
   overflow: hidden;
+  background: #fff;
+  min-width: fit-content;
 }
 
 .view-btn {
   padding: 0.75rem 1rem;
-  background: #fff;
+  background: transparent;
   border: none;
   cursor: pointer;
-  font-size: 1.1rem;
+  font-size: 1rem;
   transition: all 0.3s ease;
-  border-right: 1px solid rgba(181, 155, 136, 0.3);
+  border-right: 1px solid #eee;
+  color: #666;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+  min-width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .view-btn:last-child {
@@ -183,12 +194,13 @@
 }
 
 .view-btn.active {
-  background: #b59b88;
+  background: #312f2f;
   color: #fff;
 }
 
 .view-btn:hover:not(.active) {
-  background: rgba(181, 155, 136, 0.1);
+  background: #f8f9fa;
+  color: #312f2f;
 }
 
 /* Products Grid */
@@ -207,10 +219,10 @@
 
 .product-card {
   background: #fff;
-  border-radius: 12px;
+  border-radius: 0;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(22, 27, 41, 0.08);
-  border: 1px solid rgba(181, 155, 136, 0.1);
+  box-shadow: none;
+  border: 1px solid #eee;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
@@ -244,8 +256,9 @@
 }
 
 .product-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 30px rgba(22, 27, 41, 0.12);
+  transform: none;
+  border-color: #312f2f;
+  box-shadow: none;
 }
 
 .product-image-container {
@@ -313,10 +326,10 @@
 
 .product-name {
   font-size: 1.2rem;
-  font-weight: 600;
-  color: #161b29;
+  font-weight: 400;
+  color: #312f2f;
   margin-bottom: 0.5rem;
-  font-family: 'Playfair Display', 'Arial Unicode MS', Arial, sans-serif;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
 }
 
 .product-rating {
@@ -332,13 +345,13 @@
 }
 
 .star.filled {
-  color: #b59b88;
+  color: #312f2f;
 }
 
 .rating-text {
   font-size: 0.9rem;
   color: #666;
-  font-family: 'Arial Unicode MS', Arial, sans-serif;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
 }
 
 .product-details {
@@ -351,7 +364,7 @@
 .product-category, .product-material {
   font-size: 0.9rem;
   color: #666;
-  font-family: 'Arial Unicode MS', Arial, sans-serif;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
 }
 
 .product-price {
@@ -363,23 +376,23 @@
 
 .current-price {
   font-size: 1.3rem;
-  font-weight: 700;
-  color: #b59b88;
-  font-family: 'Playfair Display', 'Arial Unicode MS', Arial, sans-serif;
+  font-weight: 400;
+  color: #312f2f;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
 }
 
 .original-price {
   font-size: 1.1rem;
   color: #999;
   text-decoration: line-through;
-  font-family: 'Arial Unicode MS', Arial, sans-serif;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
 }
 
 .product-sizes {
   margin-bottom: 1rem;
   font-size: 0.9rem;
   color: #666;
-  font-family: 'Arial Unicode MS', Arial, sans-serif;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
 }
 
 .product-description {
@@ -387,33 +400,29 @@
   color: #666;
   line-height: 1.5;
   margin-bottom: 1rem;
-  font-family: 'Arial Unicode MS', Arial, sans-serif;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
 }
 
 .add-to-cart-btn {
   width: 100%;
-  background: linear-gradient(135deg, #b59b88 0%, #161b29 100%);
+  background: #312f2f;
   color: #fff;
   border: none;
-  padding: 1rem;
-  border-radius: 8px;
+  padding: 0.875rem;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 400;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: 'Arial Unicode MS', Arial, sans-serif;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
 }
 
 .add-to-cart-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(22, 27, 41, 0.3);
+  background: rgba(49, 47, 47, 0.8);
 }
 
 .add-to-cart-btn:disabled {
   background: #ccc;
   cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
 }
 
 .no-products {
@@ -492,7 +501,8 @@
 
 @media (max-width: 480px) {
   .products-grid.grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
   }
   
   .products-title {

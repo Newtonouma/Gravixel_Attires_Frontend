@@ -4,8 +4,8 @@
   height: 100vh;
   min-height: 600px;
   overflow: hidden;
-  font-family: 'Playfair Display', 'Arial Unicode MS', Arial, sans-serif;
-  background: #161b29;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+  background: #fff;
 }
 
 .hero-slider {
@@ -40,9 +40,9 @@
   bottom: 0;
   background: linear-gradient(
     135deg,
-    rgba(22, 27, 41, 0.7) 0%,
-    rgba(181, 155, 136, 0.2) 50%,
-    rgba(22, 27, 41, 0.85) 100%
+    rgba(49, 47, 47, 0.7) 0%,
+    rgba(49, 47, 47, 0.3) 50%,
+    rgba(49, 47, 47, 0.8) 100%
   );
   display: flex;
   align-items: flex-end;
@@ -55,18 +55,19 @@
   max-width: 600px;
   padding: 0 4rem 4rem 4rem;
   z-index: 2;
-  font-family: 'Playfair Display', 'Arial Unicode MS', Arial, sans-serif;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
 }
 
 .hero-title {
   font-size: 3.5rem;
-  font-weight: 700;
+  font-weight: 100;
   margin-bottom: 1.5rem;
   line-height: 1.2;
-  text-shadow: 2px 2px 4px rgba(22, 27, 41, 0.5);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   animation: fadeInUp 1s ease-out;
-  color: #b59b88;
-  font-family: 'Playfair Display', 'Arial Unicode MS', Arial, sans-serif;
+  color: #fff;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+  letter-spacing: -0.5px;
 }
 
 .hero-description {
@@ -74,35 +75,32 @@
   margin-bottom: 2.5rem;
   line-height: 1.6;
   opacity: 0.95;
-  text-shadow: 1px 1px 2px rgba(22, 27, 41, 0.5);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
   animation: fadeInUp 1s ease-out 0.3s both;
-  color: #fff;
-  font-family: 'Arial Unicode MS', Arial, sans-serif;
+  color: rgba(255, 255, 255, 0.9);
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+  font-weight: 300;
 }
 
 .hero-cta {
   display: inline-block;
-  background: linear-gradient(135deg, #b59b88 0%, #161b29 100%);
+  background: #312f2f;
   color: #fff;
   padding: 1rem 2.5rem;
   font-size: 1.1rem;
-  font-weight: 600;
+  font-weight: 400;
   text-decoration: none;
-  border-radius: 50px;
+  border-radius: 5px;
   transition: all 0.3s ease;
-  border: 2px solid #b59b88;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  border: none;
   animation: fadeInUp 1s ease-out 0.6s both;
-  font-family: 'Arial Unicode MS', Arial, sans-serif;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
 }
 
 .hero-cta:hover {
-  background: #fff;
-  color: #161b29;
-  border-color: #161b29;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(22, 27, 41, 0.3);
+  background: #666;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(49, 47, 47, 0.3);
 }
 
 /* Slick Carousel Custom Styles */

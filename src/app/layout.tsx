@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Navigation from "@/components/Navigation";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -26,15 +27,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={
-          `${geistSans.variable} ${geistMono.variable} antialiased bg-[#e5d7cb] text-[#161b29] font-sans` +
-          " min-h-screen"
-        }
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         style={{
-          fontFamily:
-            "'Geist', 'Arial Unicode MS', Arial, 'Playfair Display', serif, sans-serif",
+          fontFamily: "'Jost', 'Arial Unicode MS', Arial, sans-serif",
+          backgroundColor: '#ffffff',
+          color: '#312f2f',
+          lineHeight: '1.6',
+          WebkitFontSmoothing: 'antialiased',
+          MozOsxFontSmoothing: 'grayscale'
         }}
       >
+        <Navigation />
         {children}
       </body>
     </html>

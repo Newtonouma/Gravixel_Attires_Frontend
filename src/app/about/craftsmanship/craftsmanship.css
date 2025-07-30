@@ -1,0 +1,435 @@
+/* Craftsmanship Page Styles */
+.craftsmanship-page {
+  min-height: 100vh;
+  background: #fff;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+}
+
+/* Navigation */
+.craftsmanship-nav {
+  background: #fff;
+  padding: 1rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.craftsmanship-nav-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.back-link {
+  color: #666;
+  text-decoration: none;
+  font-weight: 400;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.back-link:hover {
+  color: #312f2f;
+  text-decoration: underline;
+}
+
+/* Hero Section */
+.craftsmanship-hero {
+  background: linear-gradient(135deg, #312f2f 0%, #4a4a4a 100%);
+  color: #fff;
+  padding: 4rem 2rem 3rem;
+  text-align: center;
+}
+
+.craftsmanship-hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.craftsmanship-hero-title {
+  font-size: 3rem;
+  font-weight: 200;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+}
+
+.craftsmanship-hero-subtitle {
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+}
+
+/* Container */
+.craftsmanship-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Introduction */
+.craftsmanship-intro {
+  padding: 5rem 0;
+  background: #fff;
+}
+
+.intro-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.intro-content h2 {
+  font-size: 2.5rem;
+  font-weight: 200;
+  color: #312f2f;
+  margin-bottom: 2rem;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+}
+
+.intro-content p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+
+/* Process Section */
+.craftsmanship-process {
+  padding: 5rem 0;
+  background: #f8f8f8;
+}
+
+.process-title {
+  font-size: 2.5rem;
+  font-weight: 200;
+  color: #312f2f;
+  text-align: center;
+  margin-bottom: 3rem;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+}
+
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.process-step {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  display: flex;
+  gap: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.process-step:hover {
+  transform: translateY(-4px);
+}
+
+.step-number {
+  background: #312f2f;
+  color: #fff;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.step-content h3 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #312f2f;
+  margin-bottom: 0.75rem;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+}
+
+.step-content p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #666;
+  margin: 0;
+}
+
+/* Techniques Section */
+.craftsmanship-techniques {
+  padding: 5rem 0;
+  background: #fff;
+}
+
+.techniques-title {
+  font-size: 2.5rem;
+  font-weight: 200;
+  color: #312f2f;
+  text-align: center;
+  margin-bottom: 3rem;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+}
+
+.techniques-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.technique-card {
+  background: #f8f8f8;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.technique-card:hover {
+  background: #fff;
+  border-color: #312f2f;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.technique-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.technique-card h3 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #312f2f;
+  margin-bottom: 1rem;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+}
+
+.technique-card p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #666;
+  margin: 0;
+}
+
+/* Quality Section */
+.craftsmanship-quality {
+  padding: 5rem 0;
+  background: #f8f8f8;
+}
+
+.quality-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.quality-content h2 {
+  font-size: 2.5rem;
+  font-weight: 200;
+  color: #312f2f;
+  margin-bottom: 3rem;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+}
+
+.quality-points {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.quality-point {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  text-align: left;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.quality-icon {
+  font-size: 2rem;
+  color: #312f2f;
+  flex-shrink: 0;
+}
+
+.quality-point h4 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #312f2f;
+  margin-bottom: 0.5rem;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+}
+
+.quality-point p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #666;
+  margin: 0;
+}
+
+/* Call to Action */
+.craftsmanship-cta {
+  padding: 5rem 0;
+  background: #312f2f;
+  color: #fff;
+  text-align: center;
+}
+
+.cta-content h2 {
+  font-size: 2.5rem;
+  font-weight: 200;
+  margin-bottom: 1rem;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+}
+
+.cta-content p {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 2rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cta-primary,
+.cta-secondary {
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.cta-primary {
+  background: #fff;
+  color: #312f2f;
+}
+
+.cta-primary:hover {
+  background: #f0f0f0;
+  transform: translateY(-2px);
+}
+
+.cta-secondary {
+  background: transparent;
+  color: #fff;
+  border: 2px solid #fff;
+}
+
+.cta-secondary:hover {
+  background: #fff;
+  color: #312f2f;
+  transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .process-grid,
+  .techniques-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .craftsmanship-hero {
+    padding: 3rem 1rem 2rem;
+  }
+  
+  .craftsmanship-hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .craftsmanship-hero-subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .craftsmanship-container {
+    padding: 0 1rem;
+  }
+  
+  .craftsmanship-intro,
+  .craftsmanship-process,
+  .craftsmanship-techniques,
+  .craftsmanship-quality,
+  .craftsmanship-cta {
+    padding: 3rem 0;
+  }
+  
+  .intro-content h2,
+  .process-title,
+  .techniques-title,
+  .quality-content h2,
+  .cta-content h2 {
+    font-size: 2rem;
+  }
+  
+  .process-step {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+  
+  .step-number {
+    align-self: center;
+  }
+  
+  .process-grid,
+  .techniques-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .quality-point {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+  
+  .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .cta-primary,
+  .cta-secondary {
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .craftsmanship-hero-title {
+    font-size: 2rem;
+  }
+  
+  .intro-content h2,
+  .process-title,
+  .techniques-title,
+  .quality-content h2,
+  .cta-content h2 {
+    font-size: 1.75rem;
+  }
+  
+  .process-step,
+  .technique-card,
+  .quality-point {
+    padding: 1.5rem;
+  }
+}

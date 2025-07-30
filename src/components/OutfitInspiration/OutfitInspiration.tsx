@@ -27,7 +27,7 @@ const sliderSettings = {
     {
       breakpoint: 1024,
       settings: {
-        slidesToShow: 2,
+        slidesToShow: 3,
       },
     },
     {
@@ -49,7 +49,7 @@ const OutfitInspiration: React.FC = () => {
       <Slider {...sliderSettings} className="outfit-inspiration-slider">
         {images.map((src, idx) => (
           <div key={idx} className="inspiration-image-wrapper">
-            <Image src={src} alt={`Inspiration ${idx + 1}`} className="inspiration-image" width={300} height={400} />
+            <Image src={src} alt={`Inspiration ${idx + 1}`} className="inspiration-image" width={300} height={300} />
           </div>
         ))}
       </Slider>

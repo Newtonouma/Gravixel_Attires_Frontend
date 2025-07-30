@@ -30,7 +30,7 @@ const slideData: SlideData[] = [
     title: 'Custom Tailored Excellence',
     description: 'Experience the perfect fit with our bespoke tailoring service. Every suit is crafted to your exact measurements.',
     ctaText: 'Book Consultation',
-    ctaLink: '/consultation'
+    ctaLink: '/book-consultation'
   },
   {
     id: 3,

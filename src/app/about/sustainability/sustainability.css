@@ -1,0 +1,539 @@
+/* Sustainability Page Styles */
+.sustainability-page {
+  min-height: 100vh;
+  background: #fff;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+}
+
+/* Navigation */
+.sustainability-nav {
+  background: #fff;
+  padding: 1rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.sustainability-nav-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.back-link {
+  color: #666;
+  text-decoration: none;
+  font-weight: 400;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.back-link:hover {
+  color: #312f2f;
+  text-decoration: underline;
+}
+
+/* Hero Section */
+.sustainability-hero {
+  background: linear-gradient(135deg, #2d5016 0%, #4a7c30 100%);
+  color: #fff;
+  padding: 4rem 2rem 3rem;
+  text-align: center;
+}
+
+.sustainability-hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.sustainability-hero-title {
+  font-size: 3rem;
+  font-weight: 200;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+}
+
+.sustainability-hero-subtitle {
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+}
+
+/* Container */
+.sustainability-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Introduction */
+.sustainability-intro {
+  padding: 4rem 0;
+  background: #fff;
+}
+
+.intro-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.intro-content h2 {
+  font-size: 2.5rem;
+  font-weight: 200;
+  color: #312f2f;
+  margin-bottom: 2rem;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+}
+
+.intro-content p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #555;
+}
+
+/* Section Titles */
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 200;
+  color: #312f2f;
+  text-align: center;
+  margin-bottom: 3rem;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+}
+
+/* Practices Section */
+.sustainability-practices {
+  padding: 5rem 0;
+  background: #f8f8f8;
+}
+
+.practices-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+.practice-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border-left: 4px solid #4a7c30;
+}
+
+.practice-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.practice-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  display: block;
+  color: #4a7c30;
+}
+
+.practice-card h3 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #312f2f;
+  margin-bottom: 1rem;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+}
+
+.practice-card p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+
+.practice-details {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.practice-details li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+  color: #666;
+}
+
+.practice-details li:last-child {
+  margin-bottom: 0;
+}
+
+.practice-details li::before {
+  content: "✓";
+  color: #4a7c30;
+  font-weight: bold;
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+}
+
+/* Impact Section */
+.sustainability-impact {
+  padding: 5rem 0;
+  background: #fff;
+}
+
+.impact-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.impact-stat {
+  text-align: center;
+  background: #f8f8f8;
+  padding: 2rem;
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+}
+
+.impact-stat:hover {
+  transform: translateY(-4px);
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #4a7c30;
+  display: block;
+  margin-bottom: 0.5rem;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+}
+
+.stat-label {
+  font-size: 1rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.impact-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.impact-content h3 {
+  font-size: 2rem;
+  font-weight: 200;
+  color: #312f2f;
+  margin-bottom: 2rem;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+}
+
+.impact-content p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #555;
+  margin-bottom: 2rem;
+}
+
+/* Certifications */
+.sustainability-certifications {
+  padding: 5rem 0;
+  background: #f8f8f8;
+}
+
+.certifications-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+}
+
+.certification-item {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.certification-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+.certification-logo {
+  width: 80px;
+  height: 80px;
+  background: #4a7c30;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  font-size: 2rem;
+  color: #fff;
+}
+
+.certification-item h4 {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #312f2f;
+  margin-bottom: 0.5rem;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+}
+
+.certification-item p {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Goals Section */
+.sustainability-goals {
+  padding: 5rem 0;
+  background: #fff;
+}
+
+.goals-timeline {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.goals-timeline::before {
+  content: '';
+  position: absolute;
+  left: 2rem;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #4a7c30;
+}
+
+.goal-item {
+  position: relative;
+  padding: 2rem 0 2rem 5rem;
+  margin-bottom: 2rem;
+}
+
+.goal-item:last-child {
+  margin-bottom: 0;
+}
+
+.goal-year {
+  position: absolute;
+  left: 0;
+  top: 2rem;
+  width: 4rem;
+  height: 4rem;
+  background: #4a7c30;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1rem;
+  z-index: 1;
+}
+
+.goal-content h4 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #312f2f;
+  margin-bottom: 0.75rem;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+}
+
+.goal-content p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #555;
+  margin: 0;
+}
+
+/* Call to Action */
+.sustainability-cta {
+  padding: 5rem 0;
+  background: #312f2f;
+  color: #fff;
+  text-align: center;
+}
+
+.cta-content h2 {
+  font-size: 2.5rem;
+  font-weight: 200;
+  margin-bottom: 1rem;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+}
+
+.cta-content p {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 2rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cta-primary,
+.cta-secondary {
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.cta-primary {
+  background: #4a7c30;
+  color: #fff;
+}
+
+.cta-primary:hover {
+  background: #5a8c40;
+  transform: translateY(-2px);
+}
+
+.cta-secondary {
+  background: transparent;
+  color: #fff;
+  border: 2px solid #fff;
+}
+
+.cta-secondary:hover {
+  background: #fff;
+  color: #312f2f;
+  transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .practices-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .impact-stats {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+  
+  .certifications-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .sustainability-hero {
+    padding: 3rem 1rem 2rem;
+  }
+  
+  .sustainability-hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .sustainability-hero-subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .sustainability-container {
+    padding: 0 1rem;
+  }
+  
+  .sustainability-intro,
+  .sustainability-practices,
+  .sustainability-impact,
+  .sustainability-certifications,
+  .sustainability-goals,
+  .sustainability-cta {
+    padding: 3rem 0;
+  }
+  
+  .intro-content h2,
+  .section-title,
+  .impact-content h3,
+  .cta-content h2 {
+    font-size: 2rem;
+  }
+  
+  .practice-card {
+    padding: 2rem;
+  }
+  
+  .impact-stats {
+    grid-template-columns: 1fr;
+  }
+  
+  .stat-number {
+    font-size: 2rem;
+  }
+  
+  .goals-timeline::before {
+    left: 1.5rem;
+  }
+  
+  .goal-item {
+    padding-left: 4rem;
+  }
+  
+  .goal-year {
+    left: -0.5rem;
+    width: 3rem;
+    height: 3rem;
+    font-size: 0.9rem;
+  }
+  
+  .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .cta-primary,
+  .cta-secondary {
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .sustainability-hero-title {
+    font-size: 2rem;
+  }
+  
+  .intro-content h2,
+  .section-title,
+  .impact-content h3,
+  .cta-content h2 {
+    font-size: 1.75rem;
+  }
+  
+  .practice-card,
+  .impact-stat,
+  .certification-item {
+    padding: 1.5rem;
+  }
+  
+  .practice-icon {
+    font-size: 2rem;
+  }
+  
+  .certification-logo {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+  }
+}

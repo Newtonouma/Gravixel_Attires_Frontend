@@ -2,7 +2,7 @@
   width: 100%;
   background: #161b29;
   color: #fff;
-  font-family: 'Playfair Display', 'Arial Unicode MS', Arial, sans-serif;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
   padding: 4rem 0;
   text-align: left;
   overflow-x: hidden;
@@ -11,19 +11,21 @@
 .outfit-inspiration-title {
   color: #b59b88;
   font-size: 2.2rem;
-  font-family: 'Playfair Display', 'Arial Unicode MS', Arial, sans-serif;
-  font-weight: 700;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+  font-weight: 200;
   margin-bottom: 0.5rem;
   margin-left: 2rem;
+  letter-spacing: -0.5px;
 }
 
 .outfit-inspiration-desc {
   font-size: 1.15rem;
-  color: #fff;
-  font-family: 'Arial Unicode MS', Arial, sans-serif;
+  color: rgba(255, 255, 255, 0.9);
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
   margin-bottom: 2.5rem;
   line-height: 1.7;
   margin-left: 2rem;
+  font-weight: 300;
 }
 
 .outfit-inspiration-slider {
@@ -49,8 +51,9 @@
   aspect-ratio: 16 / 10;
   min-height: 400px;
   object-fit: cover;
-  box-shadow: 0 4px 24px rgba(22, 27, 41, 0.10);
-  background: #e5d7cb;
+  border-radius: 5px;
+  border: 1px solid #eee;
+  background: #f8f9fa;
 }
 
 @media (max-width: 1024px) {
@@ -72,18 +75,18 @@
 .outfit-inspiration-slider .slick-prev,
 .outfit-inspiration-slider .slick-next {
   z-index: 10;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   background: rgba(181, 155, 136, 0.9);
-  border-radius: 50%;
-  border: 2px solid #b59b88;
+  border-radius: 5px;
+  border: 1px solid #b59b88;
   transition: all 0.3s ease;
 }
 
 .outfit-inspiration-slider .slick-prev:hover,
 .outfit-inspiration-slider .slick-next:hover {
   background: #b59b88;
-  transform: scale(1.1);
+  transform: translateY(-1px);
 }
 
 .outfit-inspiration-slider .slick-prev {
@@ -96,7 +99,7 @@
 
 .outfit-inspiration-slider .slick-prev:before,
 .outfit-inspiration-slider .slick-next:before {
-  font-size: 20px;
+  font-size: 18px;
   color: #fff;
   font-weight: bold;
 }

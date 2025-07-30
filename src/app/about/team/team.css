@@ -1,0 +1,527 @@
+/* Team Page Styles */
+.team-page {
+  min-height: 100vh;
+  background: #fff;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+}
+
+/* Navigation */
+.team-nav {
+  background: #fff;
+  padding: 1rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.team-nav-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.back-link {
+  color: #666;
+  text-decoration: none;
+  font-weight: 400;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.back-link:hover {
+  color: #312f2f;
+  text-decoration: underline;
+}
+
+/* Hero Section */
+.team-hero {
+  background: linear-gradient(135deg, #312f2f 0%, #4a4a4a 100%);
+  color: #fff;
+  padding: 4rem 2rem 3rem;
+  text-align: center;
+}
+
+.team-hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.team-hero-title {
+  font-size: 3rem;
+  font-weight: 200;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+}
+
+.team-hero-subtitle {
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+}
+
+/* Container */
+.team-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Introduction */
+.team-intro {
+  padding: 4rem 0;
+  background: #fff;
+}
+
+.intro-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.intro-content h2 {
+  font-size: 2.5rem;
+  font-weight: 200;
+  color: #312f2f;
+  margin-bottom: 2rem;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+}
+
+.intro-content p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #555;
+}
+
+/* Section Titles */
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 200;
+  color: #312f2f;
+  text-align: center;
+  margin-bottom: 3rem;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+}
+
+/* Leadership Team */
+.team-leadership {
+  padding: 5rem 0;
+  background: #f8f8f8;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+.team-member {
+  background: #fff;
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.member-image {
+  flex-shrink: 0;
+}
+
+.member-image img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #312f2f;
+}
+
+.member-info h3 {
+  font-size: 1.75rem;
+  font-weight: 500;
+  color: #312f2f;
+  margin-bottom: 0.5rem;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+}
+
+.member-role {
+  font-size: 1.1rem;
+  color: #666;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.member-bio {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+
+.member-credentials {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.member-credentials span {
+  background: #312f2f;
+  color: #fff;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* Master Craftsmen */
+.team-craftsmen {
+  padding: 5rem 0;
+  background: #fff;
+}
+
+.craftsmen-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.craftsman-card {
+  background: #f8f8f8;
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.craftsman-card:hover {
+  background: #fff;
+  border-color: #312f2f;
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.craftsman-image img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+  border: 3px solid #312f2f;
+}
+
+.craftsman-info h4 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #312f2f;
+  margin-bottom: 0.5rem;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+}
+
+.craftsman-role {
+  font-size: 1rem;
+  color: #666;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+}
+
+.craftsman-specialty {
+  font-size: 0.9rem;
+  color: #555;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.experience {
+  background: #312f2f;
+  color: #fff;
+  padding: 0.25rem 0.75rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  display: inline-block;
+}
+
+/* Team Values */
+.team-values {
+  padding: 5rem 0;
+  background: #f8f8f8;
+}
+
+.values-title {
+  font-size: 2.5rem;
+  font-weight: 200;
+  color: #312f2f;
+  text-align: center;
+  margin-bottom: 3rem;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.value-card {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.value-card:hover {
+  transform: translateY(-4px);
+}
+
+.value-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.value-card h3 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #312f2f;
+  margin-bottom: 1rem;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+}
+
+.value-card p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #666;
+  margin: 0;
+}
+
+/* Careers Section */
+.team-careers {
+  padding: 5rem 0;
+  background: #fff;
+}
+
+.careers-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.careers-content h2 {
+  font-size: 2.5rem;
+  font-weight: 200;
+  color: #312f2f;
+  margin-bottom: 1.5rem;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+}
+
+.careers-content p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #555;
+  margin-bottom: 2rem;
+}
+
+.careers-benefits {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: #f8f8f8;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.benefit-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.careers-cta {
+  background: #312f2f;
+  color: #fff;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.careers-cta:hover {
+  background: #4a4a4a;
+  transform: translateY(-2px);
+}
+
+/* Call to Action */
+.team-cta {
+  padding: 5rem 0;
+  background: #312f2f;
+  color: #fff;
+  text-align: center;
+}
+
+.cta-content h2 {
+  font-size: 2.5rem;
+  font-weight: 200;
+  margin-bottom: 1rem;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+}
+
+.cta-content p {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 2rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cta-primary,
+.cta-secondary {
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.cta-primary {
+  background: #fff;
+  color: #312f2f;
+}
+
+.cta-primary:hover {
+  background: #f0f0f0;
+  transform: translateY(-2px);
+}
+
+.cta-secondary {
+  background: transparent;
+  color: #fff;
+  border: 2px solid #fff;
+}
+
+.cta-secondary:hover {
+  background: #fff;
+  color: #312f2f;
+  transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .team-member {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .craftsmen-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .team-hero {
+    padding: 3rem 1rem 2rem;
+  }
+  
+  .team-hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .team-hero-subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .team-container {
+    padding: 0 1rem;
+  }
+  
+  .team-intro,
+  .team-leadership,
+  .team-craftsmen,
+  .team-values,
+  .team-careers,
+  .team-cta {
+    padding: 3rem 0;
+  }
+  
+  .intro-content h2,
+  .section-title,
+  .values-title,
+  .careers-content h2,
+  .cta-content h2 {
+    font-size: 2rem;
+  }
+  
+  .team-member {
+    padding: 2rem;
+  }
+  
+  .craftsmen-grid,
+  .values-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .careers-benefits {
+    grid-template-columns: 1fr;
+  }
+  
+  .benefit-item {
+    justify-content: center;
+  }
+  
+  .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .cta-primary,
+  .cta-secondary {
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .team-hero-title {
+    font-size: 2rem;
+  }
+  
+  .intro-content h2,
+  .section-title,
+  .values-title,
+  .careers-content h2,
+  .cta-content h2 {
+    font-size: 1.75rem;
+  }
+  
+  .member-image img {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .craftsman-card,
+  .value-card {
+    padding: 1.5rem;
+  }
+}
