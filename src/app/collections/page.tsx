@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { TargetIcon, SparklesIcon, RulerIcon, PaletteIcon, StarIcon } from '@/components/Icons';
 import { products, Product } from '@/data/products';
 import './collections.css';
 
@@ -287,7 +288,7 @@ const CollectionsPage: React.FC = () => {
                     {collection.productCount} {collection.productCount === 1 ? 'Product' : 'Products'}
                   </span>
                   {collection.featured && (
-                    <span className="collection-featured">⭐ Featured</span>
+                    <span className="collection-featured"><StarIcon /> Featured</span>
                   )}
                 </div>
               </div>
@@ -316,22 +317,22 @@ const CollectionsPage: React.FC = () => {
           <h2>Why Choose Our Collections?</h2>
           <div className="highlights-grid">
             <div className="highlight-item">
-              <div className="highlight-icon">🎯</div>
+              <div className="highlight-icon"><TargetIcon size={32} /></div>
               <h3>Curated Selection</h3>
               <p>Carefully selected pieces that work together harmoniously</p>
             </div>
             <div className="highlight-item">
-              <div className="highlight-icon">✨</div>
+              <div className="highlight-icon"><SparklesIcon size={32} /></div>
               <h3>Premium Quality</h3>
               <p>Only the finest materials and craftsmanship in every collection</p>
             </div>
             <div className="highlight-item">
-              <div className="highlight-icon">📏</div>
+              <div className="highlight-icon"><RulerIcon size={32} /></div>
               <h3>Perfect Fit</h3>
               <p>Available in multiple sizes with custom tailoring options</p>
             </div>
             <div className="highlight-item">
-              <div className="highlight-icon">🎨</div>
+              <div className="highlight-icon"><PaletteIcon size={32} /></div>
               <h3>Style Variety</h3>
               <p>From classic to contemporary, find your perfect style</p>
             </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import { TargetIcon, HandshakeIcon, LeafIcon, LightbulbIcon } from '@/components/Icons';
 import './story.css';
 
 const StoryPage: React.FC = () => {
@@ -99,22 +100,22 @@ const StoryPage: React.FC = () => {
           <h2 className="values-title">Our Core Values</h2>
           <div className="values-grid">
             <div className="value-item">
-              <div className="value-icon">🎯</div>
+              <div className="value-icon"><TargetIcon size={32} /></div>
               <h3>Excellence</h3>
               <p>We pursue perfection in every stitch, every detail, and every client interaction.</p>
             </div>
             <div className="value-item">
-              <div className="value-icon">🤝</div>
+              <div className="value-icon"><HandshakeIcon size={32} /></div>
               <h3>Partnership</h3>
               <p>We build lasting relationships with our clients, understanding their unique style and needs.</p>
             </div>
             <div className="value-item">
-              <div className="value-icon">🌱</div>
+              <div className="value-icon"><LeafIcon size={32} /></div>
               <h3>Sustainability</h3>
               <p>We are committed to ethical practices and environmental responsibility in all we do.</p>
             </div>
             <div className="value-item">
-              <div className="value-icon">💡</div>
+              <div className="value-icon"><LightbulbIcon size={32} /></div>
               <h3>Innovation</h3>
               <p>We continuously evolve, integrating new technologies while honoring traditional methods.</p>
             </div>

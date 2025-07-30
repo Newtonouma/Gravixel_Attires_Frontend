@@ -5,6 +5,7 @@ import { products } from '@/data/products';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
+import { StarIcon } from '@/components/Icons';
 import './product.css';
 
 interface ProductPageProps {
@@ -107,7 +108,7 @@ export default function ProductPage({ params }: ProductPageProps) {
             <div className="stars">
               {[...Array(5)].map((_, i) => (
                 <span key={i} className={i < Math.floor(product.rating) ? 'star filled' : 'star'}>
-                  ★
+                  <StarIcon />
                 </span>
               ))}
             </div>

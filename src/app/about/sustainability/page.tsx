@@ -1,5 +1,20 @@
 import React from 'react';
 import Link from 'next/link';
+import { 
+  LeafIcon, 
+  RecycleIcon, 
+  PlantIcon, 
+  DropletIcon, 
+  ZapIcon, 
+  PackageIcon,
+  TrophyIcon,
+  GlobeIcon,
+  SparklesIcon,
+  HandshakeIcon,
+  TargetIcon,
+  WaveIcon,
+  RefreshIcon
+} from '@/components/Icons';
 import './sustainability.css';
 
 const SustainabilityPage: React.FC = () => {
@@ -46,7 +61,7 @@ const SustainabilityPage: React.FC = () => {
           <div className="practices-grid">
             
             <div className="practice-card">
-              <div className="practice-icon">🌱</div>
+              <div className="practice-icon"><LeafIcon size={32} /></div>
               <h3>Ethical Sourcing</h3>
               <p>
                 We partner exclusively with mills and suppliers who share our values of fair labor practices, environmental stewardship, and quality craftsmanship. Every material is traceable from source to garment.
@@ -54,7 +69,7 @@ const SustainabilityPage: React.FC = () => {
             </div>
 
             <div className="practice-card">
-              <div className="practice-icon">♻️</div>
+              <div className="practice-icon"><RecycleIcon size={32} /></div>
               <h3>Zero Waste Production</h3>
               <p>
                 Our innovative cutting techniques and pattern optimization minimize fabric waste. Remaining materials are repurposed into accessories or donated to local fashion schools and artisan programs.
@@ -62,7 +77,7 @@ const SustainabilityPage: React.FC = () => {
             </div>
 
             <div className="practice-card">
-              <div className="practice-icon">🌿</div>
+              <div className="practice-icon"><PlantIcon size={32} /></div>
               <h3>Organic & Natural Fibers</h3>
               <p>
                 We prioritize organic cotton, linen, wool from ethically-raised sheep, and other natural fibers that are biodegradable and produced without harmful chemicals or pesticides.
@@ -70,7 +85,7 @@ const SustainabilityPage: React.FC = () => {
             </div>
 
             <div className="practice-card">
-              <div className="practice-icon">🚰</div>
+              <div className="practice-icon"><DropletIcon size={32} /></div>
               <h3>Water Conservation</h3>
               <p>
                 Our production processes use 70% less water than traditional methods. We employ innovative dyeing techniques and water recycling systems to minimize our environmental footprint.
@@ -78,7 +93,7 @@ const SustainabilityPage: React.FC = () => {
             </div>
 
             <div className="practice-card">
-              <div className="practice-icon">⚡</div>
+              <div className="practice-icon"><ZapIcon size={32} /></div>
               <h3>Renewable Energy</h3>
               <p>
                 Our atelier runs on 100% renewable energy from solar and wind sources. We&apos;ve reduced our carbon footprint by 85% compared to traditional manufacturing facilities.
@@ -86,7 +101,7 @@ const SustainabilityPage: React.FC = () => {
             </div>
 
             <div className="practice-card">
-              <div className="practice-icon">📦</div>
+              <div className="practice-icon"><PackageIcon size={32} /></div>
               <h3>Eco-Friendly Packaging</h3>
               <p>
                 All packaging materials are either recyclable, biodegradable, or reusable. Our garment bags are made from organic cotton, and shipping boxes use recycled cardboard with soy-based inks.
@@ -138,25 +153,25 @@ const SustainabilityPage: React.FC = () => {
           <div className="certifications-grid">
             
             <div className="certification-card">
-              <div className="cert-badge">🏆</div>
+              <div className="cert-badge"><TrophyIcon size={24} /></div>
               <h4>GOTS Certified</h4>
               <p>Global Organic Textile Standard certification for organic fiber processing and environmental responsibility.</p>
             </div>
 
             <div className="certification-card">
-              <div className="cert-badge">🌍</div>
+              <div className="cert-badge"><GlobeIcon size={24} /></div>
               <h4>Carbon Neutral</h4>
               <p>Officially certified carbon neutral operations through verified offset programs and renewable energy.</p>
             </div>
 
             <div className="certification-card">
-              <div className="cert-badge">⭐</div>
+              <div className="cert-badge"><SparklesIcon size={24} /></div>
               <h4>B Corp Certified</h4>
               <p>Meets the highest standards of verified social and environmental performance, accountability, and transparency.</p>
             </div>
 
             <div className="certification-card">
-              <div className="cert-badge">🤝</div>
+              <div className="cert-badge"><HandshakeIcon size={24} /></div>
               <h4>Fair Trade Partner</h4>
               <p>Committed to fair wages, safe working conditions, and sustainable livelihoods for all workers in our supply chain.</p>
             </div>
@@ -173,7 +188,7 @@ const SustainabilityPage: React.FC = () => {
             <div className="goals-list">
               
               <div className="goal-item">
-                <span className="goal-icon">🎯</span>
+                <span className="goal-icon"><TargetIcon size={24} /></span>
                 <div>
                   <h4>Climate Positive Operations</h4>
                   <p>Achieve climate positive status by removing more carbon from the atmosphere than we produce.</p>
@@ -181,7 +196,7 @@ const SustainabilityPage: React.FC = () => {
               </div>
 
               <div className="goal-item">
-                <span className="goal-icon">🌊</span>
+                <span className="goal-icon"><WaveIcon size={24} /></span>
                 <div>
                   <h4>Water Positive Impact</h4>
                   <p>Restore more water to nature than we use through conservation projects and watershed restoration.</p>
@@ -189,7 +204,7 @@ const SustainabilityPage: React.FC = () => {
               </div>
 
               <div className="goal-item">
-                <span className="goal-icon">🔄</span>
+                <span className="goal-icon"><RefreshIcon size={24} /></span>
                 <div>
                   <h4>Circular Economy Leadership</h4>
                   <p>Pioneer circular fashion through take-back programs, repair services, and closed-loop material systems.</p>
@@ -197,7 +212,7 @@ const SustainabilityPage: React.FC = () => {
               </div>
 
               <div className="goal-item">
-                <span className="goal-icon">🌱</span>
+                <span className="goal-icon"><LeafIcon size={24} /></span>
                 <div>
                   <h4>Regenerative Practices</h4>
                   <p>Support regenerative agriculture and manufacturing that improves ecosystem health.</p>

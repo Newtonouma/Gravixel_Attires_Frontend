@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { StarIcon, MenuIcon, CloseIcon } from '@/components/Icons';
 import { products, categories, subcategories, colors, materials, sizes, variants, priceRanges } from '@/data/products';
 import './products.css';
 
@@ -91,7 +92,7 @@ const ProductsPage: React.FC = () => {
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, index) => (
       <span key={index} className={`star ${index < Math.floor(rating) ? 'filled' : ''}`}>
-        ★
+        <StarIcon size={16} />
       </span>
     ));
   };
@@ -110,7 +111,7 @@ const ProductsPage: React.FC = () => {
             className="filter-toggle-btn"
             onClick={() => setIsMobileFiltersOpen(true)}
           >
-            <span className="filter-icon">☰</span>
+            <span className="filter-icon"><MenuIcon size={18} /></span>
             Filters
           </button>
         </div>
@@ -123,8 +124,9 @@ const ProductsPage: React.FC = () => {
             <button 
               className="close-filters-btn"
               onClick={() => setIsMobileFiltersOpen(false)}
+              aria-label="Close filters"
             >
-              ✕
+              <CloseIcon size={18} />
             </button>
           </div>
 
@@ -311,8 +313,9 @@ const ProductsPage: React.FC = () => {
                 <button
                   className={`view-btn ${viewMode === 'list' ? 'active' : ''}`}
                   onClick={() => setViewMode('list')}
+                  aria-label="List view"
                 >
-                  ☰
+                  <MenuIcon size={18} />
                 </button>
               </div>
             </div>

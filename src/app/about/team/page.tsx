@@ -1,5 +1,15 @@
 import React from 'react';
 import Link from 'next/link';
+import { 
+  TargetIcon, 
+  HandshakeIcon, 
+  LightbulbIcon, 
+  HeartIcon,
+  GraduationCapIcon,
+  TrophyIcon,
+  LeafIcon,
+  BriefcaseIcon
+} from '@/components/Icons';
 import './team.css';
 
 const TeamPage: React.FC = () => {
@@ -186,25 +196,25 @@ const TeamPage: React.FC = () => {
           <div className="values-grid">
             
             <div className="value-card">
-              <div className="value-icon">🎯</div>
+              <div className="value-icon"><TargetIcon size={32} /></div>
               <h3>Pursuit of Excellence</h3>
               <p>Every team member is committed to achieving perfection in their craft, continuously learning and refining their skills to deliver exceptional results.</p>
             </div>
 
             <div className="value-card">
-              <div className="value-icon">🤝</div>
+              <div className="value-icon"><HandshakeIcon size={32} /></div>
               <h3>Collaborative Spirit</h3>
               <p>We work together as a unified team, sharing knowledge and supporting each other to create garments that reflect our collective expertise.</p>
             </div>
 
             <div className="value-card">
-              <div className="value-icon">💡</div>
+              <div className="value-icon"><LightbulbIcon size={32} /></div>
               <h3>Innovation & Tradition</h3>
               <p>We honor time-tested techniques while embracing new technologies and methods that enhance our ability to serve our clients better.</p>
             </div>
 
             <div className="value-card">
-              <div className="value-icon">❤️</div>
+              <div className="value-icon"><HeartIcon size={32} /></div>
               <h3>Passion for Craft</h3>
               <p>Our love for the art of tailoring drives us to go beyond expectations, creating not just clothing, but wearable works of art.</p>
             </div>
@@ -223,19 +233,19 @@ const TeamPage: React.FC = () => {
             </p>
             <div className="careers-benefits">
               <div className="benefit-item">
-                <span className="benefit-icon">🎓</span>
+                <span className="benefit-icon"><GraduationCapIcon size={20} /></span>
                 <span>Continuous Learning Opportunities</span>
               </div>
               <div className="benefit-item">
-                <span className="benefit-icon">🏆</span>
+                <span className="benefit-icon"><TrophyIcon size={20} /></span>
                 <span>Master Craftsman Development Programs</span>
               </div>
               <div className="benefit-item">
-                <span className="benefit-icon">🌱</span>
+                <span className="benefit-icon"><LeafIcon size={20} /></span>
                 <span>Sustainable Work Environment</span>
               </div>
               <div className="benefit-item">
-                <span className="benefit-icon">💼</span>
+                <span className="benefit-icon"><BriefcaseIcon size={20} /></span>
                 <span>Competitive Benefits Package</span>
               </div>
             </div>

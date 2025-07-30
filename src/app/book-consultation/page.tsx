@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { SuitIcon, RulerIcon, PaletteIcon, ClockIcon, CloseIcon, CalendarIcon } from '@/components/Icons';
 import './book-consultation.css';
 
 interface ConsultationFormData {
@@ -114,22 +115,22 @@ const BookConsultationPage: React.FC = () => {
         <div className="consultation-benefits">
           <div className="benefits-grid">
             <div className="benefit-item">
-              <div className="benefit-icon">👔</div>
+              <div className="benefit-icon"><SuitIcon size={32} /></div>
               <h3>Expert Guidance</h3>
               <p>Get personalized advice from our experienced tailors</p>
             </div>
             <div className="benefit-item">
-              <div className="benefit-icon">📏</div>
+              <div className="benefit-icon"><RulerIcon size={32} /></div>
               <h3>Precise Measurements</h3>
               <p>Professional fitting to ensure perfect tailoring</p>
             </div>
             <div className="benefit-item">
-              <div className="benefit-icon">🎨</div>
+              <div className="benefit-icon"><PaletteIcon size={32} /></div>
               <h3>Style Consultation</h3>
               <p>Discover styles that complement your personality</p>
             </div>
             <div className="benefit-item">
-              <div className="benefit-icon">⏰</div>
+              <div className="benefit-icon"><ClockIcon size={32} /></div>
               <h3>Flexible Scheduling</h3>
               <p>Choose a time that works best for your schedule</p>
             </div>
@@ -170,8 +171,9 @@ const BookConsultationPage: React.FC = () => {
                 <button 
                   className="close-calendly"
                   onClick={() => setShowCalendly(false)}
+                  aria-label="Close calendar"
                 >
-                  ✕
+                  <CloseIcon size={20} />
                 </button>
               </div>
               {/* Replace with your actual Calendly embed URL */}
@@ -185,7 +187,7 @@ const BookConsultationPage: React.FC = () => {
                 ></iframe>
                 {/* Fallback message for demo */}
                 <div className="calendly-placeholder">
-                  <p>📅 Calendly Integration</p>
+                  <p><CalendarIcon size={24} /> Calendly Integration</p>
                   <p>Replace the iframe src with your actual Calendly URL</p>
                   <p>Example: https://calendly.com/gravixel-attires/consultation</p>
                 </div>

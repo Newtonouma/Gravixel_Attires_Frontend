@@ -1,5 +1,14 @@
 import React from 'react';
 import Link from 'next/link';
+import { 
+  ThreadIcon, 
+  ScissorsIcon, 
+  SearchIcon, 
+  TargetIcon, 
+  DiamondIcon, 
+  TrophyIcon, 
+  SparklesIcon 
+} from '@/components/Icons';
 import './craftsmanship.css';
 
 const CraftsmanshipPage: React.FC = () => {
@@ -136,37 +145,37 @@ const CraftsmanshipPage: React.FC = () => {
           <div className="techniques-grid">
             
             <div className="technique-card">
-              <div className="technique-icon">🪡</div>
+              <div className="technique-icon"><ThreadIcon size={32} /></div>
               <h3>Hand Pad Stitching</h3>
               <p>Creates the perfect lapel roll and collar shape that maintains its form over time.</p>
             </div>
 
             <div className="technique-card">
-              <div className="technique-icon">✂️</div>
+              <div className="technique-icon"><ScissorsIcon size={32} /></div>
               <h3>Canvas Construction</h3>
               <p>Full canvas construction ensures the jacket drapes naturally and ages beautifully.</p>
             </div>
 
             <div className="technique-card">
-              <div className="technique-icon">🔍</div>
+              <div className="technique-icon"><SearchIcon size={32} /></div>
               <h3>Floating Chest Piece</h3>
               <p>Hand-padded chest pieces that move with your body for superior comfort and fit.</p>
             </div>
 
             <div className="technique-card">
-              <div className="technique-icon">🎯</div>
+              <div className="technique-icon"><TargetIcon size={32} /></div>
               <h3>Pick Stitching</h3>
               <p>Subtle hand-stitched details that add both strength and elegance to critical seams.</p>
             </div>
 
             <div className="technique-card">
-              <div className="technique-icon">🧵</div>
+              <div className="technique-icon"><ThreadIcon size={32} /></div>
               <h3>Hand-Set Sleeves</h3>
               <p>Perfectly fitted sleeves with natural armhole shaping for unrestricted movement.</p>
             </div>
 
             <div className="technique-card">
-              <div className="technique-icon">💎</div>
+              <div className="technique-icon"><DiamondIcon size={32} /></div>
               <h3>Milanese Buttonholes</h3>
               <p>Hand-sewn buttonholes with silk thread for durability and refined appearance.</p>
             </div>
@@ -182,21 +191,21 @@ const CraftsmanshipPage: React.FC = () => {
             <h2>Our Quality Promise</h2>
             <div className="quality-points">
               <div className="quality-point">
-                <span className="quality-icon">⭐</span>
+                <span className="quality-icon"><SparklesIcon size={24} /></span>
                 <div>
                   <h4>Lifetime Craftsmanship Guarantee</h4>
                   <p>We stand behind every stitch with our comprehensive craftsmanship warranty.</p>
                 </div>
               </div>
               <div className="quality-point">
-                <span className="quality-icon">🏆</span>
+                <span className="quality-icon"><TrophyIcon size={24} /></span>
                 <div>
                   <h4>Master Tailor Certification</h4>
                   <p>All our tailors are certified masters with decades of experience in bespoke tailoring.</p>
                 </div>
               </div>
               <div className="quality-point">
-                <span className="quality-icon">🌟</span>
+                <span className="quality-icon"><SparklesIcon size={24} /></span>
                 <div>
                   <h4>Premium Materials Only</h4>
                   <p>We use only the finest fabrics and materials sourced from renowned mills worldwide.</p>

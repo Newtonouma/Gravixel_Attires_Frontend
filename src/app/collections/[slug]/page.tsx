@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
+import { StarIcon } from '@/components/Icons';
 import { products, Product } from '@/data/products';
 import './collection-detail.css';
 
@@ -327,7 +328,7 @@ const CollectionDetailPage: React.FC = () => {
                             key={i} 
                             className={`star ${i < Math.floor(product.rating) ? 'filled' : ''}`}
                           >
-                            ★
+                            <StarIcon size={16} />
                           </span>
                         ))}
                       </div>

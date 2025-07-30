@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { MapPinIcon, PhoneIcon, MailIcon, ClockIcon } from '@/components/Icons';
 import './contact.css';
 
 const ContactPage: React.FC = () => {
@@ -61,7 +62,7 @@ const ContactPage: React.FC = () => {
               <h2>Contact Information</h2>
               <div className="info-items">
                 <div className="info-item">
-                  <div className="info-icon">📍</div>
+                  <div className="info-icon"><MapPinIcon size={24} /></div>
                   <div className="info-details">
                     <h3>Address</h3>
                     <p>123 Fashion Street<br />Nairobi, Kenya</p>
@@ -69,7 +70,7 @@ const ContactPage: React.FC = () => {
                 </div>
                 
                 <div className="info-item">
-                  <div className="info-icon">📞</div>
+                  <div className="info-icon"><PhoneIcon size={24} /></div>
                   <div className="info-details">
                     <h3>Phone</h3>
                     <p>+254 700 000 000</p>
@@ -77,7 +78,7 @@ const ContactPage: React.FC = () => {
                 </div>
                 
                 <div className="info-item">
-                  <div className="info-icon">✉️</div>
+                  <div className="info-icon"><MailIcon size={24} /></div>
                   <div className="info-details">
                     <h3>Email</h3>
                     <p>info@gravixelattires.com</p>
@@ -85,7 +86,7 @@ const ContactPage: React.FC = () => {
                 </div>
                 
                 <div className="info-item">
-                  <div className="info-icon">🕒</div>
+                  <div className="info-icon"><ClockIcon size={24} /></div>
                   <div className="info-details">
                     <h3>Business Hours</h3>
                     <p>Monday - Friday: 9:00 AM - 6:00 PM<br />
