@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Navigation from "@/components/Navigation";
 import { CartProvider } from "@/contexts/CartContext";
+import { AuthProvider } from "@/contexts/AuthContext";
 import "./globals.css";
+import "./auth/auth.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,10 +40,12 @@ export default function RootLayout({
           MozOsxFontSmoothing: 'grayscale'
         }}
       >
-        <CartProvider>
-          <Navigation />
-          {children}
-        </CartProvider>
+        <AuthProvider>
+          <CartProvider>
+            <Navigation />
+            {children}
+          </CartProvider>
+        </AuthProvider>
       </body>
     </html>
   );

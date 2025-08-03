@@ -2,7 +2,10 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useCart } from '@/contexts/CartContext';
+import { useAuth } from '@/contexts/AuthContext';
+import { Icons } from '@/components/Icons';
 import './Navigation.css';
 
 interface DropdownItem {
@@ -19,8 +22,11 @@ interface NavItem {
 
 const Navigation: React.FC = () => {
   const { totalItems } = useCart();
+  const { user, isAuthenticated, logout } = useAuth();
+  const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Handle body scroll lock when mobile menu is open
@@ -36,6 +42,12 @@ const Navigation: React.FC = () => {
       document.body.classList.remove('nav-menu-open');
     };
   }, [isMenuOpen]);
+
+  const handleLogout = () => {
+    logout();
+    setIsUserMenuOpen(false);
+    router.push('/');
+  };
 
   const navigationItems: NavItem[] = [
     {
@@ -175,16 +187,102 @@ const Navigation: React.FC = () => {
         {/* Right side actions */}
         <div className="nav-actions">
           <button className="nav-search-btn" aria-label="Search">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              <path d="M21 21l-4.35-4.35M19 11a8 8 0 11-16 0 8 8 0 0116 0z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
+            <Icons.SearchIcon size={20} />
           </button>
+          
           <Link href="/cart" className="nav-cart-btn" aria-label="Shopping cart">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17M17 13v4a2 2 0 01-2 2H9a2 2 0 01-2-2v-4.1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
+            <Icons.CartIcon size={20} />
             {totalItems > 0 && <span className="cart-count">{totalItems}</span>}
           </Link>
+
+          {/* Authentication Controls */}
+          {isAuthenticated ? (
+            <div className="nav-user-menu">
+              <button 
+                className="nav-user-btn"
+                onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                aria-label="User menu"
+              >
+                <Icons.UserIcon size={20} />
+                <span className="user-name">{user?.name}</span>
+                <Icons.MenuIcon size={12} className={`user-menu-arrow ${isUserMenuOpen ? 'active' : ''}`} />
+              </button>
+              
+              {isUserMenuOpen && (
+                <div className="user-dropdown">
+                  <div className="user-dropdown-header">
+                    <Icons.UserIcon size={16} />
+                    <div>
+                      <div className="user-dropdown-name">{user?.name}</div>
+                      <div className="user-dropdown-email">{user?.email}</div>
+                      <div className="user-dropdown-role">{user?.role}</div>
+                    </div>
+                  </div>
+                  
+                  <div className="user-dropdown-divider"></div>
+                  
+                  {user?.role === 'admin' && (
+                    <Link 
+                      href="/admin" 
+                      className="user-dropdown-item"
+                      onClick={() => setIsUserMenuOpen(false)}
+                    >
+                      <Icons.DashboardIcon size={16} />
+                      Admin Dashboard
+                    </Link>
+                  )}
+                  
+                  <Link 
+                    href="/profile" 
+                    className="user-dropdown-item"
+                    onClick={() => setIsUserMenuOpen(false)}
+                  >
+                    <Icons.UserIcon size={16} />
+                    Profile
+                  </Link>
+                  
+                  <Link 
+                    href="/orders" 
+                    className="user-dropdown-item"
+                    onClick={() => setIsUserMenuOpen(false)}
+                  >
+                    <Icons.PackageIcon size={16} />
+                    My Orders
+                  </Link>
+                  
+                  <Link 
+                    href="/settings" 
+                    className="user-dropdown-item"
+                    onClick={() => setIsUserMenuOpen(false)}
+                  >
+                    <Icons.SettingsIcon size={16} />
+                    Settings
+                  </Link>
+                  
+                  <div className="user-dropdown-divider"></div>
+                  
+                  <button 
+                    onClick={handleLogout}
+                    className="user-dropdown-item logout"
+                  >
+                    <Icons.LogoutIcon size={16} />
+                    Logout
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="nav-auth-buttons">
+              <Link href="/auth/login" className="nav-auth-btn login">
+                <Icons.LoginIcon size={16} />
+                Login
+              </Link>
+              <Link href="/auth/register" className="nav-auth-btn register">
+                <Icons.UserIcon size={16} />
+                Sign Up
+              </Link>
+            </div>
+          )}
         </div>
 
         {/* Mobile Menu Toggle */}
@@ -202,6 +300,19 @@ const Navigation: React.FC = () => {
       {/* Mobile Menu */}
       <div className={`mobile-menu ${isMenuOpen ? 'mobile-menu-open' : ''}`}>
         <div className="mobile-menu-content">
+          {/* User Info (if authenticated) */}
+          {isAuthenticated && (
+            <div className="mobile-user-info">
+              <Icons.UserIcon size={20} />
+              <div className="mobile-user-details">
+                <div className="mobile-user-name">{user?.name}</div>
+                <div className="mobile-user-email">{user?.email}</div>
+                <div className="mobile-user-role">{user?.role}</div>
+              </div>
+            </div>
+          )}
+
+          {/* Navigation Items */}
           {navigationItems.map((item) => (
             <div key={item.title} className="mobile-nav-item">
               {item.href ? (
@@ -247,6 +358,108 @@ const Navigation: React.FC = () => {
               )}
             </div>
           ))}
+
+          {/* Cart Link */}
+          <div className="mobile-nav-item">
+            <Link 
+              href="/cart" 
+              className="mobile-nav-link"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              <Icons.CartIcon size={20} />
+              Cart {totalItems > 0 && `(${totalItems})`}
+            </Link>
+          </div>
+
+          {/* Authentication Controls */}
+          {isAuthenticated ? (
+            <>
+              <div className="mobile-nav-divider"></div>
+              
+              {user?.role === 'admin' && (
+                <div className="mobile-nav-item">
+                  <Link 
+                    href="/admin" 
+                    className="mobile-nav-link"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <Icons.DashboardIcon size={20} />
+                    Admin Dashboard
+                  </Link>
+                </div>
+              )}
+              
+              <div className="mobile-nav-item">
+                <Link 
+                  href="/profile" 
+                  className="mobile-nav-link"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <Icons.UserIcon size={20} />
+                  Profile
+                </Link>
+              </div>
+              
+              <div className="mobile-nav-item">
+                <Link 
+                  href="/orders" 
+                  className="mobile-nav-link"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <Icons.PackageIcon size={20} />
+                  My Orders
+                </Link>
+              </div>
+              
+              <div className="mobile-nav-item">
+                <Link 
+                  href="/settings" 
+                  className="mobile-nav-link"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <Icons.SettingsIcon size={20} />
+                  Settings
+                </Link>
+              </div>
+              
+              <div className="mobile-nav-item">
+                <button 
+                  onClick={() => {
+                    handleLogout();
+                    setIsMenuOpen(false);
+                  }}
+                  className="mobile-nav-link logout"
+                >
+                  <Icons.LogoutIcon size={20} />
+                  Logout
+                </button>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="mobile-nav-divider"></div>
+              <div className="mobile-nav-item">
+                <Link 
+                  href="/auth/login" 
+                  className="mobile-nav-link"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <Icons.LoginIcon size={20} />
+                  Login
+                </Link>
+              </div>
+              <div className="mobile-nav-item">
+                <Link 
+                  href="/auth/register" 
+                  className="mobile-nav-link"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <Icons.UserIcon size={20} />
+                  Sign Up
+                </Link>
+              </div>
+            </>
+          )}
         </div>
       </div>
 
