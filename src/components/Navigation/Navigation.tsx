@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
+import { useCart } from '@/contexts/CartContext';
 import './Navigation.css';
 
 interface DropdownItem {
@@ -17,9 +18,10 @@ interface NavItem {
 }
 
 const Navigation: React.FC = () => {
+  const { totalItems } = useCart();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  const dropdownTimeoutRef = useRef<NodeJS.Timeout>();
+  const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Handle body scroll lock when mobile menu is open
   useEffect(() => {
@@ -177,12 +179,12 @@ const Navigation: React.FC = () => {
               <path d="M21 21l-4.35-4.35M19 11a8 8 0 11-16 0 8 8 0 0116 0z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </button>
-          <button className="nav-cart-btn" aria-label="Shopping cart">
+          <Link href="/cart" className="nav-cart-btn" aria-label="Shopping cart">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
               <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17M17 13v4a2 2 0 01-2 2H9a2 2 0 01-2-2v-4.1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-            <span className="cart-count">2</span>
-          </button>
+            {totalItems > 0 && <span className="cart-count">{totalItems}</span>}
+          </Link>
         </div>
 
         {/* Mobile Menu Toggle */}

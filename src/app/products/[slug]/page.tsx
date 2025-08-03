@@ -6,6 +6,7 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { StarIcon } from '@/components/Icons';
+import { useCart } from '@/contexts/CartContext';
 import './product.css';
 
 interface ProductPageProps {
@@ -17,6 +18,7 @@ interface ProductPageProps {
 export default function ProductPage({ params }: ProductPageProps) {
   const { slug } = use(params);
   const product = products.find(p => p.slug === slug);
+  const { addToCart } = useCart();
 
   if (!product) {
     notFound();
@@ -25,34 +27,44 @@ export default function ProductPage({ params }: ProductPageProps) {
   const [selectedSize, setSelectedSize] = useState(product.size[0]);
   const [quantity, setQuantity] = useState(1);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [isAddingToCart, setIsAddingToCart] = useState(false);
 
-  // For demonstration, we'll use the same image multiple times
-  // In a real app, you'd have multiple product images
-  const productImages = [
-    product.image,
-    product.image,
-    product.image,
-    product.image
-  ];
+  // Use the product's images array, fallback to single image if not available
+  const productImages = product.images || [product.image];
 
-  const handleAddToCart = () => {
-    // Add to cart logic here
-    console.log('Added to cart:', {
-      product: product.name,
-      size: selectedSize,
-      quantity: quantity
-    });
-    alert('Product added to cart!');
+  const handleAddToCart = async () => {
+    setIsAddingToCart(true);
+    try {
+      addToCart(product, selectedSize, quantity);
+      
+      // Show success message
+      const notification = document.createElement('div');
+      notification.className = 'cart-notification';
+      notification.innerHTML = `
+        <div class="notification-content">
+          <span class="notification-icon">✓</span>
+          <span>Added to cart!</span>
+        </div>
+      `;
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.remove();
+      }, 3000);
+      
+    } catch (error) {
+      console.error('Error adding to cart:', error);
+      alert('Failed to add to cart. Please try again.');
+    } finally {
+      setIsAddingToCart(false);
+    }
   };
 
   const handleOrderNow = () => {
-    // Order now logic here - could redirect to checkout with this product
-    console.log('Order now:', {
-      product: product.name,
-      size: selectedSize,
-      quantity: quantity
-    });
-    alert('Redirecting to checkout...');
+    // Add to cart first
+    addToCart(product, selectedSize, quantity);
+    // Then redirect to cart page
+    window.location.href = '/cart';
   };
 
   const relatedProducts = products
@@ -199,10 +211,10 @@ export default function ProductPage({ params }: ProductPageProps) {
           <div className="action-buttons">
             <button
               onClick={handleAddToCart}
-              disabled={!product.inStock}
+              disabled={!product.inStock || isAddingToCart}
               className={`add-to-cart-btn ${!product.inStock ? 'disabled' : ''}`}
             >
-              {product.inStock ? 'Add to Cart' : 'Out of Stock'}
+              {isAddingToCart ? 'Adding...' : product.inStock ? 'Add to Cart' : 'Out of Stock'}
             </button>
             
             <button

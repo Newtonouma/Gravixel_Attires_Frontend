@@ -23,7 +23,7 @@ const SmartTailoring: React.FC = () => {
               loop
               muted
               playsInline
-              poster="/images/smart-tailoring-poster.jpg"
+              poster="/images/FeaturedProducts/1.jpg"
             />
           </div>
         </div>

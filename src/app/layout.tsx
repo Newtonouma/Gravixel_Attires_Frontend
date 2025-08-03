@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Navigation from "@/components/Navigation";
+import { CartProvider } from "@/contexts/CartContext";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -37,8 +38,10 @@ export default function RootLayout({
           MozOsxFontSmoothing: 'grayscale'
         }}
       >
-        <Navigation />
-        {children}
+        <CartProvider>
+          <Navigation />
+          {children}
+        </CartProvider>
       </body>
     </html>
   );

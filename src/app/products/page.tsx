@@ -4,6 +4,7 @@ import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { StarIcon, MenuIcon, CloseIcon } from '@/components/Icons';
+import { useCart } from '@/contexts/CartContext';
 import { products, categories, subcategories, colors, materials, sizes, variants, priceRanges } from '@/data/products';
 import './products.css';
 
@@ -20,6 +21,7 @@ interface Filters {
 }
 
 const ProductsPage: React.FC = () => {
+  const { addToCart } = useCart();
   const [filters, setFilters] = useState<Filters>({
     category: 'All',
     subcategory: 'All',
@@ -95,6 +97,31 @@ const ProductsPage: React.FC = () => {
         <StarIcon size={16} />
       </span>
     ));
+  };
+
+  const handleQuickAddToCart = (product: any, event: React.MouseEvent) => {
+    event.preventDefault(); // Prevent navigation to product details
+    event.stopPropagation();
+    
+    // Add with the first available size (most common approach for quick add)
+    const defaultSize = product.size[0];
+    addToCart(product, defaultSize, 1);
+    
+    // Show success notification
+    const notification = document.createElement('div');
+    notification.className = 'cart-notification';
+    notification.innerHTML = `
+      <div class="notification-content">
+        <span class="notification-icon">✓</span>
+        <span class="notification-text">Added ${product.name} (${defaultSize}) to cart!</span>
+      </div>
+    `;
+    document.body.appendChild(notification);
+    
+    // Remove notification after 3 seconds
+    setTimeout(() => {
+      notification.remove();
+    }, 3000);
   };
 
   return (
@@ -365,7 +392,11 @@ const ProductsPage: React.FC = () => {
                     </div>
                   </Link>
                   <div className="product-actions">
-                    <button className="add-to-cart-btn" disabled={!product.inStock}>
+                    <button 
+                      className="add-to-cart-btn" 
+                      disabled={!product.inStock}
+                      onClick={(e) => handleQuickAddToCart(product, e)}
+                    >
                       {product.inStock ? 'Add to Cart' : 'Out of Stock'}
                     </button>
                   </div>

@@ -2,7 +2,8 @@ export interface Product {
   id: number;
   name: string;
   slug: string;
-  image: string;
+  image: string; // Main/primary image for listings
+  images: string[]; // Array of all product images for detail view
   price: number;
   originalPrice?: number;
   category: string;
@@ -27,6 +28,12 @@ export const products: Product[] = [
     name: 'Classic Navy Suit',
     slug: 'classic-navy-suit',
     image: '/images/FeaturedProducts/1.jpg',
+    images: [
+      '/images/FeaturedProducts/1.jpg',
+      '/images/FeaturedProducts/2.jpg',
+      '/images/FeaturedProducts/3.jpg',
+      '/images/FeaturedProducts/6.jpg'
+    ],
     price: 35900,
     category: 'Suits',
     subcategory: 'Business',
@@ -47,6 +54,12 @@ export const products: Product[] = [
     name: 'Charcoal Slim Fit',
     slug: 'charcoal-slim-fit',
     image: '/images/FeaturedProducts/2.jpg',
+    images: [
+      '/images/FeaturedProducts/2.jpg',
+      '/images/FeaturedProducts/5.jpg',
+      '/images/FeaturedProducts/6.jpg',
+      '/images/FeaturedProducts/3.jpg'
+    ],
     price: 38900,
     category: 'Suits',
     subcategory: 'Slim Fit',
@@ -67,6 +80,12 @@ export const products: Product[] = [
     name: 'Ivory Wedding Tux',
     slug: 'ivory-wedding-tux',
     image: '/images/FeaturedProducts/3.jpg',
+    images: [
+      '/images/FeaturedProducts/3.jpg',
+      '/images/FeaturedProducts/1.jpg',
+      '/images/FeaturedProducts/2.jpg',
+      '/images/FeaturedProducts/4.jpg'
+    ],
     price: 49900,
     category: 'Tuxedos',
     subcategory: 'Wedding',
@@ -87,6 +106,12 @@ export const products: Product[] = [
     name: 'Olive Green Suit',
     slug: 'olive-green-suit',
     image: '/images/FeaturedProducts/4.jpg',
+    images: [
+      '/images/FeaturedProducts/4.jpg',
+      '/images/FeaturedProducts/2.jpg',
+      '/images/FeaturedProducts/6.jpg',
+      '/images/FeaturedProducts/5.jpg'
+    ],
     price: 41900,
     category: 'Suits',
     subcategory: 'Casual',
@@ -107,6 +132,12 @@ export const products: Product[] = [
     name: 'Classic Black Suit',
     slug: 'classic-black-suit',
     image: '/images/FeaturedProducts/5.jpg',
+    images: [
+      '/images/FeaturedProducts/5.jpg',
+      '/images/FeaturedProducts/4.jpg',
+      '/images/FeaturedProducts/2.jpg',
+      '/images/FeaturedProducts/3.jpg'
+    ],
     price: 34900,
     category: 'Suits',
     subcategory: 'Classic',
@@ -129,6 +160,12 @@ export const products: Product[] = [
     name: 'Light Grey Three Piece',
     slug: 'light-grey-three-piece',
     image: '/images/FeaturedProducts/6.jpg',
+    images: [
+      '/images/FeaturedProducts/6.jpg',
+      '/images/FeaturedProducts/5.jpg',
+      '/images/FeaturedProducts/4.jpg',
+      '/images/FeaturedProducts/3.jpg'
+    ],
     price: 54900,
     category: 'Suits',
     subcategory: 'Three Piece',
@@ -149,6 +186,12 @@ export const products: Product[] = [
     name: 'Midnight Blue Tuxedo',
     slug: 'midnight-blue-tuxedo',
     image: '/images/FeaturedProducts/1.jpg',
+    images: [
+      '/images/FeaturedProducts/1.jpg',
+      '/images/FeaturedProducts/5.jpg',
+      '/images/FeaturedProducts/3.jpg',
+      '/images/FeaturedProducts/4.jpg'
+    ],
     price: 59900,
     category: 'Tuxedos',
     subcategory: 'Formal',
@@ -169,6 +212,12 @@ export const products: Product[] = [
     name: 'Brown Tweed Suit',
     slug: 'brown-tweed-suit',
     image: '/images/FeaturedProducts/2.jpg',
+    images: [
+      '/images/FeaturedProducts/2.jpg',
+      '/images/FeaturedProducts/1.jpg',
+      '/images/FeaturedProducts/5.jpg',
+      '/images/FeaturedProducts/3.jpg'
+    ],
     price: 45900,
     category: 'Suits',
     subcategory: 'Casual',
@@ -189,6 +238,12 @@ export const products: Product[] = [
     name: 'Pin Stripe Navy',
     slug: 'pin-stripe-navy',
     image: '/images/FeaturedProducts/3.jpg',
+    images: [
+      '/images/FeaturedProducts/3.jpg',
+      '/images/FeaturedProducts/1.jpg',
+      '/images/FeaturedProducts/2.jpg',
+      '/images/FeaturedProducts/4.jpg'
+    ],
     price: 47900,
     category: 'Suits',
     subcategory: 'Business',
@@ -209,6 +264,12 @@ export const products: Product[] = [
     name: 'Cream Linen Summer Suit',
     slug: 'cream-linen-summer-suit',
     image: '/images/FeaturedProducts/4.jpg',
+    images: [
+      '/images/FeaturedProducts/4.jpg',
+      '/images/FeaturedProducts/2.jpg',
+      '/images/FeaturedProducts/3.jpg',
+      '/images/FeaturedProducts/6.jpg'
+    ],
     price: 32900,
     originalPrice: 42900,
     category: 'Suits',
@@ -230,6 +291,12 @@ export const products: Product[] = [
     name: 'Burgundy Velvet Blazer',
     slug: 'burgundy-velvet-blazer',
     image: '/images/FeaturedProducts/5.jpg',
+    images: [
+      '/images/FeaturedProducts/5.jpg',
+      '/images/FeaturedProducts/1.jpg',
+      '/images/FeaturedProducts/6.jpg',
+      '/images/FeaturedProducts/4.jpg'
+    ],
     price: 29900,
     category: 'Blazers',
     subcategory: 'Evening',
@@ -250,6 +317,12 @@ export const products: Product[] = [
     name: 'Double Breasted Grey',
     slug: 'double-breasted-grey',
     image: '/images/FeaturedProducts/6.jpg',
+    images: [
+      '/images/FeaturedProducts/6.jpg',
+      '/images/FeaturedProducts/3.jpg',
+      '/images/FeaturedProducts/2.jpg',
+      '/images/FeaturedProducts/1.jpg'
+    ],
     price: 51900,
     category: 'Suits',
     subcategory: 'Double Breasted',
@@ -271,6 +344,12 @@ export const products: Product[] = [
     name: 'Classic Navy Three Piece',
     slug: 'classic-navy-three-piece',
     image: '/images/FeaturedProducts/1.jpg',
+    images: [
+      '/images/FeaturedProducts/1.jpg',
+      '/images/FeaturedProducts/4.jpg',
+      '/images/FeaturedProducts/5.jpg',
+      '/images/FeaturedProducts/3.jpg'
+    ],
     price: 45900,
     category: 'Suits',
     subcategory: 'Business',
@@ -291,6 +370,12 @@ export const products: Product[] = [
     name: 'Charcoal Three Piece Slim Fit',
     slug: 'charcoal-three-piece-slim-fit',
     image: '/images/FeaturedProducts/2.jpg',
+    images: [
+      '/images/FeaturedProducts/2.jpg',
+      '/images/FeaturedProducts/5.jpg',
+      '/images/FeaturedProducts/4.jpg',
+      '/images/FeaturedProducts/3.jpg'
+    ],
     price: 48900,
     category: 'Suits',
     subcategory: 'Slim Fit',
@@ -311,6 +396,12 @@ export const products: Product[] = [
     name: 'Black Three Piece Classic',
     slug: 'black-three-piece-classic',
     image: '/images/FeaturedProducts/5.jpg',
+    images: [
+      '/images/FeaturedProducts/5.jpg',
+      '/images/FeaturedProducts/1.jpg',
+      '/images/FeaturedProducts/2.jpg',
+      '/images/FeaturedProducts/3.jpg'
+    ],
     price: 44900,
     category: 'Suits',
     subcategory: 'Classic',
