@@ -6,6 +6,7 @@ import { PlusIcon, MinusIcon, TrashIcon, CartIcon } from '@/components/Icons';
 import Link from 'next/link';
 import Image from 'next/image';
 import './cart.css';
+import OrderForm from '@/components/OrderForm/OrderForm';
 
 const CartPage: React.FC = () => {
   const { items, totalPrice, updateQuantity, removeFromCart, clearCart, totalItems } = useCart();
@@ -148,9 +149,7 @@ const CartPage: React.FC = () => {
               </div>
 
               <div className="summary-actions">
-                <button className="btn-primary checkout-btn">
-                  Proceed to Checkout
-                </button>
+                <OrderForm products={items} onSuccess={clearCart} />
                 <Link href="/products" className="btn-secondary">
                   Continue Shopping
                 </Link>

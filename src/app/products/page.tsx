@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { StarIcon, MenuIcon, CloseIcon } from '@/components/Icons';
 import { useCart } from '@/contexts/CartContext';
-import { products, categories, subcategories, colors, materials, sizes, variants, priceRanges } from '@/data/products';
+import { useProducts } from '@/hooks/useProducts';
 import './products.css';
 
 interface Filters {
@@ -22,6 +22,39 @@ interface Filters {
 
 const ProductsPage: React.FC = () => {
   const { addToCart } = useCart();
+  const { products, loading, error } = useProducts();
+  
+  // Generate filter options dynamically from products
+  const filterOptions = useMemo(() => {
+    if (!products.length) return {
+      categories: [],
+      subcategories: [],
+      colors: [],
+      materials: [],
+      sizes: [],
+      priceRanges: [
+        { label: 'Under KES 10,000', min: 0, max: 10000 },
+        { label: 'KES 10,000 - 25,000', min: 10000, max: 25000 },
+        { label: 'KES 25,000 - 50,000', min: 25000, max: 50000 },
+        { label: 'Over KES 50,000', min: 50000, max: Infinity }
+      ]
+    };
+
+    return {
+      categories: [...new Set(products.map(p => p.category))],
+      subcategories: [...new Set(products.map(p => p.subcategory))],
+      colors: [...new Set(products.flatMap(p => p.colors || []))],
+      materials: [...new Set(products.flatMap(p => p.materials || []))],
+      sizes: [...new Set(products.flatMap(p => p.sizes || []))],
+      priceRanges: [
+        { label: 'Under KES 10,000', min: 0, max: 10000 },
+        { label: 'KES 10,000 - 25,000', min: 10000, max: 25000 },
+        { label: 'KES 25,000 - 50,000', min: 25000, max: 50000 },
+        { label: 'Over KES 50,000', min: 50000, max: Infinity }
+      ]
+    };
+  }, [products]);
+
   const [filters, setFilters] = useState<Filters>({
     category: 'All',
     subcategory: 'All',
@@ -29,7 +62,7 @@ const ProductsPage: React.FC = () => {
     material: 'All',
     size: 'All',
     priceRange: { min: 0, max: Infinity },
-    inStock: false,
+    inStock: true,
     search: '',
     variant: 'All'
   });
@@ -40,28 +73,48 @@ const ProductsPage: React.FC = () => {
 
   const filteredProducts = useMemo(() => {
     const filtered = products.filter(product => {
-      if (filters.category !== 'All' && product.category !== filters.category) return false;
-      if (filters.subcategory !== 'All' && product.subcategory !== filters.subcategory) return false;
-      if (filters.color !== 'All' && product.color !== filters.color) return false;
-      if (filters.material !== 'All' && product.material !== filters.material) return false;
-      if (filters.size !== 'All' && !product.size.includes(filters.size)) return false;
-      if (filters.variant !== 'All' && product.variant !== filters.variant) return false;
-      if (product.price < filters.priceRange.min || product.price > filters.priceRange.max) return false;
-      if (filters.inStock && !product.inStock) return false;
-      if (filters.search && !product.name.toLowerCase().includes(filters.search.toLowerCase())) return false;
+      if (filters.category !== 'All' && product.category !== filters.category) {
+        return false;
+      }
+      if (filters.subcategory !== 'All' && product.subcategory !== filters.subcategory) {
+        return false;
+      }
+      if (filters.color !== 'All' && !(product.colors || []).includes(filters.color)) {
+        return false;
+      }
+      if (filters.material !== 'All' && !(product.materials || []).includes(filters.material)) {
+        return false;
+      }
+      if (filters.size !== 'All' && !(product.sizes || []).includes(filters.size)) {
+        return false;
+      }
+      
+      // Convert price to number for comparison
+      const productPrice = Number(product.price);
+      if (productPrice < filters.priceRange.min || productPrice > filters.priceRange.max) {
+        return false;
+      }
+      // Skip inStock filtering for now - all products are in stock
+      // if (filters.inStock === true && product.inStock !== true) {
+      //   return false;
+      // }
+      if (filters.search && !product.name.toLowerCase().includes(filters.search.toLowerCase())) {
+        return false;
+      }
+      
       return true;
     });
 
     // Sort products
     switch (sortBy) {
       case 'price-low':
-        filtered.sort((a, b) => a.price - b.price);
+        filtered.sort((a, b) => Number(a.price) - Number(b.price));
         break;
       case 'price-high':
-        filtered.sort((a, b) => b.price - a.price);
+        filtered.sort((a, b) => Number(b.price) - Number(a.price));
         break;
       case 'rating':
-        filtered.sort((a, b) => b.rating - a.rating);
+        filtered.sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0));
         break;
       case 'newest':
         filtered.sort((a, b) => b.id - a.id);
@@ -71,7 +124,7 @@ const ProductsPage: React.FC = () => {
     }
 
     return filtered;
-  }, [filters, sortBy]);
+  }, [products, filters, sortBy]);
 
   const updateFilter = (key: keyof Filters, value: string | boolean) => {
     setFilters(prev => ({ ...prev, [key]: value }));
@@ -104,7 +157,7 @@ const ProductsPage: React.FC = () => {
     event.stopPropagation();
     
     // Add with the first available size (most common approach for quick add)
-    const defaultSize = product.size[0];
+    const defaultSize = product.sizes[0];
     addToCart(product, defaultSize, 1);
     
     // Show success notification
@@ -181,8 +234,10 @@ const ProductsPage: React.FC = () => {
               value={filters.category}
               onChange={(e) => updateFilter('category', e.target.value)}
               className="filter-select"
+              aria-label="Filter by category"
             >
-              {categories.map(category => (
+              <option value="All">All Categories</option>
+              {filterOptions.categories.map((category: string) => (
                 <option key={category} value={category}>{category}</option>
               ))}
             </select>
@@ -195,8 +250,10 @@ const ProductsPage: React.FC = () => {
               value={filters.subcategory}
               onChange={(e) => updateFilter('subcategory', e.target.value)}
               className="filter-select"
+              aria-label="Filter by subcategory"
             >
-              {subcategories.map(subcategory => (
+              <option value="All">All Types</option>
+              {filterOptions.subcategories.map((subcategory: string) => (
                 <option key={subcategory} value={subcategory}>{subcategory}</option>
               ))}
             </select>
@@ -209,8 +266,10 @@ const ProductsPage: React.FC = () => {
               value={filters.color}
               onChange={(e) => updateFilter('color', e.target.value)}
               className="filter-select"
+              aria-label="Filter by color"
             >
-              {colors.map(color => (
+              <option value="All">All Colors</option>
+              {filterOptions.colors.map((color: string) => (
                 <option key={color} value={color}>{color}</option>
               ))}
             </select>
@@ -223,8 +282,10 @@ const ProductsPage: React.FC = () => {
               value={filters.material}
               onChange={(e) => updateFilter('material', e.target.value)}
               className="filter-select"
+              aria-label="Filter by material"
             >
-              {materials.map(material => (
+              <option value="All">All Materials</option>
+              {filterOptions.materials.map((material: string) => (
                 <option key={material} value={material}>{material}</option>
               ))}
             </select>
@@ -237,23 +298,11 @@ const ProductsPage: React.FC = () => {
               value={filters.size}
               onChange={(e) => updateFilter('size', e.target.value)}
               className="filter-select"
+              aria-label="Filter by size"
             >
-              {sizes.map(size => (
+              <option value="All">All Sizes</option>
+              {filterOptions.sizes.map((size: string) => (
                 <option key={size} value={size}>{size}</option>
-              ))}
-            </select>
-          </div>
-
-          {/* Variant Filter */}
-          <div className="filter-group">
-            <label>Variant</label>
-            <select
-              value={filters.variant}
-              onChange={(e) => updateFilter('variant', e.target.value)}
-              className="filter-select"
-            >
-              {variants.map(variant => (
-                <option key={variant} value={variant}>{variant}</option>
               ))}
             </select>
           </div>
@@ -265,8 +314,10 @@ const ProductsPage: React.FC = () => {
               value={JSON.stringify(filters.priceRange)}
               onChange={(e) => updateFilter('priceRange', JSON.parse(e.target.value))}
               className="filter-select"
+              aria-label="Filter by price range"
             >
-              {priceRanges.map(range => (
+              <option value={JSON.stringify({ min: 0, max: Infinity })}>All Prices</option>
+              {filterOptions.priceRanges.map((range: any) => (
                 <option key={range.label} value={JSON.stringify({ min: range.min, max: range.max })}>
                   {range.label}
                 </option>
@@ -309,44 +360,57 @@ const ProductsPage: React.FC = () => {
 
         {/* Products Section */}
         <div className="products-section">
-          {/* Controls */}
-          <div className="products-controls">
-            <div className="results-info">
-              <span>{filteredProducts.length} products found</span>
+          {loading ? (
+            <div className="loading-state">
+              <div className="loading-spinner"></div>
+              <p>Loading products...</p>
             </div>
+          ) : error ? (
+            <div className="error-state">
+              <p>Error loading products: {error}</p>
+              <button onClick={() => window.location.reload()}>Try Again</button>
+            </div>
+          ) : (
+            <>
+              {/* Controls */}
+              <div className="products-controls">
+                <div className="results-info">
+                  <span>{filteredProducts.length} products found</span>
+                </div>
 
-            <div className="controls-right">
-              {/* Sort Dropdown */}
-              <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value as 'name' | 'price-low' | 'price-high' | 'rating')}
-                className="sort-select"
-              >
-                <option value="name">Sort by Name</option>
-                <option value="price-low">Price: Low to High</option>
-                <option value="price-high">Price: High to Low</option>
-                <option value="rating">Rating</option>
-                <option value="newest">Newest</option>
-              </select>
+                <div className="controls-right">
+                  {/* Sort Dropdown */}
+                  <select
+                    value={sortBy}
+                    onChange={(e) => setSortBy(e.target.value as 'name' | 'price-low' | 'price-high' | 'rating')}
+                    className="sort-select"
+                    aria-label="Sort products"
+                  >
+                    <option value="name">Sort by Name</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="rating">Rating</option>
+                    <option value="newest">Newest</option>
+                  </select>
 
-              {/* View Mode Toggle */}
-              <div className="view-toggle">
-                <button
-                  className={`view-btn ${viewMode === 'grid' ? 'active' : ''}`}
-                  onClick={() => setViewMode('grid')}
-                >
-                  ⊞
-                </button>
-                <button
-                  className={`view-btn ${viewMode === 'list' ? 'active' : ''}`}
-                  onClick={() => setViewMode('list')}
-                  aria-label="List view"
-                >
-                  <MenuIcon size={18} />
-                </button>
+                  {/* View Mode Toggle */}
+                  <div className="view-toggle">
+                    <button
+                      className={`view-btn ${viewMode === 'grid' ? 'active' : ''}`}
+                      onClick={() => setViewMode('grid')}
+                    >
+                      ⊞
+                    </button>
+                    <button
+                      className={`view-btn ${viewMode === 'list' ? 'active' : ''}`}
+                      onClick={() => setViewMode('list')}
+                      aria-label="List view"
+                    >
+                      <MenuIcon size={18} />
+                    </button>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
 
           {/* Products Grid/List */}
           <div className={`products-grid ${viewMode}`}>
@@ -360,7 +424,7 @@ const ProductsPage: React.FC = () => {
                 <div key={product.id} className="product-card">
                   <Link href={`/products/${product.slug}`} className="product-link">
                     <div className="product-image-container">
-                      <Image src={product.image} alt={product.name} className="product-image" width={300} height={400} />
+                      <Image src={product.imageUrl || '/images/placeholder.jpg'} alt={product.name} className="product-image" width={300} height={400} />
                       {!product.inStock && <div className="out-of-stock-badge">Out of Stock</div>}
                       {product.originalPrice && (
                         <div className="sale-badge">Sale</div>
@@ -370,12 +434,12 @@ const ProductsPage: React.FC = () => {
                     <div className="product-info">
                       <h3 className="product-name">{product.name}</h3>
                       <div className="product-rating">
-                        {renderStars(product.rating)}
-                        <span className="rating-text">({product.reviews})</span>
+                        {renderStars(product.rating || 0)}
+                        <span className="rating-text">({product.reviews || 0})</span>
                       </div>
                       <div className="product-details">
-                        <span className="product-category">{product.category} • {product.color}</span>
-                        <span className="product-material">{product.material} • {product.variant}</span>
+                        <span className="product-category">{product.category} • {product.color || product.colors[0] || 'N/A'}</span>
+                        <span className="product-material">{product.material || product.materials[0] || 'N/A'} • {product.variant || 'Standard'}</span>
                       </div>
                       <div className="product-price">
                         {product.originalPrice && (
@@ -384,7 +448,7 @@ const ProductsPage: React.FC = () => {
                         <span className="current-price">KES {product.price.toLocaleString()}</span>
                       </div>
                       <div className="product-sizes">
-                        <span>Available in: {product.size.join(', ')}</span>
+                        <span>Available in: {product.sizes.join(', ')}</span>
                       </div>
                       {viewMode === 'list' && (
                         <p className="product-description">{product.description}</p>
@@ -404,6 +468,8 @@ const ProductsPage: React.FC = () => {
               ))
             )}
           </div>
+            </>
+          )}
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
-import { Product } from '@/data/products';
+import { Product } from '@/types/product';
 
 export interface CartItem {
   id: number;
@@ -10,9 +10,9 @@ export interface CartItem {
   image: string;
   price: number;
   size: string;
-  color: string;
+  color?: string;
   quantity: number;
-  variant: string;
+  variant?: string;
 }
 
 interface CartState {
@@ -61,7 +61,7 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
           id: product.id,
           name: product.name,
           slug: product.slug,
-          image: product.image,
+          image: product.imageUrl || '',
           price: product.price,
           size,
           color: product.color,

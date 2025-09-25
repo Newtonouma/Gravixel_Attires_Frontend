@@ -1,9 +1,9 @@
 .featured-section {
-    width: 100%;
-    padding: 4rem 4rem;
-    background: #fff;
-    font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
-  }
+  width: 100%;
+  padding: 0 4rem;
+  background: #fff;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+}
   
   .featured-header {
     display: flex;
@@ -14,6 +14,8 @@
     margin-left: auto;
     margin-right: auto;
     padding: 0 1rem;
+    margin-top: 0;
+    padding-top: 0;
   }
   
   .featured-title {
@@ -62,6 +64,9 @@
     height: 100%;
     margin: 0 0.5rem;
     transition: none;
+    max-width: 220px;
+    min-width: 180px;
+    width: 100%;
   }
 
   .product-link {
@@ -80,10 +85,12 @@
   .product-image {
     width: 100%;
     aspect-ratio: 3/4;
-    background-size: cover;
+    object-fit: contain;
+    background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
     border-radius: 5px 5px 0 0;
+    background-color: #f8f8f8;
   }
   
   .product-info {
@@ -109,6 +116,24 @@
     font-weight: 600;
     font-family: Arial, sans-serif;
     margin-top: auto;
+  }
+
+  /* Loading, Error, and Empty States */
+  .loading-state,
+  .error-state,
+  .empty-state {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    text-align: center;
+    color: #666;
+    font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+    font-size: 1.1rem;
+  }
+
+  .error-state {
+    color: #d32f2f;
   }
   
   /* Slick Carousel Custom Styles */
@@ -166,8 +191,17 @@
   
   /* Responsive Adjustments */
   @media (max-width: 768px) {
+    .product-card {
+      max-width: 160px;
+      min-width: 120px;
+    }
+    .product-image {
+      aspect-ratio: 3/4;
+      object-fit: contain;
+      background-size: contain;
+    }
     .featured-section {
-      padding: 3rem 1rem;
+      padding: 0 1rem;
     }
     
     .featured-header {

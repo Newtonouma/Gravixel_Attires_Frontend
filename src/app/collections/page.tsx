@@ -3,187 +3,54 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { TargetIcon, SparklesIcon, RulerIcon, PaletteIcon, StarIcon } from '@/components/Icons';
-import { products, Product } from '@/data/products';
+import { useProducts } from '@/hooks/useProducts';
+import { Product } from '@/types/product';
+import { featuredCollections, Collection } from '@/components/Collections/Collections';
 import './collections.css';
 
-interface Collection {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  productCount: number;
-  featured: boolean;
-  badge?: string;
-  filterFunction: (product: Product) => boolean;
-}
+// Collection interface now imported
+// Collection interface now imported
 
 const CollectionsPage: React.FC = () => {
   const [selectedFilter, setSelectedFilter] = useState<string>('all');
 
   // Define collections based on product data analysis
-  const collections: Collection[] = [
-    // Occasion-Based Collections
-    {
-      id: 'wedding-special',
-      title: 'Wedding & Special Occasions',
-      description: 'Perfect attire for your most memorable moments. From wedding suits to special event wear.',
-      image: '/images/FeaturedProducts/3.jpg',
-      featured: true,
-      badge: 'Popular',
-      filterFunction: (product) => 
-        product.tags.includes('wedding') || 
-        product.subcategory === 'Wedding' || 
-        product.category === 'Tuxedos' ||
-        product.tags.includes('special-occasion'),
-      productCount: 0
-    },
-    {
-      id: 'business-professional',
-      title: 'Business & Professional',
-      description: 'Command attention in the boardroom with our professional business suits.',
-      image: '/images/FeaturedProducts/1.jpg',
-      featured: true,
-      badge: 'Bestseller',
-      filterFunction: (product) => 
-        product.subcategory === 'Business' || 
-        product.tags.includes('business') || 
-        product.tags.includes('professional'),
-      productCount: 0
-    },
-    {
-      id: 'three-piece-collection',
-      title: 'Three Piece Collection',
-      description: 'Complete sophistication with matching jacket, trousers, and vest.',
-      image: '/images/FeaturedProducts/6.jpg',
-      featured: true,
-      filterFunction: (product) => 
-        product.variant === 'Three Piece' || 
-        product.tags.includes('three-piece'),
-      productCount: 0
-    },
+ 
+  const { products, loading, error } = useProducts();
 
-    // Style-Based Collections
-    {
-      id: 'slim-fit-collection',
-      title: 'Slim Fit Collection',
-      description: 'Modern, tailored silhouettes for the contemporary gentleman.',
-      image: '/images/FeaturedProducts/2.jpg',
-      featured: true,
-      filterFunction: (product) => 
-        product.subcategory === 'Slim Fit' || 
-        product.tags.includes('slim-fit') || 
-        product.tags.includes('modern'),
-      productCount: 0
-    },
-    {
-      id: 'classic-collection',
-      title: 'Classic Essentials',
-      description: 'Timeless pieces that never go out of style. Essential wardrobe foundations.',
-      image: '/images/FeaturedProducts/5.jpg',
-      featured: false,
-      filterFunction: (product) => 
-        product.subcategory === 'Classic' || 
-        product.tags.includes('classic') || 
-        product.tags.includes('essential') ||
-        product.tags.includes('timeless'),
-      productCount: 0
-    },
+  // Calculate product counts and dynamic images for each collection
+  const collectionsWithCounts = featuredCollections.map(collection => {
+    const productCount = products.filter(collection.filterFunction).length;
+    const match = products.find(collection.filterFunction);
+    const image = match?.imageUrls?.[0] || match?.imageUrl || collection.image;
+    return {
+      ...collection,
+      productCount,
+      image,
+    };
+  });
 
-    // Seasonal Collections
-    {
-      id: 'summer-collection',
-      title: 'Summer Collection',
-      description: 'Lightweight, breathable fabrics perfect for warm weather occasions.',
-      image: '/images/FeaturedProducts/4.jpg',
-      featured: false,
-      badge: 'Seasonal',
-      filterFunction: (product) => 
-        product.material === 'Linen' || 
-        product.tags.includes('summer') || 
-        product.tags.includes('lightweight') ||
-        product.subcategory === 'Summer',
-      productCount: 0
-    },
-    {
-      id: 'winter-collection',
-      title: 'Winter Collection',
-      description: 'Rich textures and warm materials for autumn and winter elegance.',
-      image: '/images/FeaturedProducts/2.jpg',
-      featured: false,
-      badge: 'Seasonal',
-      filterFunction: (product) => 
-        product.material === 'Tweed' || 
-        product.material === 'Velvet' || 
-        product.tags.includes('autumn') ||
-        product.tags.includes('winter'),
-      productCount: 0
-    },
+  if (loading) {
+    return (
+      <section className="collections-section">
+        <div className="collections-header">
+          <h2 className="collections-title">Curated Collections, Tailored for You</h2>
+        </div>
+        <div className="loading-state">Loading collections...</div>
+      </section>
+    );
+  }
 
-    // Color-Based Collections
-    {
-      id: 'neutral-tones',
-      title: 'Neutral Tones',
-      description: 'Versatile navy, charcoal, black, and grey suits for any occasion.',
-      image: '/images/FeaturedProducts/1.jpg',
-      featured: false,
-      filterFunction: (product) => 
-        ['Navy', 'Black', 'Charcoal', 'Grey', 'Light Grey'].includes(product.color),
-      productCount: 0
-    },
-    {
-      id: 'luxury-colors',
-      title: 'Luxury Colors',
-      description: 'Stand out with our premium colored suits and unique fabric choices.',
-      image: '/images/FeaturedProducts/5.jpg',
-      featured: false,
-      badge: 'Premium',
-      filterFunction: (product) => 
-        ['Burgundy', 'Ivory', 'Midnight Blue', 'Olive'].includes(product.color) ||
-        product.material === 'Velvet' ||
-        product.material === 'Silk Blend',
-      productCount: 0
-    },
-
-    // Price-Based Collections
-    {
-      id: 'premium-collection',
-      title: 'Premium Collection',
-      description: 'Our finest craftsmanship and materials in luxury suits and tuxedos.',
-      image: '/images/FeaturedProducts/3.jpg',
-      featured: true,
-      badge: 'Premium',
-      filterFunction: (product) => product.price >= 45000,
-      productCount: 0
-    },
-    {
-      id: 'essential-collection',
-      title: 'Essential Collection',
-      description: 'Quality suits at accessible prices without compromising on style.',
-      image: '/images/FeaturedProducts/1.jpg',
-      featured: false,
-      badge: 'Value',
-      filterFunction: (product) => product.price >= 30000 && product.price < 40000,
-      productCount: 0
-    },
-
-    // Special Collections
-    {
-      id: 'bestsellers',
-      title: 'Bestsellers',
-      description: 'Our most popular suits loved by customers. Proven favorites.',
-      image: '/images/FeaturedProducts/1.jpg',
-      featured: true,
-      badge: 'Bestseller',
-      filterFunction: (product) => product.featured || product.reviews > 100,
-      productCount: 0
-    }
-  ];
-
-  // Calculate product counts for each collection
-  const collectionsWithCounts = collections.map(collection => ({
-    ...collection,
-    productCount: products.filter(collection.filterFunction).length
-  }));
+  if (error) {
+    return (
+      <section className="collections-section">
+        <div className="collections-header">
+          <h2 className="collections-title">Curated Collections, Tailored for You</h2>
+        </div>
+        <div className="error-state">Error loading collections: {error}</div>
+      </section>
+    );
+  }
 
   // Filter collections based on selected filter
   const filteredCollections = collectionsWithCounts.filter(collection => {
@@ -257,32 +124,23 @@ const CollectionsPage: React.FC = () => {
         {/* Collections Grid */}
         <div className="collections-grid">
           {filteredCollections.map(collection => (
-            <div key={collection.id} className="collection-card">
+            <Link href={`/collections/${collection.id}`} className="collection-card collection-link-full">
               <div className="collection-image-container">
                 <img 
-                  src={collection.image} 
+                  src={collection.image}
                   alt={collection.title}
                   className="collection-image"
                 />
-                <div className="collection-overlay">
-                  <Link 
-                    href={`/collections/${collection.id}`} 
-                    className="collection-link"
-                  >
-                    View Collection
-                  </Link>
-                </div>
+                <div className="collection-overlay"></div>
                 {collection.badge && (
                   <div className={`collection-badge ${collection.badge.toLowerCase()}`}>
                     {collection.badge}
                   </div>
                 )}
               </div>
-              
               <div className="collection-content">
                 <h3 className="collection-title">{collection.title}</h3>
                 <p className="collection-description">{collection.description}</p>
-                
                 <div className="collection-meta">
                   <span className="collection-count">
                     {collection.productCount} {collection.productCount === 1 ? 'Product' : 'Products'}
@@ -292,7 +150,7 @@ const CollectionsPage: React.FC = () => {
                   )}
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 

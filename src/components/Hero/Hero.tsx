@@ -18,15 +18,15 @@ interface SlideData {
 const slideData: SlideData[] = [
   {
     id: 1,
-    image: '/images/1.jpg',
+    image: '/images/heros/1.jpg',
     title: 'Elegant Suits for Every Occasion',
     description: 'Discover our premium collection of handcrafted suits that combine timeless elegance with modern sophistication.',
     ctaText: 'Shop Collection',
-    ctaLink: '/collection'
+    ctaLink: '/collections'
   },
   {
     id: 2,
-    image: '/images/2.jpg',
+    image: '/images/heros/2.jpg',
     title: 'Custom Tailored Excellence',
     description: 'Experience the perfect fit with our bespoke tailoring service. Every suit is crafted to your exact measurements.',
     ctaText: 'Book Consultation',
@@ -34,19 +34,19 @@ const slideData: SlideData[] = [
   },
   {
     id: 3,
-    image: '/images/3.jpg',
+    image: '/images/heros/3.jpg',
     title: 'Wedding & Special Events',
     description: 'Make your special day unforgettable with our exclusive wedding and formal event collections.',
     ctaText: 'View Wedding Collection',
-    ctaLink: '/wedding'
+    ctaLink: '/collections'
   },
   {
     id: 4,
-    image: '/images/4.jpg',
+    image: '/images/heros/4.jpg',
     title: 'Professional Business Attire',
     description: 'Command attention in the boardroom with our professional business suits designed for success.',
     ctaText: 'Business Collection',
-    ctaLink: '/business'
+    ctaLink: '/collections'
   }
 ];
 

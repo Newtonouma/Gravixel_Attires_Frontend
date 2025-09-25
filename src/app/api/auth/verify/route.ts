@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import jwt from 'jsonwebtoken';
-import { users } from '@/data/users';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
+const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost:3001';
 
 export async function GET(request: NextRequest) {
   try {
@@ -15,29 +13,22 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const token = authHeader.substring(7);
+    // Forward the request to the backend with the authorization header
+    const response = await fetch(`${BACKEND_URL}/auth/verify`, {
+      method: 'GET',
+      headers: {
+        'Authorization': authHeader,
+        'Content-Type': 'application/json',
+      },
+    });
 
-    try {
-      const decoded = jwt.verify(token, JWT_SECRET) as any;
-      const user = users.find(u => u.id === decoded.userId);
+    const data = await response.json();
 
-      if (!user) {
-        return NextResponse.json(
-          { message: 'User not found' },
-          { status: 404 }
-        );
-      }
-
-      // Remove password from response
-      const { password: _, ...userWithoutPassword } = user;
-
-      return NextResponse.json(userWithoutPassword);
-    } catch (jwtError) {
-      return NextResponse.json(
-        { message: 'Invalid token' },
-        { status: 401 }
-      );
+    if (!response.ok) {
+      return NextResponse.json(data, { status: response.status });
     }
+
+    return NextResponse.json(data);
   } catch (error) {
     console.error('Token verification error:', error);
     return NextResponse.json(

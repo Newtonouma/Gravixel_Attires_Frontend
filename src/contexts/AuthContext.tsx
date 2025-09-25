@@ -1,7 +1,9 @@
 'use client';
 
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
-import { User, AuthState, LoginCredentials, RegisterCredentials, ApiError } from '@/types/auth';
+import { User, AuthState, LoginCredentials, RegisterCredentials } from '@/types/auth';
+import { apiClient } from '@/lib/api';
+import { checkAndClearExpiredTokens, isTokenExpired } from '@/utils/clearTokens';
 
 interface AuthContextType extends AuthState {
   login: (credentials: LoginCredentials) => Promise<void>;
@@ -47,7 +49,7 @@ const authReducer = (state: AuthState, action: AuthAction): AuthState => {
 
 const initialState: AuthState = {
   user: null,
-  isLoading: true,
+  isLoading: false, // Start as false to allow immediate browsing
   isAuthenticated: false,
 };
 
@@ -56,32 +58,36 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   // Check for existing token on mount
   useEffect(() => {
+    // First, check and clear any expired tokens
+    checkAndClearExpiredTokens();
+    
     const token = localStorage.getItem('auth_token');
-    if (token) {
+    if (token && !isTokenExpired(token)) {
       // Verify token and get user data
-      verifyToken(token);
+      verifyToken();
     } else {
+      // Allow unauthenticated browsing - don't show loading state forever
       dispatch({ type: 'AUTH_FAILURE' });
     }
   }, []);
 
-  const verifyToken = async (token: string) => {
+  const verifyToken = async () => {
     try {
-      const response = await fetch('/api/auth/verify', {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      });
-
-      if (response.ok) {
-        const user = await response.json();
-        dispatch({ type: 'AUTH_SUCCESS', payload: user });
-      } else {
-        localStorage.removeItem('auth_token');
-        localStorage.removeItem('refresh_token');
-        dispatch({ type: 'AUTH_FAILURE' });
-      }
+      const user = await apiClient.verifyToken();
+      dispatch({ type: 'AUTH_SUCCESS', payload: user });
     } catch (error) {
+      console.error('Token verification failed:', error);
+      // Try refresh token first
+      const refreshTokenValue = localStorage.getItem('refresh_token');
+      if (refreshTokenValue) {
+        try {
+          await refreshToken();
+          return;
+        } catch (refreshError) {
+          console.error('Token refresh also failed:', refreshError);
+        }
+      }
+      // Clear expired/invalid tokens
       localStorage.removeItem('auth_token');
       localStorage.removeItem('refresh_token');
       dispatch({ type: 'AUTH_FAILURE' });
@@ -92,24 +98,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     dispatch({ type: 'AUTH_START' });
     
     try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(credentials),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Login failed');
-      }
-
+      const data = await apiClient.login(credentials);
       localStorage.setItem('auth_token', data.token);
       localStorage.setItem('refresh_token', data.refreshToken);
       dispatch({ type: 'AUTH_SUCCESS', payload: data.user });
     } catch (error) {
+      console.error('Login failed:', error);
       dispatch({ type: 'AUTH_FAILURE' });
       throw error;
     }
@@ -119,24 +113,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     dispatch({ type: 'AUTH_START' });
     
     try {
-      const response = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(credentials),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Registration failed');
-      }
-
+      const data = await apiClient.register(credentials);
       localStorage.setItem('auth_token', data.token);
       localStorage.setItem('refresh_token', data.refreshToken);
       dispatch({ type: 'AUTH_SUCCESS', payload: data.user });
     } catch (error) {
+      console.error('Registration failed:', error);
       dispatch({ type: 'AUTH_FAILURE' });
       throw error;
     }
@@ -156,25 +138,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
 
     try {
-      const response = await fetch('/api/auth/refresh', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ refreshToken: token }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        logout();
-        return;
-      }
-
+      const data = await apiClient.refreshToken(token);
       localStorage.setItem('auth_token', data.token);
       localStorage.setItem('refresh_token', data.refreshToken);
       dispatch({ type: 'AUTH_SUCCESS', payload: data.user });
     } catch (error) {
+      console.error('Token refresh failed:', error);
       logout();
     }
   };

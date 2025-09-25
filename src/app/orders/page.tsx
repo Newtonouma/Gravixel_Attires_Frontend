@@ -1,33 +1,17 @@
 'use client';
 
+import React, { useEffect, useState } from 'react';
 import ProtectedRoute from '@/components/ProtectedRoute';
 import { useAuth } from '@/contexts/AuthContext';
 import { Icons } from '@/components/Icons';
+import { apiClient } from '@/lib/api';
 import '../auth/auth.css';
-
-const mockUserOrders = [
-  {
-    id: 'ORD-001',
-    items: [
-      { name: 'Classic Navy Suit', quantity: 1, price: 35900 }
-    ],
-    total: 35900,
-    status: 'completed',
-    date: '2024-12-01',
-  },
-  {
-    id: 'ORD-002',
-    items: [
-      { name: 'Charcoal Slim Fit', quantity: 1, price: 38900 }
-    ],
-    total: 38900,
-    status: 'processing',
-    date: '2024-12-02',
-  },
-];
 
 export default function OrdersPage() {
   const { user } = useAuth();
+  const [orders, setOrders] = useState<any[] | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const formatCurrency = (amount: number) => {
     return `KES ${amount.toLocaleString()}`;
@@ -42,6 +26,35 @@ export default function OrdersPage() {
     }
   };
 
+  useEffect(() => {
+    let mounted = true;
+    const fetchOrders = async () => {
+      if (!user) return;
+      setLoading(true);
+      setError(null);
+      try {
+        const allOrders = await apiClient.getOrders();
+        // Backend returns orders with userId set to the user UUID. Filter by user.id.
+        const userOrders = (allOrders || []).filter((o: any) => {
+          // support both userId as string and nested user object
+          if (!o) return false;
+          if (o.userId) return String(o.userId) === String(user.id) || String(o.userId) === user.email;
+          if (o.user && o.user.id) return String(o.user.id) === String(user.id) || String(o.user.id) === user.email;
+          // fallback: match by email
+          return String(o.email) === String(user.email);
+        });
+        if (mounted) setOrders(userOrders);
+      } catch (e: any) {
+        console.error('Failed to fetch orders:', e);
+        if (mounted) setError(e.message || 'Failed to fetch orders');
+      } finally {
+        if (mounted) setLoading(false);
+      }
+    };
+    fetchOrders();
+    return () => { mounted = false; };
+  }, [user]);
+
   return (
     <ProtectedRoute>
       <div style={{ minHeight: '100vh', background: '#f8fafc', paddingTop: '40px' }}>
@@ -53,7 +66,18 @@ export default function OrdersPage() {
               <p>Track and manage your orders</p>
             </div>
 
-            {mockUserOrders.length === 0 ? (
+            {loading ? (
+              <div style={{ textAlign: 'center', padding: '40px' }}>
+                <Icons.PackageIcon size={60} color="#ccc" />
+                <h3 style={{ color: '#666', marginTop: '20px' }}>Loading your orders...</h3>
+              </div>
+            ) : error ? (
+              <div style={{ textAlign: 'center', padding: '40px' }}>
+                <Icons.PackageIcon size={60} color="#ccc" />
+                <h3 style={{ color: '#666', marginTop: '20px' }}>Could not load orders</h3>
+                <p style={{ color: '#999' }}>{error}</p>
+              </div>
+            ) : !orders || orders.length === 0 ? (
               <div style={{ textAlign: 'center', padding: '40px' }}>
                 <Icons.PackageIcon size={60} color="#ccc" />
                 <h3 style={{ color: '#666', marginTop: '20px' }}>No orders yet</h3>
@@ -61,12 +85,12 @@ export default function OrdersPage() {
               </div>
             ) : (
               <div className="orders-list">
-                {mockUserOrders.map((order) => (
+                {orders.map((order) => (
                   <div key={order.id} className="order-card">
                     <div className="order-header">
                       <div className="order-info">
                         <h3>Order {order.id}</h3>
-                        <p>{new Date(order.date).toLocaleDateString()}</p>
+                        <p>{new Date(order.createdAt || order.date).toLocaleDateString()}</p>
                       </div>
                       <div className="order-status">
                         <span 
@@ -87,7 +111,7 @@ export default function OrdersPage() {
                     </div>
                     
                     <div className="order-items">
-                      {order.items.map((item, index) => (
+                      {((order.products || order.items) as any[]).map((item, index) => (
                         <div key={index} className="order-item">
                           <div className="item-details">
                             <span className="item-name">{item.name}</span>
@@ -102,7 +126,7 @@ export default function OrdersPage() {
                     
                     <div className="order-footer">
                       <div className="order-total">
-                        <strong>Total: {formatCurrency(order.total)}</strong>
+                        <strong>Total: {formatCurrency(order.total || order.subtotal || order.products.reduce((s:any,p:any)=>s + (p.price * (p.quantity||1)),0))}</strong>
                       </div>
                       <div className="order-actions">
                         <button className="order-action-btn">

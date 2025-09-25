@@ -8,11 +8,11 @@ import 'slick-carousel/slick/slick-theme.css';
 import './OutfitInspiration.css';
 
 const images = [
-  '/images/FeaturedProducts/1.jpg',
-  '/images/FeaturedProducts/2.jpg',
-  '/images/FeaturedProducts/3.jpg',
-  '/images/FeaturedProducts/4.jpg',
-  '/images/FeaturedProducts/5.jpg',
+  '/images/inspirations/1.jpg',
+  '/images/inspirations/2.jpg',
+  '/images/inspirations/3.jpg',
+  '/images/inspirations/4.jpg',
+  '/images/inspirations/5.jpg',
 ];
 
 const sliderSettings = {

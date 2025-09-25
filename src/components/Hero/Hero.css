@@ -1,8 +1,8 @@
 .hero-section {
   position: relative;
   width: 100%;
-  height: 100vh;
-  min-height: 600px;
+  height: 70vh;
+  min-height: 400px;
   overflow: hidden;
   font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
   background: #fff;
@@ -18,8 +18,8 @@
 }
 
 .hero-slide {
-  height: 100vh;
-  min-height: 600px;
+  height: 60vh;
+  min-height: 320px;
   position: relative;
 }
 
@@ -27,9 +27,10 @@
   width: 100%;
   height: 100%;
   background-size: cover;
-  background-position: center;
+  background-position: center center;
   background-repeat: no-repeat;
   position: relative;
+  background-image: url('/images/placeholder.jpg'); /* fallback */
 }
 
 .hero-slide-overlay {
@@ -104,9 +105,9 @@
 }
 
 /* Slick Carousel Custom Styles */
+
 .hero-slider .slick-dots {
-  bottom: 30px;
-  z-index: 10;
+  display: none !important;
 }
 
 .hero-slider .slick-dots li button:before {
@@ -166,55 +167,64 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  .hero-section {
+    height: 50vh;
+    min-height: 250px;
+  }
+  .hero-slide {
+    height: 50vh;
+    min-height: 250px;
+  }
   .hero-slide-background {
-    background-position: right center;
-    background-size: 300% auto;
+    background-position: center center;
+    background-size: 200% auto;
   }
-  
   .hero-title {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
   }
-  
   .hero-description {
-    font-size: 1.1rem;
-    margin-bottom: 2rem;
-  }
-  
-  .hero-cta {
-    padding: 0.875rem 2rem;
     font-size: 1rem;
+    margin-bottom: 1.5rem;
   }
-  
+  .hero-cta {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.95rem;
+  }
   .hero-content {
-    padding: 0 2rem 3rem 2rem;
+    padding: 0 1.25rem 2rem 1.25rem;
+    max-width: 95vw;
   }
-  
   .hero-slider .slick-prev,
   .hero-slider .slick-next {
     display: none !important;
   }
-  
   .hero-slider .slick-dots {
-    bottom: 20px;
+    bottom: 12px;
   }
 }
 
 @media (max-width: 480px) {
+  .hero-section {
+    height: 40vh;
+    min-height: 180px;
+  }
+  .hero-slide {
+    height: 40vh;
+    min-height: 180px;
+  }
   .hero-slide-background {
-    background-position: right center;
-    background-size: 300% auto;
+    background-position: center center;
+    background-size: 250% auto;
   }
-  
   .hero-title {
-    font-size: 2rem;
+    font-size: 1.3rem;
   }
-  
   .hero-description {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
-  
   .hero-content {
-    padding: 0 1.5rem 2.5rem 1.5rem;
+    padding: 0 0.75rem 1.5rem 0.75rem;
+    max-width: 100vw;
   }
-} 
+}

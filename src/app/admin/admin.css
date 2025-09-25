@@ -162,14 +162,14 @@
 }
 
 /* Buttons */
-.add-btn, .view-all-btn {
-  display: flex;
+.add-btn, .view-all-btn, .download-btn {
+  display: inline-flex;
   align-items: center;
   gap: 8px;
   background: #2C5F2D;
   color: white;
   border: none;
-  padding: 10px 16px;
+  padding: 6px 12px;
   border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
@@ -178,9 +178,10 @@
   visibility: visible;
   position: relative;
   z-index: 10;
+  height: 36px; /* enforce uniform control height */
 }
 
-.add-btn:hover, .view-all-btn:hover {
+.add-btn:hover, .view-all-btn:hover, .download-btn:hover {
   background: #254d26;
   transform: translateY(-1px);
 }
@@ -189,6 +190,10 @@
   background: transparent;
   color: #2C5F2D;
   border: 2px solid #2C5F2D;
+  height: 36px; /* ensure same height as other header controls */
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
 }
 
 .view-all-btn:hover {
@@ -396,34 +401,54 @@
   z-index: 10;
 }
 
+/* Force SVG icons to be visible */
+.edit-btn svg, .delete-btn svg, .view-btn svg {
+  display: block !important;
+  width: 16px !important;
+  height: 16px !important;
+  stroke: currentColor !important;
+  fill: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
 .edit-btn {
-  background: #f3f4f6;
-  color: #6b7280;
+  background: #3b82f6 !important;
+  color: #ffffff !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .edit-btn:hover {
-  background: #e5e7eb;
-  color: #374151;
+  background: #2563eb !important;
+  color: #ffffff !important;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 .delete-btn {
-  background: #fee2e2;
-  color: #dc2626;
+  background: #ef4444 !important;
+  color: #ffffff !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .delete-btn:hover {
-  background: #fecaca;
-  color: #b91c1c;
+  background: #dc2626 !important;
+  color: #ffffff !important;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 .view-btn {
-  background: #dbeafe;
-  color: #2563eb;
+  background: #ecfdf5;
+  color: #059669;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .view-btn:hover {
-  background: #bfdbfe;
-  color: #1d4ed8;
+  background: #d1fae5;
+  color: #047857;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 /* User specific styles */
@@ -624,4 +649,323 @@
   .products-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* Modal styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  max-width: 820px; /* slightly wider modal */
+  width: 100%;
+  max-height: 95vh; /* Increased from 90vh */
+  overflow-y: auto;
+  position: relative;
+}
+
+/* For laptops and larger screens */
+@media (min-width: 1024px) {
+  .modal-content {
+    max-width: 800px; /* Reduced from 1100px */
+    max-height: 90vh;
+    width: 70vw; /* Reduced from 90vw */
+  }
+}
+
+/* For very large screens */
+@media (min-width: 1440px) {
+  .modal-content {
+    max-width: 900px; /* Reduced from 1200px */
+    width: 60vw; /* Reduced from 80vw */
+  }
+}
+
+.modal-header {
+  padding: 20px 24px 0 24px;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #6b7280;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.modal-close:hover {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.modal-body {
+  padding: 0 32px 32px 32px; /* Increased padding for better spacing */
+}
+
+.modal-input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  margin: 6px 0 10px 0;
+}
+
+.order-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.order-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.order-actions-row .primary {
+  background: #2C5F2D;
+  color: white;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.order-actions-row .save-btn {
+  background: #1f2937;
+  color: white;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.order-actions-row button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ProductForm styles within modal */
+.product-form-modal {
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+}
+
+/* Checkbox field styling */
+.checkbox-field {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 12px 0;
+  max-width: 100%;
+}
+
+.checkbox-field input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #8b5cf6;
+  cursor: pointer;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.checkbox-field label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  line-height: 1.4;
+  flex: 1;
+}
+
+/* Checkbox label styling for ProductForm */
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #8b5cf6;
+  cursor: pointer;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.checkbox-text {
+  font-size: 14px;
+  color: #374151;
+  user-select: none;
+}
+
+.field-hint {
+  font-size: 12px;
+  color: #6b7280;
+  font-style: italic;
+  margin-top: 2px;
+  display: block;
+}
+
+/* Compact checkbox group layout */
+.checkbox-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; /* 3 columns for isActive, inStock, featured */
+  gap: 16px;
+  margin: 16px 0;
+}
+
+.checkbox-item {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Responsive: stack checkboxes on smaller screens */
+@media (max-width: 900px) {
+  .checkbox-group {
+    grid-template-columns: 1fr 1fr; /* 2 columns on medium screens */
+    gap: 12px;
+  }
+}
+
+@media (max-width: 640px) {
+  .checkbox-group {
+    grid-template-columns: 1fr; /* 1 column on small screens */
+    gap: 12px;
+  }
+}
+
+.product-form-modal h2 {
+  display: none; /* Hide the form title since modal header already has one */
+}
+
+/* Two-column layout for larger screens */
+@media (min-width: 1024px) {
+  .product-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+  
+  .product-form-full-width {
+    grid-column: 1 / -1;
+  }
+  
+  .product-form-buttons {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid #e5e7eb;
+  }
+}
+
+/* Mobile and tablet layout */
+@media (max-width: 1023px) {
+  .product-form-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .product-form-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid #e5e7eb;
+  }
+  
+  .product-form-buttons button {
+    width: 100%;
+  }
+  
+  .modal-content {
+    max-width: 95vw;
+    margin: 10px;
+  }
+  
+  .modal-body {
+    padding: 0 20px 20px 20px;
+  }
+}
+
+/* Enhanced form field styling */
+.product-form-field {
+  margin-bottom: 20px;
+}
+
+.product-form-field label {
+  display: block;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.product-form-field input,
+.product-form-field textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.product-form-field input:focus,
+.product-form-field textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.product-form-field textarea {
+  resize: vertical;
+  min-height: 80px;
 }

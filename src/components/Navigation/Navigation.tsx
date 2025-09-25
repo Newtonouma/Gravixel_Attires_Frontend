@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useCart } from '@/contexts/CartContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { Icons } from '@/components/Icons';
+import { featuredCollections } from '@/components/Collections/Collections';
 import './Navigation.css';
 
 interface DropdownItem {
@@ -58,12 +59,11 @@ const Navigation: React.FC = () => {
       title: "Collections",
       dropdown: [
         { title: "View All Collections", href: "/collections", description: "Browse our complete collection range" },
-        { title: "Wedding & Special Occasions", href: "/collections/wedding-special", description: "Perfect attire for memorable moments" },
-        { title: "Business & Professional", href: "/collections/business-professional", description: "Command attention in the boardroom" },
-        { title: "Three Piece Collection", href: "/collections/three-piece-collection", description: "Complete sophistication with matching pieces" },
-        { title: "Slim Fit Collection", href: "/collections/slim-fit-collection", description: "Modern, tailored silhouettes" },
-        { title: "Premium Collection", href: "/collections/premium-collection", description: "Our finest craftsmanship and materials" },
-        { title: "Bestsellers", href: "/collections/bestsellers", description: "Our most popular suits loved by customers" }
+        ...featuredCollections.map(c => ({
+          title: c.title,
+          href: `/collections/${c.id}`,
+          description: c.description || undefined
+        }))
       ]
     },
     {
@@ -272,15 +272,28 @@ const Navigation: React.FC = () => {
               )}
             </div>
           ) : (
-            <div className="nav-auth-buttons">
-              <Link href="/auth/login" className="nav-auth-btn login">
-                <Icons.LoginIcon size={16} />
-                Login
-              </Link>
-              <Link href="/auth/register" className="nav-auth-btn register">
+            <div className="nav-auth-menu">
+              <button 
+                className="nav-auth-btn account"
+                onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                aria-label="Account menu"
+              >
                 <Icons.UserIcon size={16} />
-                Sign Up
-              </Link>
+                Account
+                <Icons.MenuIcon size={12} className={`user-menu-arrow ${isUserMenuOpen ? 'active' : ''}`} />
+              </button>
+              {isUserMenuOpen && (
+                <div className="user-dropdown">
+                  <Link href="/auth/login" className="user-dropdown-item" onClick={() => setIsUserMenuOpen(false)}>
+                    <Icons.LoginIcon size={16} />
+                    Login
+                  </Link>
+                  <Link href="/auth/register" className="user-dropdown-item" onClick={() => setIsUserMenuOpen(false)}>
+                    <Icons.UserIcon size={16} />
+                    Sign Up
+                  </Link>
+                </div>
+              )}
             </div>
           )}
         </div>

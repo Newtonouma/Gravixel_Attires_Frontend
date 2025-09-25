@@ -2,6 +2,8 @@ import Link from 'next/link';
 import './not-found.css';
 
 export default function NotFound() {
+  console.log('NotFound component rendered - this means notFound() was called');
+  
   return (
     <div className="not-found-container">
       <h1 className="not-found-title">404</h1>

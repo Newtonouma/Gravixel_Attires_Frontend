@@ -1,59 +1,27 @@
 import { NextRequest, NextResponse } from 'next/server';
-import jwt from 'jsonwebtoken';
-import { users } from '@/data/users';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
-const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || 'your-refresh-secret-key';
+const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost:3001';
 
 export async function POST(request: NextRequest) {
   try {
-    const { refreshToken } = await request.json();
+    const body = await request.json();
 
-    if (!refreshToken) {
-      return NextResponse.json(
-        { message: 'Refresh token is required' },
-        { status: 400 }
-      );
+    // Forward the request to the backend
+    const response = await fetch(`${BACKEND_URL}/auth/refresh`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      return NextResponse.json(data, { status: response.status });
     }
 
-    try {
-      const decoded = jwt.verify(refreshToken, JWT_REFRESH_SECRET) as any;
-      const user = users.find(u => u.id === decoded.userId);
-
-      if (!user) {
-        return NextResponse.json(
-          { message: 'User not found' },
-          { status: 404 }
-        );
-      }
-
-      // Generate new tokens
-      const newToken = jwt.sign(
-        { userId: user.id, email: user.email, role: user.role },
-        JWT_SECRET,
-        { expiresIn: '15m' }
-      );
-
-      const newRefreshToken = jwt.sign(
-        { userId: user.id },
-        JWT_REFRESH_SECRET,
-        { expiresIn: '7d' }
-      );
-
-      // Remove password from response
-      const { password: _, ...userWithoutPassword } = user;
-
-      return NextResponse.json({
-        user: userWithoutPassword,
-        token: newToken,
-        refreshToken: newRefreshToken,
-      });
-    } catch (jwtError) {
-      return NextResponse.json(
-        { message: 'Invalid refresh token' },
-        { status: 401 }
-      );
-    }
+    return NextResponse.json(data);
   } catch (error) {
     console.error('Token refresh error:', error);
     return NextResponse.json(

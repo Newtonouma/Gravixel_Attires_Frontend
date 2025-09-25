@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from '@/contexts/AuthContext';
 import { Icons } from '@/components/Icons';
@@ -13,9 +13,21 @@ export default function LoginPage() {
   });
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [sessionMessage, setSessionMessage] = useState('');
   
   const { login } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  // Handle redirect reasons
+  useEffect(() => {
+    const reason = searchParams.get('reason');
+    if (reason === 'session_expired') {
+      setSessionMessage('Your session has expired. Please log in again.');
+    } else if (reason === 'invalid_token') {
+      setSessionMessage('Your session is invalid. Please log in again.');
+    }
+  }, [searchParams]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData(prev => ({
@@ -23,12 +35,14 @@ export default function LoginPage() {
       [e.target.name]: e.target.value,
     }));
     setError('');
+    setSessionMessage(''); // Clear session message when user starts typing
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setError('');
+    setSessionMessage('');
 
     try {
       await login(formData);
@@ -48,6 +62,13 @@ export default function LoginPage() {
           <h1>Welcome Back</h1>
           <p>Sign in to your account</p>
         </div>
+
+        {sessionMessage && (
+          <div className="info-message">
+            <Icons.AlertIcon />
+            {sessionMessage}
+          </div>
+        )}
 
         {error && (
           <div className="error-message">

@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, use } from 'react';
-import { products } from '@/data/products';
+import { useState, useEffect, useCallback } from 'react';
+import { useProducts } from '@/hooks/useProducts';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -10,27 +10,124 @@ import { useCart } from '@/contexts/CartContext';
 import './product.css';
 
 interface ProductPageProps {
-  params: Promise<{
+  params: {
     slug: string;
-  }>;
+  };
 }
 
 export default function ProductPage({ params }: ProductPageProps) {
-  const { slug } = use(params);
-  const product = products.find(p => p.slug === slug);
+  const { slug } = params;
+  const { products, loading, refreshProducts } = useProducts();
   const { addToCart } = useCart();
 
-  if (!product) {
-    notFound();
-  }
-
-  const [selectedSize, setSelectedSize] = useState(product.size[0]);
+  // Initialize state with default values
+  const [selectedSize, setSelectedSize] = useState('');
   const [quantity, setQuantity] = useState(1);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Use the product's images array, fallback to single image if not available
-  const productImages = product.images || [product.image];
+  console.log('ProductPage - Looking for slug:', slug);
+  console.log('ProductPage - Available products:', products.length);
+  console.log('ProductPage - Product slugs:', products.map(p => ({ id: p.id, name: p.name, slug: p.slug })));
+  
+  const product = products.find(p => p.slug === slug);
+  console.log('ProductPage - Found product:', product ? `${product.name} (ID: ${product.id})` : 'Not found');
+
+  // Update selectedSize when product changes
+  useEffect(() => {
+    if (product && product.sizes && product.sizes.length > 0) {
+      setSelectedSize(product.sizes[0]);
+    }
+  }, [product]);
+
+  // Manual fetch for debugging
+  const handleManualFetch = () => {
+    console.log('Manual fetch triggered');
+    refreshProducts();
+  };
+
+  // Auto-trigger fetch if no products and not loading
+  useEffect(() => {
+    console.log('ProductPage useEffect - products.length:', products.length, 'loading:', loading);
+    if (products.length === 0 && !loading) {
+      console.log('ProductPage - Auto-triggering fetch because no products loaded');
+      refreshProducts();
+    }
+  }, [products.length, loading, refreshProducts]);
+
+  // Use the product's imageUrls array, fallback to imageUrl, or default image
+  const productImages = product ? (
+    product.imageUrls && product.imageUrls.length > 0 
+      ? product.imageUrls 
+      : product.imageUrl 
+        ? [product.imageUrl] 
+        : ['/images/placeholder.jpg']
+  ) : ['/images/placeholder.jpg'];
+
+  console.log('Product images to display:', productImages);
+  console.log('Active image index:', activeImageIndex);
+
+  // Image navigation functions
+  const goToPrevImage = useCallback(() => {
+    setActiveImageIndex((prev) => 
+      prev === 0 ? productImages.length - 1 : prev - 1
+    );
+  }, [productImages.length]);
+
+  const goToNextImage = useCallback(() => {
+    setActiveImageIndex((prev) => 
+      prev === productImages.length - 1 ? 0 : prev + 1
+    );
+  }, [productImages.length]);
+
+  const openModal = useCallback(() => {
+    setIsModalOpen(true);
+  }, []);
+
+  const closeModal = useCallback(() => {
+    setIsModalOpen(false);
+  }, []);
+
+  // Keyboard navigation for modal
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if (isModalOpen) {
+        if (e.key === 'ArrowLeft') goToPrevImage();
+        if (e.key === 'ArrowRight') goToNextImage();
+        if (e.key === 'Escape') closeModal();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [isModalOpen, goToPrevImage, goToNextImage, closeModal]);
+
+  // Show loading state while products are being fetched
+  if (loading) {
+    return (
+      <div className="product-page-loading">
+        <div className="loading-spinner">Loading product...</div>
+      </div>
+    );
+  }
+
+  if (!product) {
+    return (
+      <div className="product-page-error">
+        <h2>Product not found</h2>
+        <p>The product with slug "{slug}" could not be found.</p>
+        <button onClick={handleManualFetch} style={{marginTop: '10px', padding: '10px 20px', backgroundColor: '#007bff', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer'}}>
+          Try Manual Fetch
+        </button>
+        <Link href="/products">
+          <button style={{marginTop: '10px', marginLeft: '10px', padding: '10px 20px', backgroundColor: '#6c757d', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer'}}>
+            Back to Products
+          </button>
+        </Link>
+      </div>
+    );
+  }
 
   const handleAddToCart = async () => {
     setIsAddingToCart(true);
@@ -61,12 +158,18 @@ export default function ProductPage({ params }: ProductPageProps) {
   };
 
   const handleOrderNow = () => {
-    // Add to cart first
-    addToCart(product, selectedSize, quantity);
-    // Then redirect to cart page
-    window.location.href = '/cart';
+    // Redirect to order form with selected product and options
+    const orderProduct = {
+      ...product,
+      size: selectedSize,
+      quantity,
+    };
+    // Store order product in sessionStorage for retrieval in order form
+    window.sessionStorage.setItem('orderProduct', JSON.stringify(orderProduct));
+    window.location.href = '/order';
   };
 
+  // Calculate related products from the loaded products
   const relatedProducts = products
     .filter(p => p.id !== product.id && p.category === product.category)
     .slice(0, 4);
@@ -84,14 +187,43 @@ export default function ProductPage({ params }: ProductPageProps) {
         {/* Product Images */}
         <div className="product-images">
           <div className="main-image">
+            {/* Navigation Arrows */}
+            {productImages.length > 1 && (
+              <>
+                <button 
+                  className="image-nav-arrow prev-arrow" 
+                  onClick={goToPrevImage}
+                  aria-label="Previous image"
+                >
+                  &#8249;
+                </button>
+                <button 
+                  className="image-nav-arrow next-arrow" 
+                  onClick={goToNextImage}
+                  aria-label="Next image"
+                >
+                  &#8250;
+                </button>
+              </>
+            )}
+            
             <Image
               src={productImages[activeImageIndex]}
               alt={product.name}
               width={500}
               height={600}
               className="main-product-image"
+              onClick={openModal}
+              style={{ cursor: 'pointer' }}
             />
             {!product.inStock && <div className="out-of-stock-badge">Out of Stock</div>}
+            
+            {/* Image counter */}
+            {productImages.length > 1 && (
+              <div className="image-counter">
+                {activeImageIndex + 1} / {productImages.length}
+              </div>
+            )}
           </div>
           
           <div className="thumbnail-images">
@@ -119,12 +251,12 @@ export default function ProductPage({ params }: ProductPageProps) {
           <div className="product-rating">
             <div className="stars">
               {[...Array(5)].map((_, i) => (
-                <span key={i} className={i < Math.floor(product.rating) ? 'star filled' : 'star'}>
+                <span key={i} className={i < Math.floor(product.rating ?? 0) ? 'star filled' : 'star'}>
                   <StarIcon />
                 </span>
               ))}
             </div>
-            <span className="rating-text">({product.rating}) {product.reviews} reviews</span>
+            <span className="rating-text">({product.rating || 0}) {product.reviews || 0} reviews</span>
           </div>
 
           <div className="product-price">
@@ -145,19 +277,16 @@ export default function ProductPage({ params }: ProductPageProps) {
             </div>
             <div className="detail-item">
               <span className="label">Material:</span>
-              <span className="value">{product.material}</span>
+              <span className="value">{product.material || product.materials?.[0] || 'N/A'}</span>
             </div>
-            <div className="detail-item">
-              <span className="label">Brand:</span>
-              <span className="value">{product.brand}</span>
-            </div>
+            {/* Brand field removed: Product type has no 'brand' property */}
             <div className="detail-item">
               <span className="label">Color:</span>
-              <span className="value">{product.color}</span>
+              <span className="value">{product.color || product.colors?.[0] || 'N/A'}</span>
             </div>
             <div className="detail-item">
               <span className="label">Variant:</span>
-              <span className="value">{product.variant}</span>
+              <span className="value">{product.variant || 'Standard'}</span>
             </div>
           </div>
 
@@ -171,7 +300,7 @@ export default function ProductPage({ params }: ProductPageProps) {
               className="size-select"
               title="Select size"
             >
-              {product.size.map(size => (
+              {(product.sizes ?? []).map((size: string) => (
                 <option key={size} value={size}>{size}</option>
               ))}
             </select>
@@ -228,7 +357,7 @@ export default function ProductPage({ params }: ProductPageProps) {
 
           {/* Product Tags */}
           <div className="product-tags">
-            {product.tags.map(tag => (
+            {(product.tags || []).map(tag => (
               <span key={tag} className="tag">#{tag}</span>
             ))}
           </div>
@@ -244,7 +373,7 @@ export default function ProductPage({ params }: ProductPageProps) {
               <Link href={`/products/${relatedProduct.slug}`} key={relatedProduct.id} className="related-product-card">
                 <div className="related-product-image">
                   <Image
-                    src={relatedProduct.image}
+                    src={relatedProduct.imageUrl || ""}
                     alt={relatedProduct.name}
                     width={250}
                     height={300}
@@ -258,6 +387,72 @@ export default function ProductPage({ params }: ProductPageProps) {
             ))}
           </div>
         </section>
+      )}
+
+      {/* Image Modal */}
+      {isModalOpen && (
+        <div className="image-modal-overlay" onClick={closeModal}>
+          <div className="image-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="modal-close" onClick={closeModal} aria-label="Close modal">
+              ×
+            </button>
+            
+            {/* Navigation Arrows in Modal */}
+            {productImages.length > 1 && (
+              <>
+                <button 
+                  className="modal-nav-arrow prev-arrow" 
+                  onClick={goToPrevImage}
+                  aria-label="Previous image"
+                >
+                  &#8249;
+                </button>
+                <button 
+                  className="modal-nav-arrow next-arrow" 
+                  onClick={goToNextImage}
+                  aria-label="Next image"
+                >
+                  &#8250;
+                </button>
+              </>
+            )}
+            
+            <Image
+              src={productImages[activeImageIndex]}
+              alt={product.name}
+              width={800}
+              height={800}
+              className="modal-image"
+              style={{ objectFit: 'contain' }}
+            />
+            
+            {/* Image counter in modal */}
+            {productImages.length > 1 && (
+              <div className="modal-image-counter">
+                {activeImageIndex + 1} / {productImages.length}
+              </div>
+            )}
+            
+            {/* Thumbnail navigation in modal */}
+            <div className="modal-thumbnails">
+              {productImages.map((image, index) => (
+                <div
+                  key={index}
+                  className={`modal-thumbnail ${activeImageIndex === index ? 'active' : ''}`}
+                  onClick={() => setActiveImageIndex(index)}
+                >
+                  <Image
+                    src={image}
+                    alt={`${product.name} view ${index + 1}`}
+                    width={60}
+                    height={60}
+                    style={{ objectFit: 'cover' }}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

@@ -4,7 +4,9 @@ import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { StarIcon } from '@/components/Icons';
-import { products, Product } from '@/data/products';
+import { useProducts } from '@/hooks/useProducts';
+import { featuredCollections, Collection } from '@/components/Collections/Collections';
+import { Product } from '@/types/product';
 import './collection-detail.css';
 
 interface Collection {
@@ -18,142 +20,27 @@ interface Collection {
 
 const CollectionDetailPage: React.FC = () => {
   const params = useParams();
-  const slug = params.slug as string;
+  const slug = params?.slug as string;
   
   const [sortBy, setSortBy] = useState<string>('featured');
   const [filterBy, setFilterBy] = useState<string>('all');
 
-  // Define collections (same as main collections page)
-  const collections: Collection[] = [
-    {
-      id: 'wedding-special',
-      title: 'Wedding & Special Occasions',
-      description: 'Perfect attire for your most memorable moments. From wedding suits to special event wear, our collection features premium tuxedos and formal suits designed to make you look exceptional on your special day.',
-      image: '/images/FeaturedProducts/3.jpg',
-      badge: 'Popular',
-      filterFunction: (product) => 
-        product.tags.includes('wedding') || 
-        product.subcategory === 'Wedding' || 
-        product.category === 'Tuxedos' ||
-        product.tags.includes('special-occasion')
-    },
-    {
-      id: 'business-professional',
-      title: 'Business & Professional',
-      description: 'Command attention in the boardroom with our professional business suits. Crafted for the modern executive, these suits combine traditional tailoring with contemporary style.',
-      image: '/images/FeaturedProducts/1.jpg',
-      badge: 'Bestseller',
-      filterFunction: (product) => 
-        product.subcategory === 'Business' || 
-        product.tags.includes('business') || 
-        product.tags.includes('professional')
-    },
-    {
-      id: 'three-piece-collection',
-      title: 'Three Piece Collection',
-      description: 'Complete sophistication with matching jacket, trousers, and vest. Our three-piece suits offer unmatched elegance and versatility for formal occasions.',
-      image: '/images/FeaturedProducts/6.jpg',
-      filterFunction: (product) => 
-        product.variant === 'Three Piece' || 
-        product.tags.includes('three-piece')
-    },
-    {
-      id: 'slim-fit-collection',
-      title: 'Slim Fit Collection',
-      description: 'Modern, tailored silhouettes for the contemporary gentleman. These suits feature a closer fit through the body while maintaining comfort and mobility.',
-      image: '/images/FeaturedProducts/2.jpg',
-      filterFunction: (product) => 
-        product.subcategory === 'Slim Fit' || 
-        product.tags.includes('slim-fit') || 
-        product.tags.includes('modern')
-    },
-    {
-      id: 'classic-collection',
-      title: 'Classic Essentials',
-      description: 'Timeless pieces that never go out of style. Essential wardrobe foundations that work for business, formal events, and everyday elegance.',
-      image: '/images/FeaturedProducts/5.jpg',
-      filterFunction: (product) => 
-        product.subcategory === 'Classic' || 
-        product.tags.includes('classic') || 
-        product.tags.includes('essential') ||
-        product.tags.includes('timeless')
-    },
-    {
-      id: 'summer-collection',
-      title: 'Summer Collection',
-      description: 'Lightweight, breathable fabrics perfect for warm weather occasions. Features linen and lightweight wool blends for comfort in hot climates.',
-      image: '/images/FeaturedProducts/4.jpg',
-      badge: 'Seasonal',
-      filterFunction: (product) => 
-        product.material === 'Linen' || 
-        product.tags.includes('summer') || 
-        product.tags.includes('lightweight') ||
-        product.subcategory === 'Summer'
-    },
-    {
-      id: 'winter-collection',
-      title: 'Winter Collection',
-      description: 'Rich textures and warm materials for autumn and winter elegance. Features tweed, velvet, and other premium materials perfect for cooler weather.',
-      image: '/images/FeaturedProducts/2.jpg',
-      badge: 'Seasonal',
-      filterFunction: (product) => 
-        product.material === 'Tweed' || 
-        product.material === 'Velvet' || 
-        product.tags.includes('autumn') ||
-        product.tags.includes('winter')
-    },
-    {
-      id: 'neutral-tones',
-      title: 'Neutral Tones',
-      description: 'Versatile navy, charcoal, black, and grey suits for any occasion. These classic colors form the foundation of any professional wardrobe.',
-      image: '/images/FeaturedProducts/1.jpg',
-      filterFunction: (product) => 
-        ['Navy', 'Black', 'Charcoal', 'Grey', 'Light Grey'].includes(product.color)
-    },
-    {
-      id: 'luxury-colors',
-      title: 'Luxury Colors',
-      description: 'Stand out with our premium colored suits and unique fabric choices. Features burgundy velvet, ivory, midnight blue, and other distinctive options.',
-      image: '/images/FeaturedProducts/5.jpg',
-      badge: 'Premium',
-      filterFunction: (product) => 
-        ['Burgundy', 'Ivory', 'Midnight Blue', 'Olive'].includes(product.color) ||
-        product.material === 'Velvet' ||
-        product.material === 'Silk Blend'
-    },
-    {
-      id: 'premium-collection',
-      title: 'Premium Collection',
-      description: 'Our finest craftsmanship and materials in luxury suits and tuxedos. Features the highest quality fabrics and construction techniques.',
-      image: '/images/FeaturedProducts/3.jpg',
-      badge: 'Premium',
-      filterFunction: (product) => product.price >= 45000
-    },
-    {
-      id: 'essential-collection',
-      title: 'Essential Collection',
-      description: 'Quality suits at accessible prices without compromising on style. Perfect for building your professional wardrobe.',
-      image: '/images/FeaturedProducts/1.jpg',
-      badge: 'Value',
-      filterFunction: (product) => product.price >= 30000 && product.price < 40000
-    },
-    {
-      id: 'bestsellers',
-      title: 'Bestsellers',
-      description: 'Our most popular suits loved by customers. These proven favorites combine style, quality, and value.',
-      image: '/images/FeaturedProducts/1.jpg',
-      badge: 'Bestseller',
-      filterFunction: (product) => product.featured || product.reviews > 100
-    }
-  ];
+  // Use shared collections
+  const collections = featuredCollections;
 
   const currentCollection = collections.find(c => c.id === slug);
-  
+
+  const { products, loading, error } = useProducts();
+
   // Get products for this collection
   const collectionProducts = useMemo(() => {
     if (!currentCollection) return [];
     return products.filter(currentCollection.filterFunction);
-  }, [currentCollection]);
+  }, [currentCollection, products]);
+
+  // Dynamic image logic for collection
+  const match = products.find(currentCollection?.filterFunction ?? (() => false));
+  const collectionImage = match?.imageUrls?.[0] || match?.imageUrl || currentCollection?.image;
 
   // Filter products based on filter selection
   const filteredProducts = useMemo(() => {
@@ -163,7 +50,7 @@ const CollectionDetailPage: React.FC = () => {
       if (filterBy === 'in-stock') {
         filtered = filtered.filter(p => p.inStock);
       } else if (filterBy === 'featured') {
-        filtered = filtered.filter(p => p.featured);
+        filtered = filtered.filter(p => !!p.featured);
       } else if (filterBy === 'two-piece') {
         filtered = filtered.filter(p => p.variant === 'Two Piece');
       } else if (filterBy === 'three-piece') {
@@ -173,15 +60,15 @@ const CollectionDetailPage: React.FC = () => {
 
     // Sort products
     if (sortBy === 'featured') {
-      filtered.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+      filtered.sort((a, b) => ((b.featured ? 1 : 0) - (a.featured ? 1 : 0)));
     } else if (sortBy === 'price-low') {
       filtered.sort((a, b) => a.price - b.price);
     } else if (sortBy === 'price-high') {
       filtered.sort((a, b) => b.price - a.price);
     } else if (sortBy === 'rating') {
-      filtered.sort((a, b) => b.rating - a.rating);
+      filtered.sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0));
     } else if (sortBy === 'reviews') {
-      filtered.sort((a, b) => b.reviews - a.reviews);
+      filtered.sort((a, b) => (b.reviews ?? 0) - (a.reviews ?? 0));
     }
 
     return filtered;
@@ -243,11 +130,11 @@ const CollectionDetailPage: React.FC = () => {
                 <span className="stat">•</span>
                 <span className="stat">{collectionProducts.filter(p => p.inStock).length} In Stock</span>
                 <span className="stat">•</span>
-                <span className="stat">{collectionProducts.filter(p => p.featured).length} Featured</span>
+                <span className="stat">{collectionProducts.filter(p => !!p.featured).length} Featured</span>
               </div>
             </div>
             <div className="collection-hero-image">
-              <img src={currentCollection.image} alt={currentCollection.title} />
+              <img src={collectionImage} alt={currentCollection.title} />
             </div>
           </div>
         </div>
@@ -303,7 +190,7 @@ const CollectionDetailPage: React.FC = () => {
               {filteredProducts.map(product => (
                 <div key={product.id} className="product-card">
                   <div className="product-image-container">
-                    <img src={product.image} alt={product.name} className="product-image" />
+                    <img src={product.imageUrl} alt={product.name} className="product-image" />
                     {product.featured && (
                       <div className="product-badge featured">Featured</div>
                     )}
@@ -326,7 +213,7 @@ const CollectionDetailPage: React.FC = () => {
                         {[...Array(5)].map((_, i) => (
                           <span 
                             key={i} 
-                            className={`star ${i < Math.floor(product.rating) ? 'filled' : ''}`}
+                            className={`star ${i < Math.floor(product.rating ?? 0) ? 'filled' : ''}`}
                           >
                             <StarIcon size={16} />
                           </span>

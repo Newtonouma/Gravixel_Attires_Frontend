@@ -639,6 +639,22 @@ export const MinusIcon: React.FC<IconProps> = ({ size = 24, className = '', colo
   </svg>
 );
 
+// Edit Icon (pencil)
+export const EditIcon: React.FC<IconProps> = ({ size = 24, className = '', color = 'currentColor' }) => (
+  <svg 
+    width={size} 
+    height={size} 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke={color} 
+    strokeWidth="2" 
+    className={className}
+  >
+    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+    <path d="m18.5 2.5 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+  </svg>
+);
+
 // Trash Icon
 export const TrashIcon: React.FC<IconProps> = ({ size = 24, className = '', color = 'currentColor' }) => (
   <svg 
@@ -806,6 +822,23 @@ export const LogoutIcon: React.FC<IconProps> = ({ size = 24, className = '', col
   </svg>
 );
 
+// Download Icon
+export const DownloadIcon: React.FC<IconProps> = ({ size = 24, className = '', color = 'currentColor' }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke={color}
+    strokeWidth="2"
+    className={className}
+  >
+    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+    <polyline points="7 10 12 15 17 10" />
+    <line x1="12" y1="15" x2="12" y2="3" />
+  </svg>
+);
+
 // Export all icons as a single object
 export const Icons = {
   StarIcon,
@@ -846,6 +879,7 @@ export const Icons = {
   CartIcon,
   PlusIcon,
   MinusIcon,
+  EditIcon,
   TrashIcon,
   LoginIcon,
   UserIcon,
@@ -856,4 +890,5 @@ export const Icons = {
   DashboardIcon,
   SettingsIcon,
   LogoutIcon,
+  DownloadIcon,
 };

@@ -51,7 +51,7 @@ export default function ProfilePage() {
               <Icons.SettingsIcon size={16} />
               Edit Profile
             </button>
-            <button className="auth-button" style={{ background: '#6b7280' }}>
+            <button className="auth-button" style={{ background: '#6b7280' }} onClick={() => window.location.href = '/profile/change-password'}>
               <Icons.LockIcon size={16} />
               Change Password
             </button>

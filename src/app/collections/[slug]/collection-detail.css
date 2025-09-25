@@ -204,10 +204,91 @@
 
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 4rem;
 }
 
+@media (max-width: 1200px) {
+  .products-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 800px) {
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+.product-card {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 0 0.5rem 1.5rem 0;
+  transition: none;
+  max-width: 220px;
+  min-width: 180px;
+  width: 100%;
+}
+
+.product-image-container {
+  width: 100%;
+  background: #f8f8f8;
+  border-radius: 5px 5px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 220px;
+}
+
+.product-image {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: contain;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 5px 5px 0 0;
+  background-color: #f8f8f8;
+}
+
+.product-info {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  background: #fff;
+}
+
+.product-name {
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  font-weight: 400;
+  color: #312f2f;
+  margin-bottom: 0.5rem;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+  font-family: 'Playfair Display', serif;
+}
+
+.product-price {
+  font-size: clamp(0.875rem, 1.25vw, 1rem);
+  color: #b59b88;
+  font-weight: 600;
+  font-family: Arial, sans-serif;
+  margin-top: auto;
+}
 .product-card {
   background: #ffffff;
   border-radius: 12px;
