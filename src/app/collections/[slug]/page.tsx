@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { StarIcon } from '@/components/Icons';
 import { useProducts } from '@/hooks/useProducts';
-import { featuredCollections, Collection } from '@/components/Collections/Collections';
+import { featuredCollections, Collection as ImportedCollection } from '@/components/Collections/Collections';
 import { Product } from '@/types/product';
 import './collection-detail.css';
 

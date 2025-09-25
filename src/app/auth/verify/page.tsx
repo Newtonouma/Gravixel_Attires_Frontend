@@ -11,8 +11,8 @@ export default function VerifyPage() {
   const router = useRouter();
   const { login } = useAuth();
 
-  const emailParam = searchParams.get('email') || '';
-  const otpParam = searchParams.get('otp') || '';
+  const emailParam = searchParams ? searchParams.get('email') || '' : '';
+  const otpParam = searchParams ? searchParams.get('otp') || '' : '';
 
   const [email, setEmail] = useState(emailParam);
   const [password, setPassword] = useState(otpParam);

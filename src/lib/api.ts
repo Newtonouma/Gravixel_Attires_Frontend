@@ -1,6 +1,4 @@
-const API_URL = typeof window !== 'undefined' && process.env.NEXT_PUBLIC_API_URL
-  ? process.env.NEXT_PUBLIC_API_URL
-  : 'http://localhost:3001';
+const API_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'https://gravixel-attires-backend.onrender.com';
 
 // Helper function to make authenticated requests with automatic token refresh
 async function authenticatedFetch(url: string, options: RequestInit = {}) {
@@ -88,6 +86,18 @@ async function authenticatedFetch(url: string, options: RequestInit = {}) {
 }
 
 export const apiClient = {
+  async placeOrder(orderData: any) {
+    const res = await fetch(`${API_URL}/orders`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(orderData),
+    });
+    if (!res.ok) {
+      const errorData = await res.json().catch(() => ({ message: 'Order failed' }));
+      throw new Error(errorData.message || 'Order failed');
+    }
+    return res.json();
+  },
   async login(credentials: { email: string; password: string }) {
     const res = await fetch(`${API_URL}/auth/login`, {
       method: 'POST',

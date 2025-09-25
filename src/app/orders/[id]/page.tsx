@@ -4,7 +4,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 
 const OrderDetailPage: React.FC = () => {
-  const { id } = useParams();
+  const params = useParams() || {};
+  const id = (params['id'] ?? '').toString();
   const [order, setOrder] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

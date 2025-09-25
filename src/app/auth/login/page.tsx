@@ -21,7 +21,7 @@ export default function LoginPage() {
 
   // Handle redirect reasons
   useEffect(() => {
-    const reason = searchParams.get('reason');
+    const reason = searchParams ? searchParams.get('reason') : null;
     if (reason === 'session_expired') {
       setSessionMessage('Your session has expired. Please log in again.');
     } else if (reason === 'invalid_token') {

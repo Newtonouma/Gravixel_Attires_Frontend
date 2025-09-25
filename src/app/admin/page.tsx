@@ -662,7 +662,7 @@ export default function AdminDashboard() {
                                   setOrdersFromBackend(prev => prev ? prev.map(o => o.id === updated.id ? updated : o) : prev);
                                   setStats(prev => ({ ...prev, recentOrders: (prev.recentOrders || []).map(r => r.id === updated.id ? updated : r) }));
                                   // if this row is selected, update it too
-                                  setSelectedOrder(prev => prev && prev.id === updated.id ? updated : prev);
+                                  setSelectedOrder((prev: typeof updated | null) => prev && prev.id === updated.id ? updated : prev);
                                 } catch (err) {
                                   console.error('Failed to update order status:', err);
                                 }
@@ -810,14 +810,14 @@ export default function AdminDashboard() {
               <div className="order-detail-grid">
                 <div>
                   <h3>Customer</h3>
-                  <input className="modal-input" value={selectedOrder.name || selectedOrder.customerName || ''} onChange={(e) => setSelectedOrder(prev => ({ ...prev, name: e.target.value }))} />
-                  <input className="modal-input" value={selectedOrder.email || selectedOrder.customerEmail || ''} onChange={(e) => setSelectedOrder(prev => ({ ...prev, email: e.target.value }))} />
-                  <input className="modal-input" value={selectedOrder.phoneNumber || ''} onChange={(e) => setSelectedOrder(prev => ({ ...prev, phoneNumber: e.target.value }))} />
+                   <input className="modal-input" value={selectedOrder.name || selectedOrder.customerName || ''} onChange={(e) => setSelectedOrder((prev: typeof selectedOrder) => ({ ...prev, name: e.target.value }))} />
+                   <input className="modal-input" value={selectedOrder.email || selectedOrder.customerEmail || ''} onChange={(e) => setSelectedOrder((prev: typeof selectedOrder) => ({ ...prev, email: e.target.value }))} />
+                   <input className="modal-input" value={selectedOrder.phoneNumber || ''} onChange={(e) => setSelectedOrder((prev: typeof selectedOrder) => ({ ...prev, phoneNumber: e.target.value }))} />
                 </div>
                 <div>
                   <h3>Shipping</h3>
-                  <input className="modal-input" value={selectedOrder.address || selectedOrder.shippingAddress || ''} onChange={(e) => setSelectedOrder(prev => ({ ...prev, address: e.target.value }))} />
-                  <input className="modal-input" value={selectedOrder.city || ''} onChange={(e) => setSelectedOrder(prev => ({ ...prev, city: e.target.value }))} />
+                   <input className="modal-input" value={selectedOrder.address || selectedOrder.shippingAddress || ''} onChange={(e) => setSelectedOrder((prev: typeof selectedOrder) => ({ ...prev, address: e.target.value }))} />
+                   <input className="modal-input" value={selectedOrder.city || ''} onChange={(e) => setSelectedOrder((prev: typeof selectedOrder) => ({ ...prev, city: e.target.value }))} />
                 </div>
                 <div>
                   <h3>Items</h3>

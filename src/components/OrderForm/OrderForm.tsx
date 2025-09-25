@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { apiClient } from '@/lib/api';
 
 interface OrderFormProps {
   products: any[];
@@ -27,12 +28,8 @@ const OrderForm: React.FC<OrderFormProps> = ({ products, onSuccess }) => {
     setError(null);
     setSuccess(false);
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/orders`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, products }),
-      });
-      if (!res.ok) throw new Error('Order failed');
+      // Use apiClient to place order
+      await apiClient.placeOrder({ ...form, products });
       setSuccess(true);
       if (onSuccess) onSuccess();
     } catch (err: any) {
