@@ -132,16 +132,6 @@ export default function LoginPage() {
             <Link href="/auth/register">Sign up here</Link>
           </p>
         </div>
-
-        <div className="demo-credentials">
-          <h3>Demo Accounts:</h3>
-          <div className="demo-account">
-            <strong>Admin:</strong> admin@gravixelattires.com / admin123
-          </div>
-          <div className="demo-account">
-            <strong>Customer:</strong> john@example.com / customer123
-          </div>
-        </div>
       </div>
     </div>
   );
