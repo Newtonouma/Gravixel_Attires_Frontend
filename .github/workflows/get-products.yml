@@ -9,13 +9,23 @@ jobs:
   get-products:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
       - name: Make GET request to products endpoint
         run: |
-          curl -sSL "$PRODUCTS_URL" | tee products-response.json
+          HTTP_STATUS=$(curl -sSL -w "%{http_code}" -o products-response.json "$PRODUCTS_URL")
+          if [ "$HTTP_STATUS" -ne 200 ]; then
+            echo "Error: HTTP status $HTTP_STATUS"
+            exit 1
+          fi
+          echo "Successfully fetched products (HTTP $HTTP_STATUS)"
         env:
           PRODUCTS_URL: ${{ secrets.PRODUCTS_URL }}
+          
       - name: Upload response artifact
-        uses: actions/upload-artifact@v4.4.3
+        uses: actions/upload-artifact@v4
         with:
           name: products-response
           path: products-response.json
+          retention-days: 30
