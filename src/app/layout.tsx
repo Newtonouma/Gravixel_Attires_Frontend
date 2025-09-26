@@ -24,6 +24,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/Logo.jpg" type="image/jpeg" />
+      </head>
       <body
         className={`${inter.variable} antialiased`}
         style={{
