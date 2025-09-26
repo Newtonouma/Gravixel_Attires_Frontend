@@ -15,7 +15,7 @@ jobs:
         env:
           PRODUCTS_URL: ${{ secrets.PRODUCTS_URL }}
       - name: Upload response artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: products-response
           path: products-response.json
