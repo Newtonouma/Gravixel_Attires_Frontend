@@ -1,0 +1,21 @@
+name: Scheduled Get Products
+
+on:
+  schedule:
+    - cron: '*/25 * * * *'
+  workflow_dispatch:
+
+jobs:
+  get-products:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Make GET request to products endpoint
+        run: |
+          curl -sSL "$PRODUCTS_URL" | tee products-response.json
+        env:
+          PRODUCTS_URL: ${{ secrets.PRODUCTS_URL }}
+      - name: Upload response artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: products-response
+          path: products-response.json
