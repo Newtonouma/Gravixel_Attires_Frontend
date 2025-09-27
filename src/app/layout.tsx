@@ -26,6 +26,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="icon" href="/Logo.jpg" type="image/jpeg" />
+        <meta name="google-site-verification" content="rZ5Uawo7OmqulaX7DMwDkd46iCYFlRNKMzo78XqNRhg" />
       </head>
       <body
         className={`${inter.variable} antialiased`}
