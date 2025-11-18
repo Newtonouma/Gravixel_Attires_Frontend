@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Product, CreateProductDto, UpdateProductDto } from '@/types/product';
 
-const API_URL = typeof window !== 'undefined' && process.env.NEXT_PUBLIC_API_URL
-  ? process.env.NEXT_PUBLIC_BACKEND_URL
-  : 'https://gravixel-attires-backend.onrender.com';
+const API_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'https://gravixel-attires-backend.onrender.com';
 
 // Utility function to generate slug from product name
 function generateSlug(name: string): string {

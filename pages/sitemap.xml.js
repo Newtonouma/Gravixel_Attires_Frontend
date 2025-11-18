@@ -26,7 +26,7 @@ export async function getServerSideProps({ res }) {
   }
 
   // Static pages
-  const staticPages = ['/', '/about', '/contact', '/shop'];
+  const staticPages = ['/', '/about', '/contact', '/shop', '/services'];
 
   // Build full list of URLs
   const urls = [
