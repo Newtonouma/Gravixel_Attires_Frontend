@@ -1,34 +1,332 @@
 .order-page {
-  max-width: 500px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  min-height: 100vh;
+  background: #ffffff;
+  padding: 2rem 1rem;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
 }
-.order-page h1 {
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
+
+.order-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.order-header {
   text-align: center;
+  margin-bottom: 3rem;
 }
-.order-product-details {
-  background: #f7f7f7;
-  border-radius: 6px;
-  padding: 1rem;
-  margin-bottom: 2rem;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
-}
-.order-product-details h2 {
-  font-size: 1.25rem;
+
+.order-header h1 {
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: #312f2f;
   margin-bottom: 0.5rem;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
 }
-.order-product-details p {
-  margin: 0.25rem 0;
-  font-size: 1rem;
+
+.order-header p {
+  font-size: 1.125rem;
+  color: #666;
+  margin: 0;
 }
-.order-page-error {
-  color: #c00;
+
+.order-content {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+/* Order Summary Section */
+.order-summary {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+  border: 1px solid #eee;
+  position: sticky;
+  top: 2rem;
+}
+
+.summary-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.summary-header h2 {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #312f2f;
+  margin: 0;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+}
+
+.product-card {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #eee;
+}
+
+.product-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: white;
+  border: 1px solid #eee;
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f9fa;
+  color: #666;
+}
+
+.product-details {
+  flex: 1;
+}
+
+.product-details h3 {
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: #312f2f;
+  margin: 0 0 1rem 0;
+  line-height: 1.4;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+}
+
+.product-specs {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.spec-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.spec-label {
+  font-size: 0.925rem;
+  color: #666;
+  font-weight: 400;
+}
+
+.spec-value {
+  font-size: 0.925rem;
+  color: #312f2f;
+  font-weight: 500;
+}
+
+.price-breakdown {
+  border-top: 1px solid #eee;
+  padding-top: 1.5rem;
+}
+
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  font-size: 0.95rem;
+}
+
+.price-row:not(.total-row) {
+  color: #666;
+  border-bottom: 1px solid #f8f9fa;
+}
+
+.total-row {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #312f2f;
+  border-top: 1px solid #eee;
+  margin-top: 0.5rem;
+  padding-top: 1rem;
+}
+
+.shipping-note {
+  font-style: italic;
+  color: #999;
+  font-size: 0.875rem;
+}
+
+/* Order Form Section */
+.order-form-section {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+  border: 1px solid #eee;
+}
+
+.form-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.form-header h2 {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #312f2f;
+  margin: 0 0 0.5rem 0;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+}
+
+.form-header p {
+  color: #666;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* Error and Loading States */
+.order-page-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
   text-align: center;
-  margin-top: 2rem;
-  font-size: 1.1rem;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 3px solid #eee;
+  border-top: 3px solid #312f2f;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.order-page-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  padding: 2rem;
+}
+
+.error-content {
+  text-align: center;
+  background: white;
+  padding: 3rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+  max-width: 400px;
+}
+
+.error-icon {
+  color: #312f2f;
+  margin-bottom: 1.5rem;
+}
+
+.error-content h2 {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #312f2f;
+  margin: 0 0 1rem 0;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+}
+
+.error-content p {
+  color: #666;
+  margin: 0 0 2rem 0;
+  line-height: 1.6;
+}
+
+.back-to-products {
+  display: inline-block;
+  background: #312f2f;
+  color: white;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+}
+
+.back-to-products:hover {
+  background: #4a4a4a;
+  transform: translateY(-2px);
+  color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .order-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .order-summary {
+    position: static;
+    order: 1; /* Order summary comes first on mobile */
+  }
+  
+  .order-form-section {
+    order: 2;
+  }
+}
+
+@media (max-width: 768px) {
+  .order-page {
+    padding: 1rem 0.5rem;
+  }
+  
+  .order-header h1 {
+    font-size: 2rem;
+  }
+  
+  .order-summary,
+  .order-form-section {
+    padding: 1.5rem;
+  }
+  
+  .product-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .product-image {
+    align-self: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .order-header h1 {
+    font-size: 1.75rem;
+  }
+  
+  .order-summary,
+  .order-form-section {
+    padding: 1rem;
+    border-radius: 8px;
+  }
+  
+  .product-card {
+    padding: 1rem;
+  }
 }
