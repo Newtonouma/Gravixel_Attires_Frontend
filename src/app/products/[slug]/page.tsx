@@ -47,7 +47,7 @@ export default function ProductPage({ params }: ProductPageProps) {
 
   // Product images with graceful fallback handling
   const productImages = product ? (() => {
-    let images = [];
+    let images: string[] = [];
     
     // Try to use imageUrls first, then imageUrl
     if (product.imageUrls && product.imageUrls.length > 0) {

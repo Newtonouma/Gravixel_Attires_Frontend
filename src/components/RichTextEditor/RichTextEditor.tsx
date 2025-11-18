@@ -50,43 +50,10 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
 }) => {
   const [mounted, setMounted] = useState(false);
   const [editorHeight, setEditorHeight] = useState(height);
-  const quillRef = useRef<any>(null);
 
   useEffect(() => {
     setMounted(true);
   }, []);
-
-  useEffect(() => {
-    if (mounted && quillRef.current && !readOnly) {
-      const quill = quillRef.current.getEditor();
-      
-      // Auto-resize function
-      const adjustHeight = () => {
-        const editorElement = quill.container.querySelector('.ql-editor');
-        if (editorElement) {
-          const contentHeight = editorElement.scrollHeight;
-          const toolbarHeight = 42; // Approximate toolbar height
-          const minHeight = 150;
-          const maxHeight = 400; // Reduced max height to prevent overlap
-          const newHeight = Math.max(minHeight, Math.min(contentHeight + toolbarHeight + 20, maxHeight));
-          
-          if (newHeight !== editorHeight) {
-            setEditorHeight(newHeight);
-          }
-        }
-      };
-
-      // Listen for content changes
-      quill.on('text-change', adjustHeight);
-      
-      // Initial height adjustment
-      setTimeout(adjustHeight, 100);
-
-      return () => {
-        quill.off('text-change', adjustHeight);
-      };
-    }
-  }, [mounted, value, readOnly, editorHeight]);
 
   // Configure toolbar modules
   const modules = useMemo(() => ({
@@ -123,7 +90,6 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
       }}
     >
       <ReactQuill
-        ref={quillRef}
         theme="snow"
         value={value}
         onChange={onChange}

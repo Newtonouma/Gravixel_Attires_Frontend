@@ -206,7 +206,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, onSubmit, onCancel, 
         <div className="product-form-field product-form-full-width">
           <label htmlFor="description">Product Description</label>
           <RichTextEditor
-            value={form.description}
+            value={form.description || ''}
             onChange={(content) => setForm(prev => ({ ...prev, description: content }))}
             placeholder="Enter detailed product description..."
             height={150}
