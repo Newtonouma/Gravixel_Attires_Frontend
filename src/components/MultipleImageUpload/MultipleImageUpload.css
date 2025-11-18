@@ -1,0 +1,43 @@
+/* MultipleImageUpload Component Styles */
+
+/* Ensure the upload section maintains proper position */
+.multiple-image-upload-container {
+  position: relative;
+  z-index: 10;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  clear: both;
+  width: 100%;
+  background: white;
+}
+
+/* Add border-top to visually separate from description */
+.multiple-image-upload-container::before {
+  content: '';
+  position: absolute;
+  top: 1rem;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #e5e7eb;
+}
+
+/* Ensure the component doesn't get overlapped */
+.space-y-4 {
+  position: relative;
+  z-index: 10;
+}
+
+/* Override any potential positioning issues */
+.grid.grid-cols-4 {
+  position: relative;
+  z-index: 11;
+}
+
+/* Force proper spacing on mobile */
+@media (max-width: 768px) {
+  .multiple-image-upload-container {
+    margin-top: 4rem;
+    padding-top: 3rem;
+  }
+}

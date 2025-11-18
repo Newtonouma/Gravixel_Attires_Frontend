@@ -1,0 +1,232 @@
+/* Rich Text Editor Styles */
+.rich-text-editor {
+  margin-bottom: 20px; /* Reduced margin since we'll use dynamic spacing */
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+  overflow: visible;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.rich-text-editor.read-only {
+  margin-bottom: 0;
+}
+
+.rich-text-editor .ql-editor {
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #374151;
+  padding: 12px;
+  min-height: 120px;
+  max-height: 350px;
+  overflow-y: auto;
+  resize: none;
+}
+
+/* Ensure lists are properly visible in editor */
+.rich-text-editor .ql-editor ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.rich-text-editor .ql-editor ol li {
+  list-style-type: decimal;
+  margin-bottom: 0.25rem;
+  padding-left: 0.25rem;
+}
+
+.rich-text-editor .ql-editor ul {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.rich-text-editor .ql-editor ul li {
+  list-style-type: disc;
+  margin-bottom: 0.25rem;
+  padding-left: 0.25rem;
+}
+
+/* Fix list counter visibility */
+.rich-text-editor .ql-editor ol li::marker,
+.rich-text-editor .ql-editor ul li::marker {
+  color: #374151;
+  font-weight: 500;
+}
+
+/* Quill list formatting overrides */
+.rich-text-editor .ql-editor .ql-list {
+  counter-reset: list-0 list-1 list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9;
+}
+
+.rich-text-editor .ql-editor .ql-list li {
+  list-style-type: none;
+  padding-left: 0.3rem;
+}
+
+.rich-text-editor .ql-editor .ql-list li:before {
+  display: inline-block;
+  white-space: nowrap;
+  width: 1.2em;
+  margin-left: -1.5em;
+  margin-right: 0.3em;
+  text-align: right;
+  color: #374151;
+  font-weight: 500;
+}
+
+.rich-text-editor .ql-editor .ql-list[data-list='ordered'] > li:before {
+  content: counter(list-0, decimal) ". ";
+  counter-increment: list-0;
+}
+
+.rich-text-editor .ql-editor .ql-list[data-list='bullet'] > li:before {
+  content: "• ";
+}
+
+/* Indented lists */
+.rich-text-editor .ql-editor .ql-list li.ql-indent-1:before {
+  margin-left: -3em;
+}
+
+.rich-text-editor .ql-editor .ql-list li.ql-indent-1[data-list='ordered']:before {
+  content: counter(list-1, lower-alpha) ". ";
+  counter-increment: list-1;
+}
+
+.rich-text-editor .ql-editor .ql-list li.ql-indent-1[data-list='bullet']:before {
+  content: "○ ";
+}
+
+.rich-text-editor .ql-editor.ql-blank::before {
+  color: #9ca3af;
+  font-style: normal;
+}
+
+.rich-text-editor .ql-toolbar {
+  border-top: 1px solid #d1d5db;
+  border-left: 1px solid #d1d5db;
+  border-right: 1px solid #d1d5db;
+  background: #f9fafb;
+  border-radius: 6px 6px 0 0;
+}
+
+.rich-text-editor .ql-container {
+  border-bottom: 1px solid #d1d5db;
+  border-left: 1px solid #d1d5db;
+  border-right: 1px solid #d1d5db;
+  border-radius: 0 0 6px 6px;
+  background: white;
+  height: auto !important;
+}
+
+.rich-text-editor .ql-editor:focus {
+  outline: none;
+}
+
+.rich-text-editor .ql-container.ql-snow {
+  border: 1px solid #d1d5db;
+}
+
+.rich-text-editor .ql-toolbar.ql-snow {
+  border: 1px solid #d1d5db;
+}
+
+/* Focus state */
+.rich-text-editor:focus-within .ql-toolbar {
+  border-color: #3b82f6;
+}
+
+.rich-text-editor:focus-within .ql-container {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Read-only mode */
+.rich-text-editor.read-only .ql-container {
+  border: none;
+  background: transparent;
+}
+
+.rich-text-editor.read-only .ql-editor {
+  padding: 0;
+}
+
+/* Custom toolbar button styles */
+.rich-text-editor .ql-toolbar .ql-formats {
+  margin-right: 8px;
+}
+
+.rich-text-editor .ql-toolbar button:hover {
+  color: #3b82f6;
+}
+
+.rich-text-editor .ql-toolbar button.ql-active {
+  color: #3b82f6;
+}
+
+/* Product description specific styling */
+.product-description-rich {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #666;
+  margin: 0;
+  text-align: left;
+}
+
+.product-description-rich p {
+  margin-bottom: 1rem;
+}
+
+.product-description-rich p:last-child {
+  margin-bottom: 0;
+}
+
+.product-description-rich h1,
+.product-description-rich h2,
+.product-description-rich h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.product-description-rich h1 {
+  font-size: 1.25rem;
+}
+
+.product-description-rich h2 {
+  font-size: 1.125rem;
+}
+
+.product-description-rich h3 {
+  font-size: 1rem;
+}
+
+.product-description-rich ul,
+.product-description-rich ol {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.product-description-rich li {
+  margin-bottom: 0.25rem;
+}
+
+.product-description-rich a {
+  color: #3b82f6;
+  text-decoration: underline;
+}
+
+.product-description-rich a:hover {
+  color: #1d4ed8;
+}
+
+.product-description-rich strong {
+  font-weight: 600;
+}
+
+.product-description-rich em {
+  font-style: italic;
+}

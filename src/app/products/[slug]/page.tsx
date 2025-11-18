@@ -7,6 +7,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { StarIcon } from '@/components/Icons';
 import { useCart } from '@/contexts/CartContext';
+import { RichTextDisplay } from '@/components/RichTextDisplay';
 import './product.css';
 
 interface ProductPageProps {
@@ -25,7 +26,8 @@ export default function ProductPage({ params }: ProductPageProps) {
   const [quantity, setQuantity] = useState(1);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
-  const [isDescriptionOpen, setIsDescriptionOpen] = useState(false);
+  const [isDescriptionOpen, setIsDescriptionOpen] = useState(true);
+  const [imageErrors, setImageErrors] = useState<Set<string>>(new Set());
 
   const product = products.find(p => p.slug === slug);
 
@@ -43,14 +45,95 @@ export default function ProductPage({ params }: ProductPageProps) {
     }
   }, [products.length, loading, refreshProducts]);
 
-  // Product images
-  const productImages = product ? (
-    product.imageUrls && product.imageUrls.length > 0 
-      ? product.imageUrls 
-      : product.imageUrl 
-        ? [product.imageUrl] 
-        : ['/images/placeholder.jpg']
-  ) : ['/images/placeholder.jpg'];
+  // Product images with graceful fallback handling
+  const productImages = product ? (() => {
+    let images = [];
+    
+    // Try to use imageUrls first, then imageUrl
+    if (product.imageUrls && product.imageUrls.length > 0) {
+      images = product.imageUrls.filter(Boolean); // Remove any null/undefined URLs
+      console.log('Using imageUrls for product:', product.name, images);
+    } else if (product.imageUrl) {
+      images = [product.imageUrl];
+      console.log('Using imageUrl for product:', product.name, images);
+    }
+    
+    // Validate URLs and log issues
+    const validatedImages = images.filter(img => {
+      if (!img || typeof img !== 'string') {
+        console.warn('Invalid image URL detected:', img);
+        return false;
+      }
+      if (img.includes('supabase.co') && !img.startsWith('https://')) {
+        console.warn('Malformed Supabase URL (missing https):', img);
+        return false;
+      }
+      return true;
+    });
+    
+    // Filter out failed images
+    const availableImages = validatedImages.filter(img => !imageErrors.has(img));
+    
+    console.log('Final available images for', product.name + ':', availableImages);
+    
+    // If we have valid images, use them
+    if (availableImages.length > 0) {
+      return availableImages;
+    }
+    
+    console.log('No valid images available for', product.name, 'using fallbacks');
+    // If all images failed or no images provided, use local fallbacks
+    return ['/images/heros/1.jpg', '/images/heros/2.jpg', '/images/heros/3.jpg'];
+  })() : ['/images/heros/1.jpg'];
+  
+  // Handle image load errors with debugging
+  const handleImageError = (imageSrc: string, context: string = 'unknown') => {
+    console.log(`Image failed to load (${context}):`, imageSrc);
+    
+    // Log additional details for Supabase URLs
+    if (imageSrc?.includes('supabase.co')) {
+      console.log('Supabase URL structure:', {
+        url: imageSrc,
+        isValid: imageSrc.startsWith('https://'),
+        hasCorrectDomain: imageSrc.includes('zvxcqivayqmeyfydnobm.supabase.co'),
+        hasStoragePath: imageSrc.includes('/storage/v1/object/public/')
+      });
+    }
+    
+    setImageErrors(prev => new Set([...prev, imageSrc]));
+  };
+
+  // Test if Supabase URLs are reachable for debugging
+  useEffect(() => {
+    const testSupabaseUrls = async () => {
+      if (product && (product.imageUrls || product.imageUrl)) {
+        const urls = product.imageUrls || (product.imageUrl ? [product.imageUrl] : []);
+        
+        for (const url of urls) {
+          if (url?.includes('supabase.co')) {
+            try {
+              console.log('Testing Supabase URL:', url);
+              const response = await fetch(url, { method: 'HEAD' });
+              console.log('Supabase URL test result:', {
+                url,
+                status: response.status,
+                ok: response.ok,
+                statusText: response.statusText
+              });
+              
+              if (!response.ok) {
+                console.error('Supabase URL returned error:', response.status, response.statusText);
+              }
+            } catch (error) {
+              console.error('Failed to test Supabase URL:', url, error);
+            }
+          }
+        }
+      }
+    };
+    
+    testSupabaseUrls();
+  }, [product]);
 
   // Show loading state
   if (loading) {
@@ -147,6 +230,12 @@ export default function ProductPage({ params }: ProductPageProps) {
                   width={80}
                   height={100}
                   className="thumbnail-image"
+                  onError={() => {
+                    console.log('Thumbnail image error:', image, 'for product:', product.name);
+                    handleImageError(image, `thumbnail-${index}`);
+                  }}
+                  onLoad={() => console.log('Thumbnail loaded:', image)}
+                  unoptimized={image?.includes('supabase.co')}
                 />
               </button>
             ))}
@@ -163,6 +252,12 @@ export default function ProductPage({ params }: ProductPageProps) {
                   height={500}
                   className="main-product-image"
                   priority
+                  onError={() => {
+                    console.log('Main image error for product:', product.name, 'URL:', productImages[activeImageIndex]);
+                    handleImageError(productImages[activeImageIndex], 'main-image');
+                  }}
+                  onLoad={() => console.log('Main image loaded successfully:', productImages[activeImageIndex])}
+                  unoptimized={productImages[activeImageIndex]?.includes('supabase.co')}
                 />
               </div>
             </div>
@@ -289,11 +384,15 @@ export default function ProductPage({ params }: ProductPageProps) {
             <span className={`accordion-icon ${isDescriptionOpen ? 'open' : ''}`}>−</span>
           </button>
           <div className={`description-content ${isDescriptionOpen ? 'open' : ''}`}>
-            <p className="product-description">
-              {product.description || `Experience the perfect blend of comfort and style with our ${product.name}. 
-              Crafted with attention to detail and made from premium ${product.material || 'materials'}, 
-              this piece is designed to elevate your wardrobe with its timeless appeal and exceptional quality.`}
-            </p>
+            {product.description ? (
+              <RichTextDisplay content={product.description} />
+            ) : (
+              <p className="product-description">
+                {`Experience the perfect blend of comfort and style with our ${product.name}. 
+                Crafted with attention to detail and made from premium ${product.material || 'materials'}, 
+                this piece is designed to elevate your wardrobe with its timeless appeal and exceptional quality.`}
+              </p>
+            )}
           </div>
         </div>
       </div>
@@ -307,10 +406,17 @@ export default function ProductPage({ params }: ProductPageProps) {
               <Link href={`/products/${relatedProduct.slug}`} key={relatedProduct.id} className="related-product-card">
                 <div className="related-product-image">
                   <Image
-                    src={relatedProduct.imageUrl || ""}
+                    src={relatedProduct.imageUrl || "/images/FeaturedProducts/1.jpg"}
                     alt={relatedProduct.name}
                     width={250}
                     height={300}
+                    unoptimized={relatedProduct.imageUrl?.includes('supabase.co')}
+                    onError={(e) => {
+                      const img = e.target as HTMLImageElement;
+                      if (img.src !== '/images/FeaturedProducts/1.jpg') {
+                        img.src = '/images/FeaturedProducts/1.jpg';
+                      }
+                    }}
                   />
                 </div>
                 <div className="related-product-info">

@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import ImagePreview from '../ImagePreview/ImagePreview';
+import './MultipleImageUpload.css';
 
 interface MultipleImageUploadProps {
   existingImages?: string[];
@@ -64,7 +65,7 @@ const MultipleImageUpload: React.FC<MultipleImageUploadProps> = ({
   const canAddMore = currentImageCount < maxImages;
 
   return (
-    <div className={`space-y-4 ${className}`}>
+    <div className={`multiple-image-upload-container space-y-4 ${className}`}>
       <div className="flex items-center justify-between">
         <label className="block text-sm font-medium text-gray-700">
           Product Images ({currentImageCount}/{maxImages})

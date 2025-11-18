@@ -40,26 +40,19 @@ async function authenticatedFetch(url: string, options: RequestInit = {}) {
             },
           });
         } catch (refreshError) {
-          // Refresh failed, clear tokens and redirect to login
-          console.log('Token refresh failed, redirecting to login...');
+          // Refresh failed, clear tokens but don't force redirect
+          // Let the calling code (like AuthContext) handle the redirect decision
+          console.log('Token refresh failed, clearing tokens...');
           localStorage.removeItem('auth_token');
           localStorage.removeItem('refresh_token');
-          
-          // Redirect to login page if we're in a browser environment
-          if (typeof window !== 'undefined') {
-            window.location.href = '/auth/login?reason=session_expired';
-          }
           
           throw new Error('Session expired. Please login again.');
         }
       } else {
-        // No refresh token, clear storage and redirect
-        console.log('No refresh token available, redirecting to login...');
+        // No refresh token, clear storage but don't force redirect
+        console.log('No refresh token available, clearing tokens...');
         localStorage.removeItem('auth_token');
-        
-        if (typeof window !== 'undefined') {
-          window.location.href = '/auth/login?reason=session_expired';
-        }
+        localStorage.removeItem('refresh_token');
         
         throw new Error('Session expired. Please login again.');
       }
@@ -67,13 +60,9 @@ async function authenticatedFetch(url: string, options: RequestInit = {}) {
 
     // Handle other authentication errors
     if (errorData.error === 'INVALID_TOKEN' || errorData.error === 'AUTHENTICATION_FAILED') {
-      console.log('Invalid token, clearing storage and redirecting...');
+      console.log('Invalid token, clearing storage...');
       localStorage.removeItem('auth_token');
       localStorage.removeItem('refresh_token');
-      
-      if (typeof window !== 'undefined') {
-        window.location.href = '/auth/login?reason=invalid_token';
-      }
       
       throw new Error('Invalid authentication. Please login again.');
     }

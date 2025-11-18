@@ -1,0 +1,258 @@
+/* Rich Text Display Styles */
+.rich-text-display {
+  font-family: 'Jost', 'Arial Unicode MS', Arial, sans-serif;
+  line-height: 1.6;
+  color: #374151;
+  width: 100%;
+  max-width: none;
+}
+
+.rich-text-display .rich-content,
+.rich-text-display .plain-content {
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+/* Typography styles */
+.rich-text-display h1,
+.rich-text-display h2,
+.rich-text-display h3,
+.rich-text-display h4,
+.rich-text-display h5,
+.rich-text-display h6 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+  color: #1f2937;
+  line-height: 1.3;
+}
+
+.rich-text-display h1:first-child,
+.rich-text-display h2:first-child,
+.rich-text-display h3:first-child,
+.rich-text-display h4:first-child,
+.rich-text-display h5:first-child,
+.rich-text-display h6:first-child {
+  margin-top: 0;
+}
+
+.rich-text-display h1 {
+  font-size: 1.5rem;
+}
+
+.rich-text-display h2 {
+  font-size: 1.35rem;
+}
+
+.rich-text-display h3 {
+  font-size: 1.2rem;
+}
+
+.rich-text-display h4 {
+  font-size: 1.1rem;
+}
+
+.rich-text-display h5 {
+  font-size: 1rem;
+}
+
+.rich-text-display h6 {
+  font-size: 0.95rem;
+}
+
+/* Paragraph styles */
+.rich-text-display p {
+  margin-bottom: 1rem;
+  margin-top: 0;
+}
+
+.rich-text-display p:last-child {
+  margin-bottom: 0;
+}
+
+/* List styles */
+.rich-text-display ul,
+.rich-text-display ol {
+  margin-bottom: 1rem;
+  margin-top: 0;
+  padding-left: 1.5rem;
+  list-style-position: outside;
+}
+
+.rich-text-display li {
+  margin-bottom: 0.5rem;
+  padding-left: 0.25rem;
+  line-height: 1.6;
+}
+
+.rich-text-display ul li {
+  list-style-type: disc;
+}
+
+.rich-text-display ol li {
+  list-style-type: decimal;
+}
+
+/* Ensure list markers are visible */
+.rich-text-display ol li::marker,
+.rich-text-display ul li::marker {
+  color: #374151;
+  font-weight: 500;
+}
+
+/* Nested lists */
+.rich-text-display ul ul,
+.rich-text-display ol ol,
+.rich-text-display ul ol,
+.rich-text-display ol ul {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.rich-text-display ul ul li {
+  list-style-type: circle;
+}
+
+.rich-text-display ol ol li {
+  list-style-type: lower-alpha;
+}
+
+/* Quill-specific list handling */
+.rich-text-display .ql-list {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+  counter-reset: list-0 list-1 list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9;
+}
+
+.rich-text-display .ql-list li {
+  list-style-type: none;
+  padding-left: 0.3rem;
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+
+.rich-text-display .ql-list li:before {
+  display: inline-block;
+  white-space: nowrap;
+  width: 1.2em;
+  margin-left: -1.5em;
+  margin-right: 0.3em;
+  text-align: right;
+  color: #374151;
+  font-weight: 500;
+}
+
+.rich-text-display .ql-list[data-list='ordered'] > li:before {
+  content: counter(list-0, decimal) ". ";
+  counter-increment: list-0;
+}
+
+.rich-text-display .ql-list[data-list='bullet'] > li:before {
+  content: "• ";
+}
+
+/* Indented Quill lists */
+.rich-text-display .ql-list li.ql-indent-1:before {
+  margin-left: -3em;
+}
+
+.rich-text-display .ql-list li.ql-indent-1[data-list='ordered']:before {
+  content: counter(list-1, lower-alpha) ". ";
+  counter-increment: list-1;
+}
+
+.rich-text-display .ql-list li.ql-indent-1[data-list='bullet']:before {
+  content: "○ ";
+}
+
+/* Link styles */
+.rich-text-display a {
+  color: #3b82f6;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.rich-text-display a:hover {
+  color: #1d4ed8;
+  text-decoration: none;
+}
+
+/* Text formatting */
+.rich-text-display strong,
+.rich-text-display b {
+  font-weight: 600;
+}
+
+.rich-text-display em,
+.rich-text-display i {
+  font-style: italic;
+}
+
+.rich-text-display u {
+  text-decoration: underline;
+}
+
+.rich-text-display s,
+.rich-text-display strike {
+  text-decoration: line-through;
+}
+
+/* Blockquote styles */
+.rich-text-display blockquote {
+  margin: 1.5rem 0;
+  padding: 1rem 1.5rem;
+  border-left: 4px solid #e5e7eb;
+  background-color: #f9fafb;
+  font-style: italic;
+  color: #6b7280;
+}
+
+.rich-text-display blockquote p {
+  margin: 0;
+}
+
+/* Code styles */
+.rich-text-display code {
+  background-color: #f3f4f6;
+  color: #1f2937;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+  font-size: 0.9em;
+}
+
+.rich-text-display pre {
+  background-color: #1f2937;
+  color: #f9fafb;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+.rich-text-display pre code {
+  background: none;
+  color: inherit;
+  padding: 0;
+  border-radius: 0;
+  font-size: 0.875rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .rich-text-display {
+    font-size: 0.95rem;
+  }
+  
+  .rich-text-display h1 {
+    font-size: 1.4rem;
+  }
+  
+  .rich-text-display h2 {
+    font-size: 1.25rem;
+  }
+  
+  .rich-text-display h3 {
+    font-size: 1.1rem;
+  }
+}

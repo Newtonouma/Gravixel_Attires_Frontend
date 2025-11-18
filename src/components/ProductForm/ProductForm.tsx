@@ -2,6 +2,7 @@ import React from 'react';
 import { Product, CreateProductDto, UpdateProductDto } from '@/types/product';
 import MultipleImageUpload from '../MultipleImageUpload/MultipleImageUpload';
 import TagInput from '../TagInput/TagInput';
+import { RichTextEditor } from '../RichTextEditor';
 
 type ProductFormProps = {
   product?: Product;
@@ -204,14 +205,11 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, onSubmit, onCancel, 
 
         <div className="product-form-field product-form-full-width">
           <label htmlFor="description">Product Description</label>
-          <textarea 
-            name="description" 
-            id="description" 
-            value={form.description} 
-            onChange={handleChange} 
-            required 
-            placeholder="Enter detailed product description..." 
-            rows={4}
+          <RichTextEditor
+            value={form.description}
+            onChange={(content) => setForm(prev => ({ ...prev, description: content }))}
+            placeholder="Enter detailed product description..."
+            height={150}
           />
         </div>
 
@@ -226,7 +224,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, onSubmit, onCancel, 
           />
         </div>
 
-        <div className="product-form-field product-form-full-width">
+        <div className="product-form-field product-form-full-width image-upload-section">
           <MultipleImageUpload
             existingImages={product?.imageUrls || (product?.imageUrl ? [product.imageUrl] : [])}
             onImagesChange={handleImagesChange}

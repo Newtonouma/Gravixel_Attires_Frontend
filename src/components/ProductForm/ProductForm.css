@@ -1,0 +1,69 @@
+/* ProductForm Layout Fixes */
+
+/* Ensure rich text editor container has proper spacing */
+.product-form-field.product-form-full-width {
+  margin-bottom: 2rem;
+  clear: both;
+  position: relative;
+  z-index: 1;
+}
+
+/* Add extra spacing after description field specifically */
+.product-form-field.product-form-full-width:has(.rich-text-editor) {
+  margin-bottom: 4rem;
+}
+
+/* Fallback for browsers that don't support :has() */
+.product-form-field.product-form-full-width .rich-text-editor {
+  margin-bottom: 3rem;
+}
+
+/* Ensure subsequent fields have enough top margin and proper positioning */
+.product-form-field.product-form-full-width + .product-form-field {
+  margin-top: 3rem;
+  position: relative;
+  z-index: 2;
+}
+
+/* Specific spacing for image upload section */
+.product-form-field.image-upload-section {
+  margin-top: 4rem !important;
+  padding-top: 2rem;
+  position: relative;
+  z-index: 10;
+  clear: both;
+  background: white;
+}
+
+.product-form-field.product-form-full-width:has([class*="image-upload"]),
+.product-form-field.product-form-full-width:has([class*="MultipleImageUpload"]) {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  position: relative;
+  z-index: 3;
+}
+
+/* General form field spacing */
+.product-form-field {
+  position: relative;
+  z-index: auto;
+  margin-bottom: 1.5rem;
+}
+
+/* Ensure form layout doesn't break with dynamic content */
+.product-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: relative;
+}
+
+.product-form .product-form-field {
+  flex-shrink: 0;
+}
+
+/* Force proper stacking order for overlapping elements */
+.rich-text-editor {
+  position: relative;
+  z-index: 1;
+}

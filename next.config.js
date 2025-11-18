@@ -15,7 +15,12 @@ const nextConfig = {
         pathname: '/**',
       },
     ],
+    dangerouslyAllowSVG: true,
+    contentDispositionType: 'attachment',
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
+  // Disable strict mode in development for better debugging
+  reactStrictMode: process.env.NODE_ENV === 'production',
 };
 
 module.exports = nextConfig;

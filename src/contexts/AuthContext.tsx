@@ -49,7 +49,7 @@ const authReducer = (state: AuthState, action: AuthAction): AuthState => {
 
 const initialState: AuthState = {
   user: null,
-  isLoading: false, // Start as false to allow immediate browsing
+  isLoading: true, // Start with loading true to prevent premature redirects
   isAuthenticated: false,
 };
 
@@ -58,25 +58,35 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   // Check for existing token on mount
   useEffect(() => {
-    // First, check and clear any expired tokens
-    checkAndClearExpiredTokens();
+    const initializeAuth = async () => {
+      // First, check and clear any expired tokens
+      checkAndClearExpiredTokens();
+      
+      const token = localStorage.getItem('auth_token');
+      if (token && !isTokenExpired(token)) {
+        // Verify token and get user data only if we have a valid token
+        await verifyToken();
+      } else {
+        // No valid token - this is fine for public pages
+        // Just clear any invalid tokens and allow browsing
+        if (token) {
+          localStorage.removeItem('auth_token');
+          localStorage.removeItem('refresh_token');
+        }
+        dispatch({ type: 'AUTH_FAILURE' });
+      }
+    };
     
-    const token = localStorage.getItem('auth_token');
-    if (token && !isTokenExpired(token)) {
-      // Verify token and get user data
-      verifyToken();
-    } else {
-      // Allow unauthenticated browsing - don't show loading state forever
-      dispatch({ type: 'AUTH_FAILURE' });
-    }
+    initializeAuth();
   }, []);
 
   const verifyToken = async () => {
+    dispatch({ type: 'AUTH_START' });
     try {
       const user = await apiClient.verifyToken();
       dispatch({ type: 'AUTH_SUCCESS', payload: user });
     } catch (error) {
-      console.error('Token verification failed:', error);
+      console.log('Token verification failed - this is normal for expired/invalid tokens');
       // Try refresh token first
       const refreshTokenValue = localStorage.getItem('refresh_token');
       if (refreshTokenValue) {
@@ -84,10 +94,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           await refreshToken();
           return;
         } catch (refreshError) {
-          console.error('Token refresh also failed:', refreshError);
+          console.log('Token refresh also failed - clearing tokens');
         }
       }
-      // Clear expired/invalid tokens
+      // Clear expired/invalid tokens and allow unauthenticated browsing
       localStorage.removeItem('auth_token');
       localStorage.removeItem('refresh_token');
       dispatch({ type: 'AUTH_FAILURE' });

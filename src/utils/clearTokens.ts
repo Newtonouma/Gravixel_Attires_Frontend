@@ -5,8 +5,8 @@ export function clearExpiredTokens() {
     localStorage.removeItem('refresh_token');
     console.log('Expired authentication tokens have been cleared');
     
-    // Reload the page to reset auth state
-    window.location.reload();
+    // Don't reload the page - let the auth context handle the state update
+    // window.location.reload(); // REMOVED: This was causing infinite reload loops
   }
 }
 
