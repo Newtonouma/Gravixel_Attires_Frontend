@@ -51,6 +51,7 @@
   flex-direction: column;
   justify-content: space-between;
   transition: none;
+  overflow: hidden;
 }
 
 .review-card:hover {
@@ -83,6 +84,11 @@
   flex-grow: 1;
   font-style: italic;
   font-weight: 300;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
 }
 
 .review-author {
