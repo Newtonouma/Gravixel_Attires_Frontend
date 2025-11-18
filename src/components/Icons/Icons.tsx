@@ -722,6 +722,36 @@ export const EmailIcon: React.FC<IconProps> = ({ size = 24, className = '', colo
   </svg>
 );
 
+// Chevron Down Icon
+export const ChevronDownIcon: React.FC<IconProps> = ({ size = 24, className = '', color = 'currentColor' }) => (
+  <svg 
+    width={size} 
+    height={size} 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke={color} 
+    strokeWidth="2" 
+    className={className}
+  >
+    <polyline points="6,9 12,15 18,9"></polyline>
+  </svg>
+);
+
+// Chevron Up Icon
+export const ChevronUpIcon: React.FC<IconProps> = ({ size = 24, className = '', color = 'currentColor' }) => (
+  <svg 
+    width={size} 
+    height={size} 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke={color} 
+    strokeWidth="2" 
+    className={className}
+  >
+    <polyline points="18,15 12,9 6,15"></polyline>
+  </svg>
+);
+
 // Lock Icon
 export const LockIcon: React.FC<IconProps> = ({ size = 24, className = '', color = 'currentColor' }) => (
   <svg 

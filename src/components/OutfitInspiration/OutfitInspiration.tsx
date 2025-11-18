@@ -13,13 +13,14 @@ const images = [
   '/images/inspirations/3.jpg',
   '/images/inspirations/4.jpg',
   '/images/inspirations/5.jpg',
+  '/images/inspirations/1.jpg', // Adding duplicate for better scrolling experience
 ];
 
 const sliderSettings = {
   dots: false,
   infinite: false,
   speed: 500,
-  slidesToShow: 4,
+  slidesToShow: 5,
   slidesToScroll: 1,
   autoplay: false,
   arrows: true,
@@ -33,7 +34,7 @@ const sliderSettings = {
     {
       breakpoint: 600,
       settings: {
-        slidesToShow: 1,
+        slidesToShow: 2,
       },
     },
   ],
