@@ -67,6 +67,10 @@ const Navigation: React.FC = () => {
       ]
     },
     {
+      title: "Customize Suit",
+      href: "/customize-suit"
+    },
+    {
       title: "Services",
       dropdown: [
         { title: "Book Consultation", href: "/book-consultation", description: "Schedule your personal fitting" },

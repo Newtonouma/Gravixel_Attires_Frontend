@@ -440,3 +440,34 @@ img {
     max-width: none;
   }
 }
+
+.customizer-root {
+  background: #141218;
+  color: #e8e4dd;
+}
+
+.customizer-root .section-enter {
+  animation: customizer-slide-down 0.3s ease-out;
+}
+
+@keyframes customizer-slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.customizer-root .swatch-ring {
+  box-shadow: 0 0 0 2px #141218, 0 0 0 4px #c8a96e;
+}
+
+.customizer-root .drawer-handle {
+  width: 40px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.3);
+}

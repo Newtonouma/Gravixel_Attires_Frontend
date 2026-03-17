@@ -58,7 +58,7 @@ const AdminOrdersPage: React.FC = () => {
                 <td>{order.email}</td>
                 <td>{new Date(order.createdAt).toLocaleDateString()}</td>
                 <td>{order.status}</td>
-                <td>{order.products?.reduce((sum: number, p: any) => sum + (p.price * (p.quantity || 1)), 0)}</td>
+                <td>KES {order.products?.reduce((sum: number, p: any) => sum + (p.price * (p.quantity || 1)), 0).toLocaleString()}</td>
                 <td><button onClick={() => router.push(`/admin/orders/${order.id}`)}>View</button></td>
               </tr>
             ))}

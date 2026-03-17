@@ -823,7 +823,7 @@ export default function AdminDashboard() {
                   <h3>Items</h3>
                   <div>
                     {(selectedOrder.products || selectedOrder.items || []).map((it: any, i: number) => (
-                      <div key={i} className="order-item-line">{it.quantity || 1}x {it.name} — KES {it.price}</div>
+                      <div key={i} className="order-item-line">{it.quantity || 1}x {it.name} — KES {(it.price * (it.quantity || 1)).toLocaleString()}</div>
                     ))}
                   </div>
                 </div>

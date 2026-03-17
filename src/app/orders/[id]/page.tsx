@@ -49,10 +49,10 @@ const OrderDetailPage: React.FC = () => {
       <h2>Products</h2>
       <ul>
         {order.products?.map((p: any, idx: number) => (
-          <li key={idx}>{p.name} x {p.quantity || 1} - KES {p.price}</li>
+          <li key={idx}>{p.name} x {p.quantity || 1} - KES {(p.price * (p.quantity || 1)).toLocaleString()}</li>
         ))}
       </ul>
-      <p>Total: KES {order.products?.reduce((sum: number, p: any) => sum + (p.price * (p.quantity || 1)), 0)}</p>
+      <p>Total: KES {order.products?.reduce((sum: number, p: any) => sum + (p.price * (p.quantity || 1)), 0).toLocaleString()}</p>
     </div>
   );
 };
