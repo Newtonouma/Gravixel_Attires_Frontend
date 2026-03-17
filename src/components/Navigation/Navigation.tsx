@@ -67,7 +67,7 @@ const Navigation: React.FC = () => {
       ]
     },
     {
-      title: "Design Your Suit",
+      title: "Customize",
       href: "/customize-suit"
     },
     {
