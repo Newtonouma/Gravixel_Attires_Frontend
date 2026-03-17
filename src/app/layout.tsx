@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer/Footer";
+import LayoutShell from "@/components/LayoutShell";
 import { CartProvider } from "@/contexts/CartContext";
 import { AuthProvider } from "@/contexts/AuthContext";
 import "./globals.css";
@@ -42,9 +41,7 @@ export default function RootLayout({
       >
         <AuthProvider>
           <CartProvider>
-            <Navigation />
-            {children}
-            <Footer />
+            <LayoutShell>{children}</LayoutShell>
           </CartProvider>
         </AuthProvider>
       </body>

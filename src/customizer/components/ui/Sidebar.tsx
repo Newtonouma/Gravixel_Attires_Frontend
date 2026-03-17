@@ -16,10 +16,10 @@ export function Sidebar() {
       {/* Sidebar header */}
       <div className="px-5 py-4 border-b border-white/5">
         <h2 className="font-display text-base font-semibold text-white/90">
-          Configuration
+          Gravixel Attires
         </h2>
         <p className="text-[11px] text-white/30 mt-0.5">
-          Customize fabric, color, style, and measurements
+          Build and personalize your suit design
         </p>
       </div>
 

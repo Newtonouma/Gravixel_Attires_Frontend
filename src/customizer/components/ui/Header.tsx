@@ -73,10 +73,10 @@ export function Header() {
         </div>
         <div>
           <h1 className="font-display text-lg font-semibold tracking-wide text-white">
-            SUIT
+            Gravixel
           </h1>
           <p className="text-[10px] text-white/40 tracking-[0.2em] uppercase">
-            Configurator
+            Attires
           </p>
         </div>
       </div>
